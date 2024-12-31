@@ -2,9 +2,15 @@
 name = "deriv-api"
 version = "0.1.0"
 edition = "2021"
-authors = ["Your Name <your.email@example.com>"]
-description = "Unofficial Rust client for Deriv API"
+authors = ["ghayyem <ahrar@ghayyem.com>"]
+description = "Unofficial Rust client for Deriv API with auto-generated types"
 license = "MIT"
+repository = "https://github.com/ghayyem/deriv-api.git"
+documentation = "https://docs.rs/deriv-api"
+readme = "README.md"
+keywords = ["deriv", "api", "trading", "websocket", "async"]
+categories = ["api-bindings", "asynchronous", "web-programming::websocket"]
+exclude = ["deriv-api-docs/*", "bin/*", "schema.patch", ".gitignore"]
 
 [workspace]
 members = [".", "schema"]

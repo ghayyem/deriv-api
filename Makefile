@@ -45,8 +45,24 @@ setup:
 	@touch schema/src/lib.rs
 	@rm -rf schema/schema
 
+.PHONY: format-generated
+format-generated:
+	@echo "=== Formatting generated code ==="
+	$(CARGO_FMT) --all
+	$(CARGO_CLIPPY) --workspace --all-features -- -D warnings --allow=clippy::all
+	@echo "=== Generated code formatting complete ==="
+
+.PHONY: cleanup-generated
+cleanup-generated:
+	@echo "=== Cleaning up generated code ==="
+	# Remove any backup files
+	find . -name "*.rs.bk" -type f -delete
+	# Remove any empty files
+	find . -name "*.rs" -type f -empty -delete
+	@echo "=== Code cleanup complete ==="
+
 .PHONY: generate
-generate: clone patch-schema generate-schema generate-calls build-schema
+generate: clone patch-schema generate-schema generate-calls build-schema format-generated cleanup-generated
 
 .PHONY: clone
 clone:

@@ -2,9 +2,11 @@
 name = "deriv-api-schema"
 version = "0.1.0"
 edition = "2021"
-authors = ["Your Name <your.email@example.com>"]
-description = "Generated schema types for Deriv API"
+authors = ["ghayyem <ahrar@ghayyem.com>"]
+description = "Auto-generated schema types for deriv-api"
 license = "MIT"
+repository = "https://github.com/ghayyem/deriv-api.git"
+documentation = "https://docs.rs/deriv-api-schema"
 
 [lib]
 name = "deriv_api_schema"
