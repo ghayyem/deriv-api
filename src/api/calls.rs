@@ -5,764 +5,764 @@ use crate::error::Result;
 use deriv_api_schema::*;
 use crate::subscription::Subscription;
 
-#[cfg(feature = "p_2_p_order_create")]
 /// Creates a P2P order for the specified advert.
+#[cfg(any(feature = "p_2_p_order_create"))]
 pub async fn p_2_p_order_create(&self, request: deriv_api_schema::P2POrderCreateRequest) -> Result<deriv_api_schema::P2POrderCreateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "unsubscribe_email")]
 /// It unsubscribe user from the email subscription.
+#[cfg(any(feature = "unsubscribe_email"))]
 pub async fn unsubscribe_email(&self, request: deriv_api_schema::UnsubscribeEmailRequest) -> Result<deriv_api_schema::UnsubscribeEmailResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advert_create")]
 /// Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser.
+#[cfg(any(feature = "p_2_p_advert_create"))]
 pub async fn p_2_p_advert_create(&self, request: deriv_api_schema::P2PAdvertCreateRequest) -> Result<deriv_api_schema::P2PAdvertCreateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_payment_methods")]
 /// Manage or list P2P advertiser payment methods.
+#[cfg(any(feature = "p_2_p_advertiser_payment_methods"))]
 pub async fn p_2_p_advertiser_payment_methods(&self, request: deriv_api_schema::P2PAdvertiserPaymentMethodsRequest) -> Result<deriv_api_schema::P2PAdvertiserPaymentMethodsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "copytrading_statistics")]
 /// Retrieve performance, trading, risk and copiers statistics of trader.
+#[cfg(any(feature = "copytrading_statistics"))]
 pub async fn copytrading_statistics(&self, request: deriv_api_schema::CopytradingStatisticsRequest) -> Result<deriv_api_schema::CopytradingStatisticsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "cashier")]
 /// Request the cashier info for the specified type.
+#[cfg(any(feature = "cashier"))]
 pub async fn cashier(&self, request: deriv_api_schema::CashierRequest) -> Result<deriv_api_schema::CashierResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "cancel")]
 /// Cancel contract with contract id
+#[cfg(any(feature = "cancel"))]
 pub async fn cancel(&self, request: deriv_api_schema::CancelRequest) -> Result<deriv_api_schema::CancelResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "paymentagent_transfer")]
 /// Payment Agent Transfer - this call is available only to accounts that are approved Payment Agents.
+#[cfg(any(feature = "paymentagent_transfer"))]
 pub async fn paymentagent_transfer(&self, request: deriv_api_schema::PaymentagentTransferRequest) -> Result<deriv_api_schema::PaymentagentTransferResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "transaction")]
 /// Subscribe to transaction notifications
+#[cfg(any(feature = "transaction"))]
 pub async fn transaction(&self, request: deriv_api_schema::TransactionRequest) -> Result<deriv_api_schema::TransactionResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "website_config")]
 /// Request server config.
+#[cfg(any(feature = "website_config"))]
 pub async fn website_config(&self, request: deriv_api_schema::WebsiteConfigRequest) -> Result<deriv_api_schema::WebsiteConfigResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_ping")]
 /// Keeps the connection alive and updates the P2P advertiser&#x27;s online status. The advertiser will be considered offline 60 seconds after a call is made.
+#[cfg(any(feature = "p_2_p_ping"))]
 pub async fn p_2_p_ping(&self, request: deriv_api_schema::P2PPingRequest) -> Result<deriv_api_schema::P2PPingResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "trading_platform_investor_password_reset")]
 /// Reset the investor password of a Trading Platform Account
+#[cfg(any(feature = "trading_platform_investor_password_reset"))]
 pub async fn trading_platform_investor_password_reset(&self, request: deriv_api_schema::TradingPlatformInvestorPasswordResetRequest) -> Result<deriv_api_schema::TradingPlatformInvestorPasswordResetResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "sell")]
 /// Sell a Contract as identified from a previous &#x60;portfolio&#x60; call.
+#[cfg(any(feature = "sell"))]
 pub async fn sell(&self, request: deriv_api_schema::SellRequest) -> Result<deriv_api_schema::SellResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_password_reset")]
 /// To reset the password of MT5 account.
+#[cfg(any(feature = "mt_5_password_reset"))]
 pub async fn mt_5_password_reset(&self, request: deriv_api_schema::Mt5PasswordResetRequest) -> Result<deriv_api_schema::Mt5PasswordResetResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_adverts")]
 /// Returns all P2P adverts created by the authorized client. Can only be used by a registered P2P advertiser.
+#[cfg(any(feature = "p_2_p_advertiser_adverts"))]
 pub async fn p_2_p_advertiser_adverts(&self, request: deriv_api_schema::P2PAdvertiserAdvertsRequest) -> Result<deriv_api_schema::P2PAdvertiserAdvertsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advert_list")]
 /// Returns available adverts for use with &#x60;p2p_order_create&#x60; .
+#[cfg(any(feature = "p_2_p_advert_list"))]
 pub async fn p_2_p_advert_list(&self, request: deriv_api_schema::P2PAdvertListRequest) -> Result<deriv_api_schema::P2PAdvertListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "buy_contract_for_multiple_accounts")]
 /// Buy a Contract for multiple Accounts specified by the &#x60;tokens&#x60; parameter. Note, although this is an authorized call, the contract is not bought for the authorized account.
+#[cfg(any(feature = "buy_contract_for_multiple_accounts"))]
 pub async fn buy_contract_for_multiple_accounts(&self, request: deriv_api_schema::BuyContractForMultipleAccountsRequest) -> Result<deriv_api_schema::BuyContractForMultipleAccountsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "ping")]
 /// To send the ping request to the server. Mostly used to test the connection or to keep it alive.
+#[cfg(any(feature = "ping"))]
 pub async fn ping(&self, request: deriv_api_schema::PingRequest) -> Result<deriv_api_schema::PingResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_update")]
 /// Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser.
+#[cfg(any(feature = "p_2_p_advertiser_update"))]
 pub async fn p_2_p_advertiser_update(&self, request: deriv_api_schema::P2PAdvertiserUpdateRequest) -> Result<deriv_api_schema::P2PAdvertiserUpdateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "topup_virtual")]
 /// When a virtual-money&#x27;s account balance becomes low, it can be topped up using this call.
+#[cfg(any(feature = "topup_virtual"))]
 pub async fn topup_virtual(&self, request: deriv_api_schema::TopupVirtualRequest) -> Result<deriv_api_schema::TopupVirtualResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "partner_settings_update")]
 /// A message with Partner Settings
+#[cfg(any(feature = "partner_settings_update"))]
 pub async fn partner_settings_update(&self, request: deriv_api_schema::PartnerSettingsUpdateRequest) -> Result<deriv_api_schema::PartnerSettingsUpdateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "ticks_batch")]
 /// Initiate a continuous stream of spot price updates for a group symbols.
+#[cfg(any(feature = "ticks_batch"))]
 pub async fn ticks_batch(&self, request: deriv_api_schema::TicksBatchRequest) -> Result<deriv_api_schema::TicksBatchResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "states_list")]
 /// For a given country, returns a list of States of that country. This is useful to populate the account opening form.
+#[cfg(any(feature = "states_list"))]
 pub async fn states_list(&self, request: deriv_api_schema::StatesListRequest) -> Result<deriv_api_schema::StatesListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "sell_contract_for_multiple_accounts")]
 /// Sell contracts for multiple accounts simultaneously. Uses the shortcode response from &#x60;buy_contract_for_multiple_accounts&#x60; to identify the contract, and authorisation tokens to select which accounts to sell those contracts on. Note that only the accounts identified by the tokens will be affected. This will not sell the contract on the currently-authorised account unless you include the token for the current account.
+#[cfg(any(feature = "sell_contract_for_multiple_accounts"))]
 pub async fn sell_contract_for_multiple_accounts(&self, request: deriv_api_schema::SellContractForMultipleAccountsRequest) -> Result<deriv_api_schema::SellContractForMultipleAccountsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "transfer_between_accounts")]
 /// This call allows transfers between accounts held by a given user. Transfer funds between your fiat and cryptocurrency accounts (for a fee). Please note that account_from should be same as current authorized account.
+#[cfg(any(feature = "transfer_between_accounts"))]
 pub async fn transfer_between_accounts(&self, request: deriv_api_schema::TransferBetweenAccountsRequest) -> Result<deriv_api_schema::TransferBetweenAccountsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "get_settings")]
 /// Get User Settings (email, date of birth, address etc)
+#[cfg(any(feature = "get_settings"))]
 pub async fn get_settings(&self, request: deriv_api_schema::GetSettingsRequest) -> Result<deriv_api_schema::GetSettingsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "ticks")]
 /// Initiate a continuous stream of spot price updates for a given symbol.
+#[cfg(any(feature = "ticks"))]
 pub async fn ticks(&self, request: deriv_api_schema::TicksRequest) -> Result<deriv_api_schema::TicksResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "paymentagent_withdraw_justification")]
 /// Provide justification to perform withdrawal using a Payment Agent.
+#[cfg(any(feature = "paymentagent_withdraw_justification"))]
 pub async fn paymentagent_withdraw_justification(&self, request: deriv_api_schema::PaymentagentWithdrawJustificationRequest) -> Result<deriv_api_schema::PaymentagentWithdrawJustificationResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "contract_update")]
 /// Update a contract condition.
+#[cfg(any(feature = "contract_update"))]
 pub async fn contract_update(&self, request: deriv_api_schema::ContractUpdateRequest) -> Result<deriv_api_schema::ContractUpdateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "new_account_real")]
 /// This call opens a new real-money account. This call can be made from a virtual-money or a real-money account. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
+#[cfg(any(feature = "new_account_real"))]
 pub async fn new_account_real(&self, request: deriv_api_schema::NewAccountRealRequest) -> Result<deriv_api_schema::NewAccountRealResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advert_info")]
 /// Retrieve information about a P2P advert.
+#[cfg(any(feature = "p_2_p_advert_info"))]
 pub async fn p_2_p_advert_info(&self, request: deriv_api_schema::P2PAdvertInfoRequest) -> Result<deriv_api_schema::P2PAdvertInfoResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "trading_platform_password_reset")]
 /// Reset the password of a Trading Platform Account
+#[cfg(any(feature = "trading_platform_password_reset"))]
 pub async fn trading_platform_password_reset(&self, request: deriv_api_schema::TradingPlatformPasswordResetRequest) -> Result<deriv_api_schema::TradingPlatformPasswordResetResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "contract_update_history")]
 /// Request for contract update history.
+#[cfg(any(feature = "contract_update_history"))]
 pub async fn contract_update_history(&self, request: deriv_api_schema::ContractUpdateHistoryRequest) -> Result<deriv_api_schema::ContractUpdateHistoryResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "get_limits")]
 /// Trading and Withdrawal Limits for a given user
+#[cfg(any(feature = "get_limits"))]
 pub async fn get_limits(&self, request: deriv_api_schema::GetLimitsRequest) -> Result<deriv_api_schema::GetLimitsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_list")]
 /// Retrieve advertisers has/had trade with the current advertiser.
+#[cfg(any(feature = "p_2_p_advertiser_list"))]
 pub async fn p_2_p_advertiser_list(&self, request: deriv_api_schema::P2PAdvertiserListRequest) -> Result<deriv_api_schema::P2PAdvertiserListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_settings")]
 /// Request P2P Settings information.
+#[cfg(any(feature = "p_2_p_settings"))]
 pub async fn p_2_p_settings(&self, request: deriv_api_schema::P2PSettingsRequest) -> Result<deriv_api_schema::P2PSettingsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "paymentagent_list")]
 /// Will return a list of Payment Agents for a given country for a given currency. Payment agents allow users to deposit and withdraw funds using local payment methods that might not be available via the main website&#x27;s cashier system.
+#[cfg(any(feature = "paymentagent_list"))]
 pub async fn paymentagent_list(&self, request: deriv_api_schema::PaymentagentListRequest) -> Result<deriv_api_schema::PaymentagentListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_login_list")]
 /// Get list of MT5 accounts for client
+#[cfg(any(feature = "mt_5_login_list"))]
 pub async fn mt_5_login_list(&self, request: deriv_api_schema::Mt5LoginListRequest) -> Result<deriv_api_schema::Mt5LoginListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_order_dispute")]
 /// Dispute a P2P order.
+#[cfg(any(feature = "p_2_p_order_dispute"))]
 pub async fn p_2_p_order_dispute(&self, request: deriv_api_schema::P2POrderDisputeRequest) -> Result<deriv_api_schema::P2POrderDisputeResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "tin_validations")]
 /// Get the validations for Tax Identification Numbers (TIN)
+#[cfg(any(feature = "tin_validations"))]
 pub async fn tin_validations(&self, request: deriv_api_schema::TinValidationsRequest) -> Result<deriv_api_schema::TinValidationsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_payment_methods")]
 /// List all P2P payment methods.
+#[cfg(any(feature = "p_2_p_payment_methods"))]
 pub async fn p_2_p_payment_methods(&self, request: deriv_api_schema::P2PPaymentMethodsRequest) -> Result<deriv_api_schema::P2PPaymentMethodsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_order_review")]
 /// Creates a review for the specified order.
+#[cfg(any(feature = "p_2_p_order_review"))]
 pub async fn p_2_p_order_review(&self, request: deriv_api_schema::P2POrderReviewRequest) -> Result<deriv_api_schema::P2POrderReviewResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "set_settings")]
 /// Set User Settings (this call should be used in conjunction with &#x60;get_settings&#x60;)
+#[cfg(any(feature = "set_settings"))]
 pub async fn set_settings(&self, request: deriv_api_schema::SetSettingsRequest) -> Result<deriv_api_schema::SetSettingsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_order_list")]
 /// List active orders.
+#[cfg(any(feature = "p_2_p_order_list"))]
 pub async fn p_2_p_order_list(&self, request: deriv_api_schema::P2POrderListRequest) -> Result<deriv_api_schema::P2POrderListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "contracts_for_company")]
 /// Get the list of currently available contracts for a given landing company.
+#[cfg(any(feature = "contracts_for_company"))]
 pub async fn contracts_for_company(&self, request: deriv_api_schema::ContractsForCompanyRequest) -> Result<deriv_api_schema::ContractsForCompanyResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "get_account_status")]
 /// Get Account Status
+#[cfg(any(feature = "get_account_status"))]
 pub async fn get_account_status(&self, request: deriv_api_schema::GetAccountStatusRequest) -> Result<deriv_api_schema::GetAccountStatusResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_password_change")]
 /// To change passwords of the MT5 account.
+#[cfg(any(feature = "mt_5_password_change"))]
 pub async fn mt_5_password_change(&self, request: deriv_api_schema::Mt5PasswordChangeRequest) -> Result<deriv_api_schema::Mt5PasswordChangeResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "sell_expired")]
 /// This call will try to sell any expired contracts and return the number of sold contracts.
+#[cfg(any(feature = "sell_expired"))]
 pub async fn sell_expired(&self, request: deriv_api_schema::SellExpiredRequest) -> Result<deriv_api_schema::SellExpiredResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "partner_accounts")]
 /// Get All Partner Accounts (Partner account details like website, provider, company details)
+#[cfg(any(feature = "partner_accounts"))]
 pub async fn partner_accounts(&self, request: deriv_api_schema::PartnerAccountsRequest) -> Result<deriv_api_schema::PartnerAccountsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "forget_all")]
 /// Immediately cancel the real-time streams of messages of given type.
+#[cfg(any(feature = "forget_all"))]
 pub async fn forget_all(&self, request: deriv_api_schema::ForgetAllRequest) -> Result<deriv_api_schema::ForgetAllResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "website_status")]
 /// Request server status.
+#[cfg(any(feature = "website_status"))]
 pub async fn website_status(&self, request: deriv_api_schema::WebsiteStatusRequest) -> Result<deriv_api_schema::WebsiteStatusResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "trading_platform_status")]
 /// Request trading platform status
+#[cfg(any(feature = "trading_platform_status"))]
 pub async fn trading_platform_status(&self, request: deriv_api_schema::TradingPlatformStatusRequest) -> Result<deriv_api_schema::TradingPlatformStatusResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_order_confirm")]
 /// Confirm a P2P order.
+#[cfg(any(feature = "p_2_p_order_confirm"))]
 pub async fn p_2_p_order_confirm(&self, request: deriv_api_schema::P2POrderConfirmRequest) -> Result<deriv_api_schema::P2POrderConfirmResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_chat_create")]
 /// Creates a P2P chat for the specified order.
+#[cfg(any(feature = "p_2_p_chat_create"))]
 pub async fn p_2_p_chat_create(&self, request: deriv_api_schema::P2PChatCreateRequest) -> Result<deriv_api_schema::P2PChatCreateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "asset_index")]
 /// Retrieve a list of all available underlyings and the corresponding contract types and duration boundaries. If the user is logged in, only the assets available for that user&#x27;s landing company will be returned.
+#[cfg(any(feature = "asset_index"))]
 pub async fn asset_index(&self, request: deriv_api_schema::AssetIndexRequest) -> Result<deriv_api_schema::AssetIndexResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_info")]
 /// Retrieve information about a P2P advertiser.
+#[cfg(any(feature = "p_2_p_advertiser_info"))]
 pub async fn p_2_p_advertiser_info(&self, request: deriv_api_schema::P2PAdvertiserInfoRequest) -> Result<deriv_api_schema::P2PAdvertiserInfoResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "trading_durations")]
 /// Retrieve a list of all available underlyings and the corresponding contract types and trading duration boundaries. If the user is logged in, only the assets available for that user&#x27;s landing company will be returned.
+#[cfg(any(feature = "trading_durations"))]
 pub async fn trading_durations(&self, request: deriv_api_schema::TradingDurationsRequest) -> Result<deriv_api_schema::TradingDurationsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "statement")]
 /// Retrieve a summary of account transactions, according to given search criteria
+#[cfg(any(feature = "statement"))]
 pub async fn statement(&self, request: deriv_api_schema::StatementRequest) -> Result<deriv_api_schema::StatementResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "landing_company_details")]
 /// The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies (and which are wholly owned subsidiaries of the Deriv Group). This call provides information about each Landing Company.
+#[cfg(any(feature = "landing_company_details"))]
 pub async fn landing_company_details(&self, request: deriv_api_schema::LandingCompanyDetailsRequest) -> Result<deriv_api_schema::LandingCompanyDetailsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "tnc_approval")]
 /// To approve the latest version of terms and conditions.
+#[cfg(any(feature = "tnc_approval"))]
 pub async fn tnc_approval(&self, request: deriv_api_schema::TncApprovalRequest) -> Result<deriv_api_schema::TncApprovalResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "new_account_maltainvest")]
 /// This call opens a new real-money account with the &#x60;maltainvest&#x60; Landing Company. This call can be made from a virtual-money account or real-money account at Deriv (Europe) Limited. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
+#[cfg(any(feature = "new_account_maltainvest"))]
 pub async fn new_account_maltainvest(&self, request: deriv_api_schema::NewAccountMaltainvestRequest) -> Result<deriv_api_schema::NewAccountMaltainvestResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "balance")]
 /// Get user account balance
+#[cfg(any(feature = "balance"))]
 pub async fn balance(&self, request: deriv_api_schema::BalanceRequest) -> Result<deriv_api_schema::BalanceResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_delete")]
 /// The request for deleting an application.
+#[cfg(any(feature = "app_delete"))]
 pub async fn app_delete(&self, request: deriv_api_schema::AppDeleteRequest) -> Result<deriv_api_schema::AppDeleteResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_order_info")]
 /// Retrieves the information about a P2P order.
+#[cfg(any(feature = "p_2_p_order_info"))]
 pub async fn p_2_p_order_info(&self, request: deriv_api_schema::P2POrderInfoRequest) -> Result<deriv_api_schema::P2POrderInfoResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "logout")]
 /// Logout the session
+#[cfg(any(feature = "logout"))]
 pub async fn logout(&self, request: deriv_api_schema::LogoutRequest) -> Result<deriv_api_schema::LogoutResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_update")]
 /// Update a new OAuth application
+#[cfg(any(feature = "app_update"))]
 pub async fn app_update(&self, request: deriv_api_schema::AppUpdateRequest) -> Result<deriv_api_schema::AppUpdateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "set_financial_assessment")]
 /// This call sets the financial assessment details based on the client&#x27;s answers to analyze whether they possess the experience and knowledge to understand the risks involved with binary options trading.
+#[cfg(any(feature = "set_financial_assessment"))]
 pub async fn set_financial_assessment(&self, request: deriv_api_schema::SetFinancialAssessmentRequest) -> Result<deriv_api_schema::SetFinancialAssessmentResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_relations")]
 /// Updates and returns favourite and blocked advertisers of the current user.
+#[cfg(any(feature = "p_2_p_advertiser_relations"))]
 pub async fn p_2_p_advertiser_relations(&self, request: deriv_api_schema::P2PAdvertiserRelationsRequest) -> Result<deriv_api_schema::P2PAdvertiserRelationsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "kyc_auth_status")]
 /// Get KYC Authentication Status
+#[cfg(any(feature = "kyc_auth_status"))]
 pub async fn kyc_auth_status(&self, request: deriv_api_schema::KycAuthStatusRequest) -> Result<deriv_api_schema::KycAuthStatusResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_get_settings")]
 /// Get MT5 user account settings
+#[cfg(any(feature = "mt_5_get_settings"))]
 pub async fn mt_5_get_settings(&self, request: deriv_api_schema::Mt5GetSettingsRequest) -> Result<deriv_api_schema::Mt5GetSettingsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "reality_check")]
 /// Retrieve summary of client&#x27;s trades and account for the Reality Check facility. A &#x27;reality check&#x27; means a display of time elapsed since the session began, and associated client profit/loss. The Reality Check facility is a regulatory requirement for certain landing companies.
+#[cfg(any(feature = "reality_check"))]
 pub async fn reality_check(&self, request: deriv_api_schema::RealityCheckRequest) -> Result<deriv_api_schema::RealityCheckResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_list")]
 /// List all of the account&#x27;s OAuth applications
+#[cfg(any(feature = "app_list"))]
 pub async fn app_list(&self, request: deriv_api_schema::AppListRequest) -> Result<deriv_api_schema::AppListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "revoke_oauth_app")]
 /// Used for revoking access of particular app.
+#[cfg(any(feature = "revoke_oauth_app"))]
 pub async fn revoke_oauth_app(&self, request: deriv_api_schema::RevokeOauthAppRequest) -> Result<deriv_api_schema::RevokeOauthAppResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "time")]
 /// Request back-end server epoch time.
+#[cfg(any(feature = "time"))]
 pub async fn time(&self, request: deriv_api_schema::TimeRequest) -> Result<deriv_api_schema::TimeResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "crypto_config")]
 /// The request for cryptocurrencies configuration.
+#[cfg(any(feature = "crypto_config"))]
 pub async fn crypto_config(&self, request: deriv_api_schema::CryptoConfigRequest) -> Result<deriv_api_schema::CryptoConfigResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "document_upload")]
 /// Request KYC information from client
+#[cfg(any(feature = "document_upload"))]
 pub async fn document_upload(&self, request: deriv_api_schema::DocumentUploadRequest) -> Result<deriv_api_schema::DocumentUploadResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "confirm_email")]
 /// Verifies the email for the user using verification code passed in the request object
+#[cfg(any(feature = "confirm_email"))]
 pub async fn confirm_email(&self, request: deriv_api_schema::ConfirmEmailRequest) -> Result<deriv_api_schema::ConfirmEmailResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "landing_company")]
 /// The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies. This call will return the appropriate Landing Company for clients of a given country. The landing company may differ for derived contracts (Synthetic Indices) and Financial contracts (Forex, Stock Indices, Commodities).
+#[cfg(any(feature = "landing_company"))]
 pub async fn landing_company(&self, request: deriv_api_schema::LandingCompanyRequest) -> Result<deriv_api_schema::LandingCompanyResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "oauth_apps")]
 /// List all my used OAuth applications.
+#[cfg(any(feature = "oauth_apps"))]
 pub async fn oauth_apps(&self, request: deriv_api_schema::OauthAppsRequest) -> Result<deriv_api_schema::OauthAppsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "crypto_estimations")]
 /// Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
+#[cfg(any(feature = "crypto_estimations"))]
 pub async fn crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<deriv_api_schema::CryptoEstimationsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "copy_start")]
 /// Start copy trader bets
+#[cfg(any(feature = "copy_start"))]
 pub async fn copy_start(&self, request: deriv_api_schema::CopyStartRequest) -> Result<deriv_api_schema::CopyStartResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "proposal")]
 /// Gets latest price for a specific contract.
+#[cfg(any(feature = "proposal"))]
 pub async fn proposal(&self, request: deriv_api_schema::ProposalRequest) -> Result<deriv_api_schema::ProposalResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "login_history")]
 /// Retrieve a summary of login history for user.
+#[cfg(any(feature = "login_history"))]
 pub async fn login_history(&self, request: deriv_api_schema::LoginHistoryRequest) -> Result<deriv_api_schema::LoginHistoryResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_password_check")]
 /// This call validates the main password for the MT5 user
+#[cfg(any(feature = "mt_5_password_check"))]
 pub async fn mt_5_password_check(&self, request: deriv_api_schema::Mt5PasswordCheckRequest) -> Result<deriv_api_schema::Mt5PasswordCheckResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "authorize")]
 /// Authorize current WebSocket session to act on behalf of the owner of a given token. Must precede requests that need to access client account, for example purchasing and selling contracts or viewing portfolio.
+#[cfg(any(feature = "authorize"))]
 pub async fn authorize(&self, request: deriv_api_schema::AuthorizeRequest) -> Result<deriv_api_schema::AuthorizeResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_country_list")]
 /// List all or specific country and its payment methods.
+#[cfg(any(feature = "p_2_p_country_list"))]
 pub async fn p_2_p_country_list(&self, request: deriv_api_schema::P2PCountryListRequest) -> Result<deriv_api_schema::P2PCountryListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "paymentagent_withdraw")]
 /// Initiate a withdrawal to an approved Payment Agent.
+#[cfg(any(feature = "paymentagent_withdraw"))]
 pub async fn paymentagent_withdraw(&self, request: deriv_api_schema::PaymentagentWithdrawRequest) -> Result<deriv_api_schema::PaymentagentWithdrawResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_register")]
 /// Register a new OAuth application
+#[cfg(any(feature = "app_register"))]
 pub async fn app_register(&self, request: deriv_api_schema::AppRegisterRequest) -> Result<deriv_api_schema::AppRegisterResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "active_symbols")]
 /// Retrieve a list of all currently active symbols (underlying markets upon which contracts are available for trading).
+#[cfg(any(feature = "active_symbols"))]
 pub async fn active_symbols(&self, request: deriv_api_schema::ActiveSymbolsRequest) -> Result<deriv_api_schema::ActiveSymbolsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "ticks_history")]
 /// Get historic tick data for a given symbol.
+#[cfg(any(feature = "ticks_history"))]
 pub async fn ticks_history(&self, request: deriv_api_schema::TicksHistoryRequest) -> Result<deriv_api_schema::TicksHistoryResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_new_account")]
 /// This call creates new MT5 user, either demo or real money user.
+#[cfg(any(feature = "mt_5_new_account"))]
 pub async fn mt_5_new_account(&self, request: deriv_api_schema::Mt5NewAccountRequest) -> Result<deriv_api_schema::Mt5NewAccountResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "payout_currencies")]
 /// Retrieve a list of available option payout currencies. If a user is logged in, only the currencies available for the account will be returned.
+#[cfg(any(feature = "payout_currencies"))]
 pub async fn payout_currencies(&self, request: deriv_api_schema::PayoutCurrenciesRequest) -> Result<deriv_api_schema::PayoutCurrenciesResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "portfolio")]
 /// Receive information about my current portfolio of outstanding options
+#[cfg(any(feature = "portfolio"))]
 pub async fn portfolio(&self, request: deriv_api_schema::PortfolioRequest) -> Result<deriv_api_schema::PortfolioResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "copy_stop")]
 /// Stop copy trader bets
+#[cfg(any(feature = "copy_stop"))]
 pub async fn copy_stop(&self, request: deriv_api_schema::CopyStopRequest) -> Result<deriv_api_schema::CopyStopResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "copytrading_list")]
 /// Retrieves a list of active copiers and/or traders for Copy Trading
+#[cfg(any(feature = "copytrading_list"))]
 pub async fn copytrading_list(&self, request: deriv_api_schema::CopytradingListRequest) -> Result<deriv_api_schema::CopytradingListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_markup_details")]
 /// Retrieve details of &#x60;app_markup&#x60; according to criteria specified.
+#[cfg(any(feature = "app_markup_details"))]
 pub async fn app_markup_details(&self, request: deriv_api_schema::AppMarkupDetailsRequest) -> Result<deriv_api_schema::AppMarkupDetailsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "partner_settings")]
 /// Get Partner Settings (Partner Type, Company Details etc)
+#[cfg(any(feature = "partner_settings"))]
 pub async fn partner_settings(&self, request: deriv_api_schema::PartnerSettingsRequest) -> Result<deriv_api_schema::PartnerSettingsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "paymentagent_details")]
 /// Gets client&#x27;s payment agent details.
+#[cfg(any(feature = "paymentagent_details"))]
 pub async fn paymentagent_details(&self, request: deriv_api_schema::PaymentagentDetailsRequest) -> Result<deriv_api_schema::PaymentagentDetailsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "residence_list")]
 /// This call returns a list of countries and 2-letter country codes, suitable for populating the account opening form.
+#[cfg(any(feature = "residence_list"))]
 pub async fn residence_list(&self, request: deriv_api_schema::ResidenceListRequest) -> Result<deriv_api_schema::ResidenceListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "forget")]
 /// Immediately cancel the real-time stream of messages with a specific ID.
+#[cfg(any(feature = "forget"))]
 pub async fn forget(&self, request: deriv_api_schema::ForgetRequest) -> Result<deriv_api_schema::ForgetResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "api_token")]
 /// This call manages API tokens
+#[cfg(any(feature = "api_token"))]
 pub async fn api_token(&self, request: deriv_api_schema::ApiTokenRequest) -> Result<deriv_api_schema::ApiTokenResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "account_list")]
 /// Returns all accounts belonging to the authorized user.
+#[cfg(any(feature = "account_list"))]
 pub async fn account_list(&self, request: deriv_api_schema::AccountListRequest) -> Result<deriv_api_schema::AccountListResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "paymentagent_create")]
 /// Saves client&#x27;s payment agent details.
+#[cfg(any(feature = "paymentagent_create"))]
 pub async fn paymentagent_create(&self, request: deriv_api_schema::PaymentagentCreateRequest) -> Result<deriv_api_schema::PaymentagentCreateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "identity_verification_document_add")]
 /// Adds document information such as issuing country, id and type for identity verification processes.
+#[cfg(any(feature = "identity_verification_document_add"))]
 pub async fn identity_verification_document_add(&self, request: deriv_api_schema::IdentityVerificationDocumentAddRequest) -> Result<deriv_api_schema::IdentityVerificationDocumentAddResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "get_financial_assessment")]
 /// This call gets the financial assessment details. The &#x27;financial assessment&#x27; is a questionnaire that clients of certain Landing Companies need to complete, due to regulatory and KYC (know your client) requirements.
+#[cfg(any(feature = "get_financial_assessment"))]
 pub async fn get_financial_assessment(&self, request: deriv_api_schema::GetFinancialAssessmentRequest) -> Result<deriv_api_schema::GetFinancialAssessmentResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_withdrawal")]
 /// This call allows withdrawal from MT5 account to Binary account.
+#[cfg(any(feature = "mt_5_withdrawal"))]
 pub async fn mt_5_withdrawal(&self, request: deriv_api_schema::Mt5WithdrawalRequest) -> Result<deriv_api_schema::Mt5WithdrawalResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_get")]
 /// To get the information of the OAuth application specified by &#x27;app_id&#x27;
+#[cfg(any(feature = "app_get"))]
 pub async fn app_get(&self, request: deriv_api_schema::AppGetRequest) -> Result<deriv_api_schema::AppGetResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "profit_table")]
 /// Retrieve a summary of account Profit Table, according to given search criteria
+#[cfg(any(feature = "profit_table"))]
 pub async fn profit_table(&self, request: deriv_api_schema::ProfitTableRequest) -> Result<deriv_api_schema::ProfitTableResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advert_update")]
 /// Updates a P2P advert. Can only be used by the advertiser.
+#[cfg(any(feature = "p_2_p_advert_update"))]
 pub async fn p_2_p_advert_update(&self, request: deriv_api_schema::P2PAdvertUpdateRequest) -> Result<deriv_api_schema::P2PAdvertUpdateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "contracts_for")]
 /// For a given symbol, get the list of currently available contracts, and the latest barrier and duration limits for each contract.
+#[cfg(any(feature = "contracts_for"))]
 pub async fn contracts_for(&self, request: deriv_api_schema::ContractsForRequest) -> Result<deriv_api_schema::ContractsForResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "verify_email")]
 /// Verify an email address for various purposes. The system will send an email to the address containing a security code for verification.
+#[cfg(any(feature = "verify_email"))]
 pub async fn verify_email(&self, request: deriv_api_schema::VerifyEmailRequest) -> Result<deriv_api_schema::VerifyEmailResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "trading_servers")]
 /// Get the list of servers for a trading platform.
+#[cfg(any(feature = "trading_servers"))]
 pub async fn trading_servers(&self, request: deriv_api_schema::TradingServersRequest) -> Result<deriv_api_schema::TradingServersResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "new_account_virtual")]
 /// Create a new virtual-money account.
+#[cfg(any(feature = "new_account_virtual"))]
 pub async fn new_account_virtual(&self, request: deriv_api_schema::NewAccountVirtualRequest) -> Result<deriv_api_schema::NewAccountVirtualResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "payment_methods")]
 /// Will return a list payment methods available for the given country. If the request is authenticated the client&#x27;s residence country will be used.
+#[cfg(any(feature = "payment_methods"))]
 pub async fn payment_methods(&self, request: deriv_api_schema::PaymentMethodsRequest) -> Result<deriv_api_schema::PaymentMethodsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "buy")]
 /// Buy a Contract
+#[cfg(any(feature = "buy"))]
 pub async fn buy(&self, request: deriv_api_schema::BuyRequest) -> Result<deriv_api_schema::BuyResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "trading_times")]
 /// Receive a list of market opening times for a given date.
+#[cfg(any(feature = "trading_times"))]
 pub async fn trading_times(&self, request: deriv_api_schema::TradingTimesRequest) -> Result<deriv_api_schema::TradingTimesResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "proposal_open_contract")]
 /// Get latest price (and other information) for a contract in the user&#x27;s portfolio
+#[cfg(any(feature = "proposal_open_contract"))]
 pub async fn proposal_open_contract(&self, request: deriv_api_schema::ProposalOpenContractRequest) -> Result<deriv_api_schema::ProposalOpenContractResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "mt_5_deposit")]
 /// This call allows deposit into MT5 account from Binary account.
+#[cfg(any(feature = "mt_5_deposit"))]
 pub async fn mt_5_deposit(&self, request: deriv_api_schema::Mt5DepositRequest) -> Result<deriv_api_schema::Mt5DepositResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_order_cancel")]
 /// Cancel a P2P order.
+#[cfg(any(feature = "p_2_p_order_cancel"))]
 pub async fn p_2_p_order_cancel(&self, request: deriv_api_schema::P2POrderCancelRequest) -> Result<deriv_api_schema::P2POrderCancelResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "new_partner_account")]
 /// This call opens a new Real-Partner Account
+#[cfg(any(feature = "new_partner_account"))]
 pub async fn new_partner_account(&self, request: deriv_api_schema::NewPartnerAccountRequest) -> Result<deriv_api_schema::NewPartnerAccountResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "exchange_rates")]
 /// Retrieves the exchange rate from a base currency to a target currency supported by the system.
+#[cfg(any(feature = "exchange_rates"))]
 pub async fn exchange_rates(&self, request: deriv_api_schema::ExchangeRatesRequest) -> Result<deriv_api_schema::ExchangeRatesResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "app_markup_statistics")]
 /// Retrieve statistics of &#x60;app_markup&#x60;.
+#[cfg(any(feature = "app_markup_statistics"))]
 pub async fn app_markup_statistics(&self, request: deriv_api_schema::AppMarkupStatisticsRequest) -> Result<deriv_api_schema::AppMarkupStatisticsResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "p_2_p_advertiser_create")]
 /// Registers the client as a P2P advertiser.
+#[cfg(any(feature = "p_2_p_advertiser_create"))]
 pub async fn p_2_p_advertiser_create(&self, request: deriv_api_schema::P2PAdvertiserCreateRequest) -> Result<deriv_api_schema::P2PAdvertiserCreateResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "set_self_exclusion")]
 /// Set Self-Exclusion (this call should be used in conjunction with &#x60;get_self_exclusion&#x60;)
+#[cfg(any(feature = "set_self_exclusion"))]
 pub async fn set_self_exclusion(&self, request: deriv_api_schema::SetSelfExclusionRequest) -> Result<deriv_api_schema::SetSelfExclusionResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "economic_calendar")]
 /// Specify a currency to receive a list of events related to that specific currency. For example, specifying USD will return a list of USD-related events. If the currency is omitted, you will receive a list for all currencies.
+#[cfg(any(feature = "economic_calendar"))]
 pub async fn economic_calendar(&self, request: deriv_api_schema::EconomicCalendarRequest) -> Result<deriv_api_schema::EconomicCalendarResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "get_self_exclusion")]
 /// Allows users to exclude themselves from the website for certain periods of time, or to set limits on their trading activities. This facility is a regulatory requirement for certain Landing Companies.
+#[cfg(any(feature = "get_self_exclusion"))]
 pub async fn get_self_exclusion(&self, request: deriv_api_schema::GetSelfExclusionRequest) -> Result<deriv_api_schema::GetSelfExclusionResponse> {
     self.send_request(&request).await
 }
 
-#[cfg(feature = "set_account_currency")]
 /// Set account currency, this will be default currency for your account i.e currency for trading, deposit. Please note that account currency can only be set once, and then can never be changed.
+#[cfg(any(feature = "set_account_currency"))]
 pub async fn set_account_currency(&self, request: deriv_api_schema::SetAccountCurrencyRequest) -> Result<deriv_api_schema::SetAccountCurrencyResponse> {
     self.send_request(&request).await
 }

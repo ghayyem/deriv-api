@@ -51,10 +51,15 @@ path = "bin/schema_generator.rs"
 required-features = ["generate"]
 
 [features]
-default = []
+default = ["all"]
 generate = [
     "dep:convert_case",
     "dep:handlebars",
     "dep:regex",
     "dep:derive_builder",
 ]
+all = []
+
+[lints.rust]
+unknown_lints = "allow"
+unexpected_cfgs = "allow"

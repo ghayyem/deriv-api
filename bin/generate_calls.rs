@@ -19,16 +19,16 @@ use crate::subscription::Subscription;
 "#;
 
 const API_CALL_TEMPLATE: &str = r#"
-#[cfg(feature = "{{feature_name}}")]
 /// {{description}}
+#[cfg(any(feature = "{{feature_name}}"))]
 pub async fn {{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> Result<deriv_api_schema::{{response_type}}> {
     self.send_request(&request).await
 }
 "#;
 
 const SUBSCRIPTION_CALL_TEMPLATE: &str = r#"
-#[cfg(feature = "{{feature_name}}")]
 /// Subscribe to {{description}}
+#[cfg(any(feature = "{{feature_name}}"))]
 pub async fn subscribe_{{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> Result<(deriv_api_schema::{{response_type}}, Subscription<deriv_api_schema::{{stream_type}}>)> {
     let mut request = request;
     request.subscribe = Some(1);
