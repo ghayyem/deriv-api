@@ -23,14 +23,6 @@ jobs:
       - name: Build and Generate
         run: make verbose
 
-      # Install git-cliff for changelog
-      - name: Install git-cliff
-        uses: kenji-miyake/git-cliff-action@v1
-
-      # Generate changelog
-      - name: Generate changelog
-        run: git-cliff --output CHANGELOG.md
-
       # Cache publish-action
       - name: Cache publish-action bin
         id: cache-publish-action
