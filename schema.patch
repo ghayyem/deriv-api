@@ -1,0 +1,203 @@
+diff --git a/config/v3/landing_company/receive.json b/config/v3/landing_company/receive.json
+index 93099c61..085cf2ef 100644
+--- a/config/v3/landing_company/receive.json
++++ b/config/v3/landing_company/receive.json
+@@ -947,11 +947,11 @@
+                     "additionalProperties": false,
+                     "properties": {
+                         "swap_free": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Landing Company for MT5 combined all Synthetic and financial"
+                         },
+                         "zero_spread": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Contain details for landing company for zero_spread sub account type."
+                         }
+                     }
+@@ -965,15 +965,15 @@
+                     "additionalProperties": false,
+                     "properties": {
+                         "financial": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Contain details for landing company for financial subtype. The Financial account is suitable for a wide range of traders, both new and experienced. It gives you mid-range leverage and variable spreads that give you a great deal of flexibility for whatever position you wish to take in the market."
+                         },
+                         "financial_stp": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Contain details for landing company for Financial STP subtype. The Financial STP account provides you with tight spreads, higher ticket size and offers a variety of FX pairs from majors to exotics. It is a straight through processing (STP) account with direct access to FX liquidity from various providers."
+                         },
+                         "gold": {
+-                            "$ref": "#/$defs/landingCompanyDetails",
++                            "$ref": "#/$defs/landingCompanyInfo",
+                             "description": "Contain details for landing company for gold sub account type."
+                         }
+                     }
+@@ -1328,7 +1328,7 @@
+                 }
+             }
+         },
+-        "landingCompanyDetails": {
++        "landingCompanyInfo": {
+             "type": [
+                 "null",
+                 "object"
+diff --git a/config/v3/p2p_advert_create/send.json b/config/v3/p2p_advert_create/send.json
+index 5074d92c..5175f064 100644
+--- a/config/v3/p2p_advert_create/send.json
++++ b/config/v3/p2p_advert_create/send.json
+@@ -27,8 +27,7 @@
+         "amount": {
+             "description": "The total amount of the advert, in advertiser's account currency.",
+             "type": "number",
+-            "exclusiveMinimum": true,
+-            "minimum": 0
++            "exclusiveMinimum": 0
+         },
+         "block_trade": {
+             "description": "[Optional] Indicates if this is block trade ad or not. Default: 0.",
+@@ -72,8 +71,7 @@
+         "max_order_amount": {
+             "description": "Maximum allowed amount for the orders of this advert, in advertiser's `account_currency`. Should be more than or equal to `min_order_amount`",
+             "type": "number",
+-            "exclusiveMinimum": true,
+-            "minimum": 0
++            "exclusiveMinimum": 0
+         },
+         "min_completion_rate": {
+             "description": "[Optional] Counterparties who have a 30 day completion rate less than this value will not be allowed to place orders against the advert.",
+@@ -90,8 +88,7 @@
+         "min_order_amount": {
+             "description": "Minimum allowed amount for the orders of this advert, in advertiser's `account_currency`. Should be less than or equal to `max_order_amount`.",
+             "type": "number",
+-            "exclusiveMinimum": true,
+-            "minimum": 0
++            "exclusiveMinimum": 0
+         },
+         "min_rating": {
+             "description": "[Optional] Counterparties who have an average rating less than this value will not be allowed to place orders against the advert.",
+@@ -166,4 +163,4 @@
+             "type": "integer"
+         }
+     }
+-}
++}
+\ No newline at end of file
+diff --git a/config/v3/p2p_advert_update/send.json b/config/v3/p2p_advert_update/send.json
+index d8b24274..aa8e4a4a 100644
+--- a/config/v3/p2p_advert_update/send.json
++++ b/config/v3/p2p_advert_update/send.json
+@@ -77,8 +77,7 @@
+         "max_order_amount": {
+             "description": "[Optional] Maximum allowed amount for the orders of this advert, in advertiser's `account_currency`. Should be more than or equal to `min_order_amount`.",
+             "type": "number",
+-            "exclusiveMinimum": true,
+-            "minimum": 0
++            "exclusiveMinimum": 0
+         },
+         "min_completion_rate": {
+             "description": "[Optional] Counterparties who have a 30 day completion rate less than this value will not be allowed to place orders against this advert. A an empty array or null value will clear the condition.",
+@@ -101,8 +100,7 @@
+         "min_order_amount": {
+             "description": "[Optional] Minimum allowed amount for the orders of this advert, in advertiser's `account_currency`. Should be less than or equal to `max_order_amount`.",
+             "type": "number",
+-            "exclusiveMinimum": true,
+-            "minimum": 0
++            "exclusiveMinimum": 0
+         },
+         "min_rating": {
+             "description": "[Optional] Counterparties who have an average rating less than this value will not be allowed to place orders against this advert. A null value will clear the condition.",
+@@ -172,4 +170,4 @@
+             "type": "integer"
+         }
+     }
+-}
++}
+\ No newline at end of file
+diff --git a/config/v3/ticks_history/receive.json b/config/v3/ticks_history/receive.json
+index e9f4218b..82fb80a1 100644
+--- a/config/v3/ticks_history/receive.json
++++ b/config/v3/ticks_history/receive.json
+@@ -63,6 +63,54 @@
+                 }
+             }
+         },
++        "ohlc": {
++            "title": "ohlc",
++            "description": "Historic tick data for a given symbol. Note: this will always return the latest possible set of ticks with accordance to the parameters specified.",
++            "type": "object",
++            "additionalProperties": false,
++            "properties": {
++                "close": {
++                    "description": "It is the close price value for the given time",
++                    "type": "string"
++                },
++                "epoch": {
++                    "description": "It is an epoch value",
++                    "type": "integer"
++                },
++                "granularity": {
++                    "description": "Granularity",
++                    "type": "integer"
++                },
++                "high": {
++                    "description": "It is the high price value for the given time",
++                    "type": "string"
++                },
++                "id": {
++                    "description": "Subscription unique identifier. Can be passed to the `forget` API call to unsubscribe.",
++                    "type": "string"
++                },
++                "low":{
++                    "description": "It is the low price value for the given time",
++                    "type": "string"
++                },
++                "open": {
++                    "description": "It is the open price value for the given time",
++                    "type": "string"
++                },
++                "open_time": {
++                    "description": "It is an epoch of open time",
++                    "type": "integer"
++                },
++                "pip_size": {
++                    "description": "PIP size",
++                    "type": "integer"
++                },
++                "symbol": {
++                    "description": "Symbol name",
++                    "type": "string"
++                }
++            }
++        },
+         "pip_size": {
+             "description": "Indicates the number of decimal points that the returned amounts must be displayed with",
+             "type": "number"
+diff --git a/config/v3/ticks_history/send.json b/config/v3/ticks_history/send.json
+index d9d39db9..0cc7b01d 100644
+--- a/config/v3/ticks_history/send.json
++++ b/config/v3/ticks_history/send.json
+@@ -25,7 +25,7 @@
+         "count": {
+             "description": "[Optional] An upper limit on ticks to receive.",
+             "type": "integer",
+-            "default": "5000"
++            "default": 5000
+         },
+         "end": {
+             "description": "Epoch value representing the latest boundary of the returned ticks. If `latest` is specified, this will be the latest available timestamp.",
+diff --git a/config/v3/transaction/receive.json b/config/v3/transaction/receive.json
+index 3fbfd10e..1c4e73d3 100644
+--- a/config/v3/transaction/receive.json
++++ b/config/v3/transaction/receive.json
+@@ -38,7 +38,7 @@
+                 "balance": {
+                     "description": "Balance amount",
+                     "type": "number",
+-                    "maximum": 9999999999999999999,
++                    "maximum": 9223372036854775807,
+                     "minimum": 0
+                 },
+                 "barrier": {

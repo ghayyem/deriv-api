@@ -1,0 +1,15 @@
+[package]
+name = "deriv-api-schema"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "Generated schema types for Deriv API"
+license = "MIT"
+
+[lib]
+name = "deriv_api_schema"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
