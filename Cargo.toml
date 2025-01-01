@@ -27,7 +27,7 @@ thiserror = "1.0"
 async-trait = "0.1"
 futures-util = "0.3"
 uuid = { version = "1.4", features = ["v4"] }
-deriv-api-schema = { path = "./schema" }
+deriv-api-schema = { path = "./schema", version = "*" }
 env_logger = "0.10"
 chrono = { version = "0.4", features = ["serde"] }
 

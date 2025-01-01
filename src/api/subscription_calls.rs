@@ -5,139 +5,9 @@ use crate::error::Result;
 use deriv_api_schema::*;
 use crate::subscription::Subscription;
 
-/// Subscribe to Creates a P2P order for the specified advert.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_p_2_p_order_create(&self, request: deriv_api_schema::P2POrderCreateRequest) -> Result<(deriv_api_schema::P2POrderCreateResponse, Subscription<deriv_api_schema::P2POrderCreateResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Subscribe to transaction notifications
-#[cfg(any(feature = ""))]
-pub async fn subscribe_transaction(&self, request: deriv_api_schema::TransactionRequest) -> Result<(deriv_api_schema::TransactionResponse, Subscription<deriv_api_schema::TransactionResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Initiate a continuous stream of spot price updates for a group symbols.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_ticks_batch(&self, request: deriv_api_schema::TicksBatchRequest) -> Result<(deriv_api_schema::TicksBatchResponse, Subscription<deriv_api_schema::TicksBatchResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Initiate a continuous stream of spot price updates for a given symbol.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_ticks(&self, request: deriv_api_schema::TicksRequest) -> Result<(deriv_api_schema::TicksResponse, Subscription<deriv_api_schema::TicksResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Retrieve information about a P2P advert.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_p_2_p_advert_info(&self, request: deriv_api_schema::P2PAdvertInfoRequest) -> Result<(deriv_api_schema::P2PAdvertInfoResponse, Subscription<deriv_api_schema::P2PAdvertInfoResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Request P2P Settings information.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_p_2_p_settings(&self, request: deriv_api_schema::P2PSettingsRequest) -> Result<(deriv_api_schema::P2PSettingsResponse, Subscription<deriv_api_schema::P2PSettingsResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to List active orders.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_p_2_p_order_list(&self, request: deriv_api_schema::P2POrderListRequest) -> Result<(deriv_api_schema::P2POrderListResponse, Subscription<deriv_api_schema::P2POrderListResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Request server status.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_website_status(&self, request: deriv_api_schema::WebsiteStatusRequest) -> Result<(deriv_api_schema::WebsiteStatusResponse, Subscription<deriv_api_schema::WebsiteStatusResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Retrieve information about a P2P advertiser.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_p_2_p_advertiser_info(&self, request: deriv_api_schema::P2PAdvertiserInfoRequest) -> Result<(deriv_api_schema::P2PAdvertiserInfoResponse, Subscription<deriv_api_schema::P2PAdvertiserInfoResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
 /// Subscribe to Get user account balance
 #[cfg(any(feature = ""))]
 pub async fn subscribe_balance(&self, request: deriv_api_schema::BalanceRequest) -> Result<(deriv_api_schema::BalanceResponse, Subscription<deriv_api_schema::BalanceResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Retrieves the information about a P2P order.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_p_2_p_order_info(&self, request: deriv_api_schema::P2POrderInfoRequest) -> Result<(deriv_api_schema::P2POrderInfoResponse, Subscription<deriv_api_schema::P2POrderInfoResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<(deriv_api_schema::CryptoEstimationsResponse, Subscription<deriv_api_schema::CryptoEstimationsResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Gets latest price for a specific contract.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_proposal(&self, request: deriv_api_schema::ProposalRequest) -> Result<(deriv_api_schema::ProposalResponse, Subscription<deriv_api_schema::ProposalResponse>)> {
-    let mut request = request;
-    request.subscribe = Some(1);
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
-}
-
-/// Subscribe to Get historic tick data for a given symbol.
-#[cfg(any(feature = ""))]
-pub async fn subscribe_ticks_history(&self, request: deriv_api_schema::TicksHistoryRequest) -> Result<(deriv_api_schema::TicksHistoryResponse, Subscription<deriv_api_schema::TicksHistoryResponse>)> {
     let mut request = request;
     request.subscribe = Some(1);
     let initial_response = self.send_request(&request).await?;
@@ -155,9 +25,9 @@ pub async fn subscribe_buy(&self, request: deriv_api_schema::BuyRequest) -> Resu
     unimplemented!("Subscription not implemented yet")
 }
 
-/// Subscribe to Get latest price (and other information) for a contract in the user&#x27;s portfolio
+/// Subscribe to Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
 #[cfg(any(feature = ""))]
-pub async fn subscribe_proposal_open_contract(&self, request: deriv_api_schema::ProposalOpenContractRequest) -> Result<(deriv_api_schema::ProposalOpenContractResponse, Subscription<deriv_api_schema::ProposalOpenContractResponse>)> {
+pub async fn subscribe_crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<(deriv_api_schema::CryptoEstimationsResponse, Subscription<deriv_api_schema::CryptoEstimationsResponse>)> {
     let mut request = request;
     request.subscribe = Some(1);
     let initial_response = self.send_request(&request).await?;
@@ -175,9 +45,139 @@ pub async fn subscribe_exchange_rates(&self, request: deriv_api_schema::Exchange
     unimplemented!("Subscription not implemented yet")
 }
 
+/// Subscribe to Retrieve information about a P2P advert.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_p_2_p_advert_info(&self, request: deriv_api_schema::P2PAdvertInfoRequest) -> Result<(deriv_api_schema::P2PAdvertInfoResponse, Subscription<deriv_api_schema::P2PAdvertInfoResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
 /// Subscribe to Registers the client as a P2P advertiser.
 #[cfg(any(feature = ""))]
 pub async fn subscribe_p_2_p_advertiser_create(&self, request: deriv_api_schema::P2PAdvertiserCreateRequest) -> Result<(deriv_api_schema::P2PAdvertiserCreateResponse, Subscription<deriv_api_schema::P2PAdvertiserCreateResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Retrieve information about a P2P advertiser.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_p_2_p_advertiser_info(&self, request: deriv_api_schema::P2PAdvertiserInfoRequest) -> Result<(deriv_api_schema::P2PAdvertiserInfoResponse, Subscription<deriv_api_schema::P2PAdvertiserInfoResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Creates a P2P order for the specified advert.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_p_2_p_order_create(&self, request: deriv_api_schema::P2POrderCreateRequest) -> Result<(deriv_api_schema::P2POrderCreateResponse, Subscription<deriv_api_schema::P2POrderCreateResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Retrieves the information about a P2P order.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_p_2_p_order_info(&self, request: deriv_api_schema::P2POrderInfoRequest) -> Result<(deriv_api_schema::P2POrderInfoResponse, Subscription<deriv_api_schema::P2POrderInfoResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to List active orders.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_p_2_p_order_list(&self, request: deriv_api_schema::P2POrderListRequest) -> Result<(deriv_api_schema::P2POrderListResponse, Subscription<deriv_api_schema::P2POrderListResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Request P2P Settings information.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_p_2_p_settings(&self, request: deriv_api_schema::P2PSettingsRequest) -> Result<(deriv_api_schema::P2PSettingsResponse, Subscription<deriv_api_schema::P2PSettingsResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Gets latest price for a specific contract.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_proposal(&self, request: deriv_api_schema::ProposalRequest) -> Result<(deriv_api_schema::ProposalResponse, Subscription<deriv_api_schema::ProposalResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Get latest price (and other information) for a contract in the user&#x27;s portfolio
+#[cfg(any(feature = ""))]
+pub async fn subscribe_proposal_open_contract(&self, request: deriv_api_schema::ProposalOpenContractRequest) -> Result<(deriv_api_schema::ProposalOpenContractResponse, Subscription<deriv_api_schema::ProposalOpenContractResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Initiate a continuous stream of spot price updates for a given symbol.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_ticks(&self, request: deriv_api_schema::TicksRequest) -> Result<(deriv_api_schema::TicksResponse, Subscription<deriv_api_schema::TicksResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Initiate a continuous stream of spot price updates for a group symbols.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_ticks_batch(&self, request: deriv_api_schema::TicksBatchRequest) -> Result<(deriv_api_schema::TicksBatchResponse, Subscription<deriv_api_schema::TicksBatchResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Get historic tick data for a given symbol.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_ticks_history(&self, request: deriv_api_schema::TicksHistoryRequest) -> Result<(deriv_api_schema::TicksHistoryResponse, Subscription<deriv_api_schema::TicksHistoryResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Subscribe to transaction notifications
+#[cfg(any(feature = ""))]
+pub async fn subscribe_transaction(&self, request: deriv_api_schema::TransactionRequest) -> Result<(deriv_api_schema::TransactionResponse, Subscription<deriv_api_schema::TransactionResponse>)> {
+    let mut request = request;
+    request.subscribe = Some(1);
+    let initial_response = self.send_request(&request).await?;
+    // Subscription setup will be implemented here
+    unimplemented!("Subscription not implemented yet")
+}
+
+/// Subscribe to Request server status.
+#[cfg(any(feature = ""))]
+pub async fn subscribe_website_status(&self, request: deriv_api_schema::WebsiteStatusRequest) -> Result<(deriv_api_schema::WebsiteStatusResponse, Subscription<deriv_api_schema::WebsiteStatusResponse>)> {
     let mut request = request;
     request.subscribe = Some(1);
     let initial_response = self.send_request(&request).await?;
