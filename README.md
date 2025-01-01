@@ -14,7 +14,6 @@ This crate provides a strongly-typed client for the Deriv API, with automaticall
 - 🔐 Type-safe API requests and responses
 - 📈 Real-time market data streaming
 - 🚀 Async/await support
-- 📦 Zero-copy deserialization
 - 🛡️ Comprehensive error handling
 
 ## Installation
