@@ -56,3 +56,27 @@ impl BalanceEnum {
         }
     }
 }
+/// [Optional] If set to 1, will send updates whenever the balance changes.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SubscribeEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl SubscribeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}

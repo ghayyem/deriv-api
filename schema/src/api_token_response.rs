@@ -89,6 +89,39 @@ pub struct Tokensitem {
 
 
 
+/// The permission scope.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ScopesitemEnum {
+    Read,
+    Trade,
+    Trading_Information,
+    Payments,
+    Admin,
+}
+
+impl ScopesitemEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Read => "read",
+            Self::Trade => "trade",
+            Self::Trading_Information => "trading_information",
+            Self::Payments => "payments",
+            Self::Admin => "admin",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "read" => Some(Self::Read),
+            "trade" => Some(Self::Trade),
+            "trading_information" => Some(Self::Trading_Information),
+            "payments" => Some(Self::Payments),
+            "admin" => Some(Self::Admin),
+            _ => None,
+        }
+    }
+}
 
 
 /// Token deleted.

@@ -276,183 +276,6 @@ pub struct Error {
 
 
 
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use std::collections::HashMap;
-
-
-/// Extra information about the error.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct Details {
-    /// MT5 account type.
-    #[serde(rename = "account_type", skip_serializing_if = "Option::is_none")]
-    pub account_type: String,
-    /// MT5 account login ID.
-    #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
-    pub login: String,
-    /// Trade server name of the MT5 account.
-    #[serde(rename = "server", skip_serializing_if = "Option::is_none")]
-    pub server: String,
-    /// Trade server information.
-    #[serde(rename = "server_info", skip_serializing_if = "Option::is_none")]
-    pub server_info: ServerInfo,
-}
-
-
-
-
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use std::collections::HashMap;
-
-
-/// Trade server information.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct ServerInfo {
-    /// The environment. E.g. Deriv-Server.
-    #[serde(rename = "environment", skip_serializing_if = "Option::is_none")]
-    pub environment: EnvironmentEnum,
-    /// Geographical location of the server.
-    #[serde(rename = "geolocation", skip_serializing_if = "Option::is_none")]
-    pub geolocation: Geolocation,
-    /// Server id.
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: String,
-}
-
-
-
-
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
-
-
-/// Geographical location of the server.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct Geolocation {
-    /// Internal server grouping.
-    #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
-    pub group: String,
-    /// Server location.
-    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location: String,
-    /// Server region.
-    #[serde(rename = "region", skip_serializing_if = "Option::is_none")]
-    pub region: String,
-    /// Server sequence.
-    #[serde(rename = "sequence", skip_serializing_if = "Option::is_none")]
-    pub sequence: i64,
-}
-
-
-
-
-
-
-/// The environment. E.g. Deriv-Server.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum EnvironmentEnum {
-    DerivDemo,
-    DerivServer,
-    DerivServer02,
-    DerivServer03,
-    DerivFXServer,
-    DerivFXServer02,
-    DerivFXServer03,
-    DerivVUServer,
-    DerivVUServer02,
-    DerivVUServer03,
-    DerivSVGServer,
-    DerivSVGServer02,
-    DerivSVGServer03,
-    DerivMTServer,
-    DerivMTServer02,
-    DerivMTServer03,
-    DerivBVIServer,
-    DerivBVIServer02,
-    DerivBVIServer03,
-    DerivMUServer,
-    DerivMUServer02,
-    DerivMUServer03,
-}
-
-impl EnvironmentEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::DerivDemo => "Deriv-Demo",
-            Self::DerivServer => "Deriv-Server",
-            Self::DerivServer02 => "Deriv-Server-02",
-            Self::DerivServer03 => "Deriv-Server-03",
-            Self::DerivFXServer => "DerivFX-Server",
-            Self::DerivFXServer02 => "DerivFX-Server-02",
-            Self::DerivFXServer03 => "DerivFX-Server-03",
-            Self::DerivVUServer => "DerivVU-Server",
-            Self::DerivVUServer02 => "DerivVU-Server-02",
-            Self::DerivVUServer03 => "DerivVU-Server-03",
-            Self::DerivSVGServer => "DerivSVG-Server",
-            Self::DerivSVGServer02 => "DerivSVG-Server-02",
-            Self::DerivSVGServer03 => "DerivSVG-Server-03",
-            Self::DerivMTServer => "DerivMT-Server",
-            Self::DerivMTServer02 => "DerivMT-Server-02",
-            Self::DerivMTServer03 => "DerivMT-Server-03",
-            Self::DerivBVIServer => "DerivBVI-Server",
-            Self::DerivBVIServer02 => "DerivBVI-Server-02",
-            Self::DerivBVIServer03 => "DerivBVI-Server-03",
-            Self::DerivMUServer => "DerivMU-Server",
-            Self::DerivMUServer02 => "DerivMU-Server-02",
-            Self::DerivMUServer03 => "DerivMU-Server-03",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "Deriv-Demo" => Some(Self::DerivDemo),
-            "Deriv-Server" => Some(Self::DerivServer),
-            "Deriv-Server-02" => Some(Self::DerivServer02),
-            "Deriv-Server-03" => Some(Self::DerivServer03),
-            "DerivFX-Server" => Some(Self::DerivFXServer),
-            "DerivFX-Server-02" => Some(Self::DerivFXServer02),
-            "DerivFX-Server-03" => Some(Self::DerivFXServer03),
-            "DerivVU-Server" => Some(Self::DerivVUServer),
-            "DerivVU-Server-02" => Some(Self::DerivVUServer02),
-            "DerivVU-Server-03" => Some(Self::DerivVUServer03),
-            "DerivSVG-Server" => Some(Self::DerivSVGServer),
-            "DerivSVG-Server-02" => Some(Self::DerivSVGServer02),
-            "DerivSVG-Server-03" => Some(Self::DerivSVGServer03),
-            "DerivMT-Server" => Some(Self::DerivMTServer),
-            "DerivMT-Server-02" => Some(Self::DerivMTServer02),
-            "DerivMT-Server-03" => Some(Self::DerivMTServer03),
-            "DerivBVI-Server" => Some(Self::DerivBVIServer),
-            "DerivBVI-Server-02" => Some(Self::DerivBVIServer02),
-            "DerivBVI-Server-03" => Some(Self::DerivBVIServer03),
-            "DerivMU-Server" => Some(Self::DerivMUServer),
-            "DerivMU-Server-02" => Some(Self::DerivMUServer02),
-            "DerivMU-Server-03" => Some(Self::DerivMUServer03),
-            _ => None,
-        }
-    }
-}
-
-
-
-
 
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
@@ -558,73 +381,29 @@ pub struct WhiteLabelLinks {
 
 
 
-/// Landing company shortcode of the MT5 account.
+/// Product name that Deriv offer
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum LandingCompanyShortEnum {
-    Bvi,
-    Labuan,
-    Malta,
-    Maltainvest,
-    Svg,
-    Vanuatu,
-    Seychelles,
-    Dml,
-}
-
-impl LandingCompanyShortEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Bvi => "bvi",
-            Self::Labuan => "labuan",
-            Self::Malta => "malta",
-            Self::Maltainvest => "maltainvest",
-            Self::Svg => "svg",
-            Self::Vanuatu => "vanuatu",
-            Self::Seychelles => "seychelles",
-            Self::Dml => "dml",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "bvi" => Some(Self::Bvi),
-            "labuan" => Some(Self::Labuan),
-            "malta" => Some(Self::Malta),
-            "maltainvest" => Some(Self::Maltainvest),
-            "svg" => Some(Self::Svg),
-            "vanuatu" => Some(Self::Vanuatu),
-            "seychelles" => Some(Self::Seychelles),
-            "dml" => Some(Self::Dml),
-            _ => None,
-        }
-    }
-}
-/// Sub account category refer to the additional risk management
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum SubAccountCategoryEnum {
+pub enum ProductEnum {
     Value,
+    Synthetic,
+    Financial,
     Swap_Free,
-    Swap_Free_High_Risk,
-    Lim,
-    Hr,
-    Ab,
-    Ba,
+    Zero_Spread,
+    Standard,
     Stp,
     Gold,
 }
 
-impl SubAccountCategoryEnum {
+impl ProductEnum {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Value => "",
+            Self::Synthetic => "synthetic",
+            Self::Financial => "financial",
             Self::Swap_Free => "swap_free",
-            Self::Swap_Free_High_Risk => "swap_free_high_risk",
-            Self::Lim => "lim",
-            Self::Hr => "hr",
-            Self::Ab => "ab",
-            Self::Ba => "ba",
+            Self::Zero_Spread => "zero_spread",
+            Self::Standard => "standard",
             Self::Stp => "stp",
             Self::Gold => "gold",
         }
@@ -633,12 +412,11 @@ impl SubAccountCategoryEnum {
     pub fn from_str(s: &str) -> Option<Self> {
         match s {
             "" => Some(Self::Value),
+            "synthetic" => Some(Self::Synthetic),
+            "financial" => Some(Self::Financial),
             "swap_free" => Some(Self::Swap_Free),
-            "swap_free_high_risk" => Some(Self::Swap_Free_High_Risk),
-            "lim" => Some(Self::Lim),
-            "hr" => Some(Self::Hr),
-            "ab" => Some(Self::Ab),
-            "ba" => Some(Self::Ba),
+            "zero_spread" => Some(Self::Zero_Spread),
+            "standard" => Some(Self::Standard),
             "stp" => Some(Self::Stp),
             "gold" => Some(Self::Gold),
             _ => None,

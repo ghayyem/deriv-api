@@ -324,30 +324,6 @@ impl DxtradeUserExceptionEnum {
         }
     }
 }
-/// Boolean value 1 or 0, indicating permission to use email address for any contact which may include marketing
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum EmailConsentEnum {
-    Value0,
-    Value1 = 1,
-}
-
-impl EmailConsentEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Value0 => "0",
-            Self::Value1 => "1",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "0" => Some(Self::Value0),
-            "1" => Some(Self::Value1),
-            _ => None,
-        }
-    }
-}
 /// Employment Status.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

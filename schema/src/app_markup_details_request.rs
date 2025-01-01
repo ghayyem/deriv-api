@@ -77,6 +77,30 @@ impl AppMarkupDetailsEnum {
         }
     }
 }
+/// [Optional] If set to 1, will return `app_markup` transaction details.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum DescriptionEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl DescriptionEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
 /// [Optional] Sort direction on `transaction_time`. Other fields sort order is ASC.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

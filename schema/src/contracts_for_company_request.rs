@@ -53,39 +53,3 @@ impl ContractsForCompanyEnum {
         }
     }
 }
-/// [Optional] Indicates which landing company to get a list of contracts for. If you are logged in, your account's landing company will override this field.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum LandingCompanyEnum {
-    Iom,
-    Malta,
-    Maltainvest,
-    Svg,
-    Virtual,
-    Vanuatu,
-}
-
-impl LandingCompanyEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Iom => "iom",
-            Self::Malta => "malta",
-            Self::Maltainvest => "maltainvest",
-            Self::Svg => "svg",
-            Self::Virtual => "virtual",
-            Self::Vanuatu => "vanuatu",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "iom" => Some(Self::Iom),
-            "malta" => Some(Self::Malta),
-            "maltainvest" => Some(Self::Maltainvest),
-            "svg" => Some(Self::Svg),
-            "virtual" => Some(Self::Virtual),
-            "vanuatu" => Some(Self::Vanuatu),
-            _ => None,
-        }
-    }
-}

@@ -62,27 +62,3 @@ impl PartnerSettingsUpdateEnum {
         }
     }
 }
-/// Defines whether this partner is an individual or a company.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum PartnerTypeEnum {
-    Individual,
-    Company,
-}
-
-impl PartnerTypeEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Individual => "individual",
-            Self::Company => "company",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "individual" => Some(Self::Individual),
-            "company" => Some(Self::Company),
-            _ => None,
-        }
-    }
-}

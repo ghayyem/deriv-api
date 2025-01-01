@@ -59,6 +59,93 @@ pub struct PaymentagentCreateRequest {
 
 
 
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct PhoneNumbersitem {
+    /// A phone number
+    #[serde(rename = "phone_number")]
+    pub phone_number: String,
+}
+
+
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct SupportedPaymentMethodsitem {
+    /// A payment method's name
+    #[serde(rename = "payment_method")]
+    pub payment_method: String,
+}
+
+
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct Urlsitem {
+    /// A webpage or website's URL.
+    #[serde(rename = "url")]
+    pub url: String,
+}
+
+
+
+
+
+
+/// Indicates client's agreement with the Code of Conduct.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CodeOfConductApprovalEnum {
+    Value1 = 1,
+}
+
+impl CodeOfConductApprovalEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
 /// Must be 1
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

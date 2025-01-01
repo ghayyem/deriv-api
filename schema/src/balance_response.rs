@@ -104,6 +104,78 @@ pub struct Accountsvalue {
 
 
 
+/// If set to 1, this is a demo account.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum DemoAccountEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl DemoAccountEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Boolean value of 1 or 0. Indicates the status of account. 1 indicates account is good and accessible.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum StatusEnum {
+    Value1 = 1,
+    Value0,
+}
+
+impl StatusEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value1 => "1",
+            Self::Value0 => "0",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "1" => Some(Self::Value1),
+            "0" => Some(Self::Value0),
+            _ => None,
+        }
+    }
+}
+/// Type of account.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TypeEnum {
+    Mt5,
+    Deriv,
+}
+
+impl TypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Mt5 => "mt5",
+            Self::Deriv => "deriv",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "mt5" => Some(Self::Mt5),
+            "deriv" => Some(Self::Deriv),
+            _ => None,
+        }
+    }
+}
 
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
@@ -238,6 +310,29 @@ pub struct Mt5Demo {
 
 
 
+
+
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// For subscription requests only.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct Subscription {
+    /// A per-connection unique identifier. Can be passed to the `forget` API call to unsubscribe.
+    #[serde(rename = "id")]
+    pub id: String,
+}
 
 
 

@@ -41,27 +41,6 @@ pub struct TradingPlatformInvestorPasswordResetRequest {
 
 
 
-/// Name of trading platform.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum PlatformEnum {
-    Mt5,
-}
-
-impl PlatformEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Mt5 => "mt5",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "mt5" => Some(Self::Mt5),
-            _ => None,
-        }
-    }
-}
 /// Must be `1`
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

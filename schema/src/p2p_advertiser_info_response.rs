@@ -218,6 +218,85 @@ pub struct P2pAdvertiserInfo {
 
 
 
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// Block trading limits, if block trading is allowed.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct BlockTrade {
+    /// Maximum order amount for block trade adverts.
+    #[serde(rename = "max_order_amount")]
+    pub max_order_amount: String,
+    /// Minimum order amount for block trade adverts.
+    #[serde(rename = "min_order_amount")]
+    pub min_order_amount: String,
+}
+
+
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// New daily limits available.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct UpgradableDailyLimits {
+    /// When `1`, upgrade will provide block trading.
+    #[serde(rename = "block_trade", skip_serializing_if = "Option::is_none")]
+    pub block_trade: BlockTradeEnum,
+    /// Upgradable daily buy limit.
+    #[serde(rename = "max_daily_buy")]
+    pub max_daily_buy: String,
+    /// Upgradable daily sell limit.
+    #[serde(rename = "max_daily_sell")]
+    pub max_daily_sell: String,
+}
+
+
+
+
+
+
+/// Indicates that the advertiser is blocked by the current user.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsBlockedEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsBlockedEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
 /// Indicates that the advertiser is a favourite of the current user
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -227,6 +306,30 @@ pub enum IsFavouriteEnum {
 }
 
 impl IsFavouriteEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Indicates that the advertiser was recommended in the most recent review by the current user.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsRecommendedEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsRecommendedEnum {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Value0 => "0",

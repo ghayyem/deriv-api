@@ -188,5 +188,125 @@ pub struct P2pAdvertiserCreate {
 
 
 
+/// Boolean value: 1 or 0, indicating whether the advertiser's identify has been verified.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum BasicVerificationEnum {
+    Value1 = 1,
+    Value0,
+}
+
+impl BasicVerificationEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value1 => "1",
+            Self::Value0 => "0",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "1" => Some(Self::Value1),
+            "0" => Some(Self::Value0),
+            _ => None,
+        }
+    }
+}
+/// Boolean value: 1 or 0, indicating whether the advertiser's address has been verified.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum FullVerificationEnum {
+    Value1 = 1,
+    Value0,
+}
+
+impl FullVerificationEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value1 => "1",
+            Self::Value0 => "0",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "1" => Some(Self::Value1),
+            "0" => Some(Self::Value0),
+            _ => None,
+        }
+    }
+}
+/// The approval status of the advertiser.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsApprovedEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsApprovedEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Indicates if the advertiser's active adverts are listed. When `0`, adverts won't be listed regardless if they are active or not.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsListedEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsListedEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// When `1`, the advertiser's real name will be displayed to other users on adverts and orders.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ShowNameEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl ShowNameEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
 
 

@@ -53,3 +53,27 @@ impl ConfirmEmailEnum {
         }
     }
 }
+/// Boolean value: 1 or 0, indicating whether the client has given consent for marketing emails.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum EmailConsentEnum {
+    Value1 = 1,
+    Value0,
+}
+
+impl EmailConsentEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value1 => "1",
+            Self::Value0 => "0",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "1" => Some(Self::Value1),
+            "0" => Some(Self::Value0),
+            _ => None,
+        }
+    }
+}

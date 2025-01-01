@@ -116,5 +116,225 @@ pub struct Mt5GetSettings {
 
 
 
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
+
+
+/// Trade server information.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct ServerInfo {
+    /// The environment. E.g. Deriv-Server.
+    #[serde(rename = "environment", skip_serializing_if = "Option::is_none")]
+    pub environment: EnvironmentEnum,
+    /// Geographical location of the server.
+    #[serde(rename = "geolocation", skip_serializing_if = "Option::is_none")]
+    pub geolocation: Geolocation,
+    /// Server id.
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: String,
+}
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// Geographical location of the server.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct Geolocation {
+    /// Internal server grouping.
+    #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
+    pub group: String,
+    /// Server location.
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location: String,
+    /// Server region.
+    #[serde(rename = "region", skip_serializing_if = "Option::is_none")]
+    pub region: String,
+    /// Server sequence.
+    #[serde(rename = "sequence", skip_serializing_if = "Option::is_none")]
+    pub sequence: i64,
+}
+
+
+
+
+
+
+/// The environment. E.g. Deriv-Server.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum EnvironmentEnum {
+    DerivDemo,
+    DerivServer,
+    DerivServer02,
+    DerivServer03,
+}
+
+impl EnvironmentEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::DerivDemo => "Deriv-Demo",
+            Self::DerivServer => "Deriv-Server",
+            Self::DerivServer02 => "Deriv-Server-02",
+            Self::DerivServer03 => "Deriv-Server-03",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "Deriv-Demo" => Some(Self::DerivDemo),
+            "Deriv-Server" => Some(Self::DerivServer),
+            "Deriv-Server-02" => Some(Self::DerivServer02),
+            "Deriv-Server-03" => Some(Self::DerivServer03),
+            _ => None,
+        }
+    }
+}
+
+
+/// Account type.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AccountTypeEnum {
+    Demo,
+    Real,
+}
+
+impl AccountTypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Demo => "demo",
+            Self::Real => "real",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "demo" => Some(Self::Demo),
+            "real" => Some(Self::Real),
+            _ => None,
+        }
+    }
+}
+/// Market type
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum MarketTypeEnum {
+    All,
+    Financial,
+    Synthetic,
+}
+
+impl MarketTypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::All => "all",
+            Self::Financial => "financial",
+            Self::Synthetic => "synthetic",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "all" => Some(Self::All),
+            "financial" => Some(Self::Financial),
+            "synthetic" => Some(Self::Synthetic),
+            _ => None,
+        }
+    }
+}
+/// Sub account category.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SubAccountCategoryEnum {
+    Value,
+    Ibt,
+    Lim,
+    Stp,
+    Swap_Free,
+    Swap_Free_High_Risk,
+}
+
+impl SubAccountCategoryEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value => "",
+            Self::Ibt => "ibt",
+            Self::Lim => "lim",
+            Self::Stp => "stp",
+            Self::Swap_Free => "swap_free",
+            Self::Swap_Free_High_Risk => "swap_free_high_risk",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "" => Some(Self::Value),
+            "ibt" => Some(Self::Ibt),
+            "lim" => Some(Self::Lim),
+            "stp" => Some(Self::Stp),
+            "swap_free" => Some(Self::Swap_Free),
+            "swap_free_high_risk" => Some(Self::Swap_Free_High_Risk),
+            _ => None,
+        }
+    }
+}
+/// Sub account type
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SubAccountTypeEnum {
+    Standard,
+    Financial,
+    Financial_Stp,
+    Swap_Free,
+    Ibt,
+    Stp,
+    Zero_Spread,
+    Gold,
+}
+
+impl SubAccountTypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Standard => "standard",
+            Self::Financial => "financial",
+            Self::Financial_Stp => "financial_stp",
+            Self::Swap_Free => "swap_free",
+            Self::Ibt => "ibt",
+            Self::Stp => "stp",
+            Self::Zero_Spread => "zero_spread",
+            Self::Gold => "gold",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "standard" => Some(Self::Standard),
+            "financial" => Some(Self::Financial),
+            "financial_stp" => Some(Self::Financial_Stp),
+            "swap_free" => Some(Self::Swap_Free),
+            "ibt" => Some(Self::Ibt),
+            "stp" => Some(Self::Stp),
+            "zero_spread" => Some(Self::Zero_Spread),
+            "gold" => Some(Self::Gold),
+            _ => None,
+        }
+    }
+}
 
 

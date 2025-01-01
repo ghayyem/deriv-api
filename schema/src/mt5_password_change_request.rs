@@ -62,3 +62,27 @@ impl Mt5PasswordChangeEnum {
         }
     }
 }
+/// [Optional] Type of the password to change.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PasswordTypeEnum {
+    Main,
+    Investor,
+}
+
+impl PasswordTypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Main => "main",
+            Self::Investor => "investor",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "main" => Some(Self::Main),
+            "investor" => Some(Self::Investor),
+            _ => None,
+        }
+    }
+}

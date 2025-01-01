@@ -190,6 +190,210 @@ pub struct P2pAdvertCreate {
 
 
 
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// Details of the advertiser for this advert.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct AdvertiserDetails {
+    /// The total number of orders completed in the past 30 days.
+    #[serde(rename = "completed_orders_count")]
+    pub completed_orders_count: i64,
+    /// The advertiser's first name.
+    #[serde(rename = "first_name", skip_serializing_if = "Option::is_none")]
+    pub first_name: String,
+    /// The advertiser's unique identifier.
+    #[serde(rename = "id")]
+    pub id: String,
+    /// Indicates if the advertiser is currently online.
+    #[serde(rename = "is_online")]
+    pub is_online: IsOnlineEnum,
+    /// Inidcates whether the advertiser's schedule has availability between now and now + order_expiry_period.
+    #[serde(rename = "is_schedule_available")]
+    pub is_schedule_available: IsScheduleAvailableEnum,
+    /// The advertiser's last name.
+    #[serde(rename = "last_name", skip_serializing_if = "Option::is_none")]
+    pub last_name: String,
+    /// Epoch of the latest time the advertiser was online, up to 6 months.
+    #[serde(rename = "last_online_time", skip_serializing_if = "Option::is_none")]
+    pub last_online_time: Option<Value>,
+    /// The advertiser's displayed name.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Average rating of the advertiser, range is 1-5.
+    #[serde(rename = "rating_average", skip_serializing_if = "Option::is_none")]
+    pub rating_average: Option<Value>,
+    /// Number of ratings given to the advertiser.
+    #[serde(rename = "rating_count")]
+    pub rating_count: i64,
+    /// Percentage of users who have recommended the advertiser.
+    #[serde(rename = "recommended_average", skip_serializing_if = "Option::is_none")]
+    pub recommended_average: Option<Value>,
+    /// Number of times the advertiser has been recommended.
+    #[serde(rename = "recommended_count", skip_serializing_if = "Option::is_none")]
+    pub recommended_count: Option<Value>,
+    /// The percentage of successfully completed orders made by or placed against the advertiser within the past 30 days.
+    #[serde(rename = "total_completion_rate", skip_serializing_if = "Option::is_none")]
+    pub total_completion_rate: Option<Value>,
+}
+
+
+
+
+/// Indicates if the advertiser is currently online.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsOnlineEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsOnlineEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Inidcates whether the advertiser's schedule has availability between now and now + order_expiry_period.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsScheduleAvailableEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsScheduleAvailableEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
+
+
+/// Unique identifier.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct PaymentMethodDetailsvalue {
+    /// Display name of payment method.
+    #[serde(rename = "display_name", skip_serializing_if = "Option::is_none")]
+    pub display_name: String,
+    /// Payment method fields.
+    #[serde(rename = "fields", flatten)]
+    pub fields: HashMap<String, Fieldsvalue>,
+    /// Indicates whether method is enabled.
+    #[serde(rename = "is_enabled")]
+    pub is_enabled: IsEnabledEnum,
+    /// Payment method identifier.
+    #[serde(rename = "method")]
+    pub method: String,
+    /// Payment method type.
+    #[serde(rename = "type")]
+    pub type: TypeEnum,
+    /// IDs of adverts that use this payment method.
+    #[serde(rename = "used_by_adverts", skip_serializing_if = "Option::is_none")]
+    pub used_by_adverts: Option<Value>,
+    /// IDs of orders that use this payment method.
+    #[serde(rename = "used_by_orders", skip_serializing_if = "Option::is_none")]
+    pub used_by_orders: Option<Value>,
+}
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// Field identifier.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct Fieldsvalue {
+    /// Display name of payment method field.
+    #[serde(rename = "display_name")]
+    pub display_name: String,
+    /// Is field required or optional.
+    #[serde(rename = "required")]
+    pub required: i64,
+    /// Field type.
+    #[serde(rename = "type")]
+    pub type: TypeEnum,
+    /// Current value of payment method field.
+    #[serde(rename = "value")]
+    pub value: String,
+}
+
+
+
+
+
+
+/// Indicates whether method is enabled.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsEnabledEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsEnabledEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+
+
 /// Type of transaction from the opposite party's perspective.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

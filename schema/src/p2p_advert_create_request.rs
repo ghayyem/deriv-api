@@ -86,6 +86,30 @@ pub struct P2pAdvertCreateRequest {
 
 
 
+/// [Optional] Indicates if this is block trade ad or not. Default: 0.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum BlockTradeEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl BlockTradeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
 /// Must be 1
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

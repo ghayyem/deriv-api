@@ -116,29 +116,5 @@ pub struct UrlParameters {
 
 
 
-/// [Optional] Show whether user has used mobile or desktop.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum SignupDeviceEnum {
-    Desktop,
-    Mobile,
-}
-
-impl SignupDeviceEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Desktop => "desktop",
-            Self::Mobile => "mobile",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "desktop" => Some(Self::Desktop),
-            "mobile" => Some(Self::Mobile),
-            _ => None,
-        }
-    }
-}
 
 

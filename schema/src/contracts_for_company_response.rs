@@ -53,45 +53,5 @@ pub struct ContractsForCompany {
 
 
 
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
-
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct Availableitem {
-    /// Category of contract barrier.
-    #[serde(rename = "barrier_category")]
-    pub barrier_category: String,
-    /// Category of contract.
-    #[serde(rename = "contract_category")]
-    pub contract_category: String,
-    /// Display name for the contract category, localized to selected language.
-    #[serde(rename = "contract_category_display")]
-    pub contract_category_display: String,
-    /// Display name for the contract, localized to selected language.
-    #[serde(rename = "contract_display")]
-    pub contract_display: String,
-    /// Type of contract.
-    #[serde(rename = "contract_type")]
-    pub contract_type: String,
-    /// Default stake for the contract
-    #[serde(rename = "default_stake", skip_serializing_if = "Option::is_none")]
-    pub default_stake: f64,
-    /// Type of sentiment.
-    #[serde(rename = "sentiment")]
-    pub sentiment: String,
-}
-
-
-
-
-
-
 
 

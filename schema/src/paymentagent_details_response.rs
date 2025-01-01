@@ -104,72 +104,6 @@ pub struct PaymentagentDetails {
 
 
 
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
-
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct PhoneNumbersitem {
-    /// A phone number.
-    #[serde(rename = "phone_number", skip_serializing_if = "Option::is_none")]
-    pub phone_number: String,
-}
-
-
-
-
-
-
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
-
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct SupportedPaymentMethodsitem {
-    /// A payment method's name
-    #[serde(rename = "payment_method", skip_serializing_if = "Option::is_none")]
-    pub payment_method: String,
-}
-
-
-
-
-
-
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
-
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct Urlsitem {
-    /// A website url.
-    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
-    pub url: String,
-}
-
-
-
-
-
-
 /// If 1, the client may apply using paymentagent_create.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -179,30 +113,6 @@ pub enum CanApplyEnum {
 }
 
 impl CanApplyEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Value0 => "0",
-            Self::Value1 => "1",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "0" => Some(Self::Value0),
-            "1" => Some(Self::Value1),
-            _ => None,
-        }
-    }
-}
-/// Indicates client's agreement with the Code of Conduct document.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum CodeOfConductApprovalEnum {
-    Value0,
-    Value1 = 1,
-}
-
-impl CodeOfConductApprovalEnum {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Value0 => "0",

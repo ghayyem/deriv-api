@@ -279,6 +279,159 @@ pub struct Standard {
 
 
 
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
+
+
+/// Legal requirements for the Landing Company
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct Requirements {
+    /// After first deposit requirements
+    #[serde(rename = "after_first_deposit", skip_serializing_if = "Option::is_none")]
+    pub after_first_deposit: AfterFirstDeposit,
+    /// Compliance requirements
+    #[serde(rename = "compliance", skip_serializing_if = "Option::is_none")]
+    pub compliance: Compliance,
+    /// Sign up requirements
+    #[serde(rename = "signup", skip_serializing_if = "Option::is_none")]
+    pub signup: Vec<String>,
+    /// Withdrawal requirements
+    #[serde(rename = "withdrawal", skip_serializing_if = "Option::is_none")]
+    pub withdrawal: Vec<String>,
+}
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// After first deposit requirements
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct AfterFirstDeposit {
+    /// Financial assessment requirements
+    #[serde(rename = "financial_assessment", skip_serializing_if = "Option::is_none")]
+    pub financial_assessment: Vec<String>,
+}
+
+
+
+
+
+
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// Compliance requirements
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct Compliance {
+    /// Compliance MT5 requirements
+    #[serde(rename = "mt5", skip_serializing_if = "Option::is_none")]
+    pub mt_5: Vec<String>,
+    /// Compliance tax information requirements
+    #[serde(rename = "tax_information", skip_serializing_if = "Option::is_none")]
+    pub tax_information: Vec<String>,
+}
+
+
+
+
+
+
+
+
+/// Flag to indicate whether reality check is applicable for this Landing Company. `1`: applicable, `0`: not applicable. The Reality Check is a feature that gives a summary of the client's trades and account balances on a regular basis throughout his session, and is a regulatory requirement for certain Landing Companies.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum HasRealityCheckEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl HasRealityCheckEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Flag that indicates whether the landing company supports professional accounts or not
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SupportProfessionalClientEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl SupportProfessionalClientEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Flag that indicates whether tax identifier number is not mandatory for the current country and landing company.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TinNotMandatoryEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl TinNotMandatoryEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
 
 
 

@@ -239,3 +239,96 @@ impl ContractTypeitemEnum {
         }
     }
 }
+/// Deprecated - replaced by landing_company_short.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum LandingCompanyEnum {
+    Iom,
+    Malta,
+    Maltainvest,
+    Svg,
+    Virtual,
+    Vanuatu,
+}
+
+impl LandingCompanyEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Iom => "iom",
+            Self::Malta => "malta",
+            Self::Maltainvest => "maltainvest",
+            Self::Svg => "svg",
+            Self::Virtual => "virtual",
+            Self::Vanuatu => "vanuatu",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "iom" => Some(Self::Iom),
+            "malta" => Some(Self::Malta),
+            "maltainvest" => Some(Self::Maltainvest),
+            "svg" => Some(Self::Svg),
+            "virtual" => Some(Self::Virtual),
+            "vanuatu" => Some(Self::Vanuatu),
+            _ => None,
+        }
+    }
+}
+/// [Optional] If you specify this field, only symbols available for trading by that landing company will be returned. If you are logged in, only symbols available for trading by your landing company will be returned regardless of what you specify in this field.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum LandingCompanyShortEnum {
+    Iom,
+    Malta,
+    Maltainvest,
+    Svg,
+    Virtual,
+    Vanuatu,
+}
+
+impl LandingCompanyShortEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Iom => "iom",
+            Self::Malta => "malta",
+            Self::Maltainvest => "maltainvest",
+            Self::Svg => "svg",
+            Self::Virtual => "virtual",
+            Self::Vanuatu => "vanuatu",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "iom" => Some(Self::Iom),
+            "malta" => Some(Self::Malta),
+            "maltainvest" => Some(Self::Maltainvest),
+            "svg" => Some(Self::Svg),
+            "virtual" => Some(Self::Virtual),
+            "vanuatu" => Some(Self::Vanuatu),
+            _ => None,
+        }
+    }
+}
+/// [Optional] If you specify this field, only symbols that can be traded through that product type will be returned.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ProductTypeEnum {
+    Basic,
+}
+
+impl ProductTypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Basic => "basic",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "basic" => Some(Self::Basic),
+            _ => None,
+        }
+    }
+}

@@ -50,5 +50,58 @@ pub struct CryptoConfig {
 
 
 
+// Generated automatically by schema_generator.rs - DO NOT EDIT.
+// Source: 
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+
+
+/// Cryptocurrency code
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+
+pub struct CurrenciesConfigvalue {
+    /// Indicates whether Priority Withdrawal is enabled for the cryptocurrency.
+    #[serde(rename = "is_priority_withdrawal_enabled", skip_serializing_if = "Option::is_none")]
+    pub is_priority_withdrawal_enabled: IsPriorityWithdrawalEnabledEnum,
+    /// Minimum deposit amount in corresponding cryptocurrency value.
+    #[serde(rename = "minimum_deposit", skip_serializing_if = "Option::is_none")]
+    pub minimum_deposit: f64,
+    /// Minimum withdrawal for the cryptocurrency in USD.
+    #[serde(rename = "minimum_withdrawal", skip_serializing_if = "Option::is_none")]
+    pub minimum_withdrawal: f64,
+}
+
+
+
+
+/// Indicates whether Priority Withdrawal is enabled for the cryptocurrency.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum IsPriorityWithdrawalEnabledEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl IsPriorityWithdrawalEnabledEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+
+
 
 

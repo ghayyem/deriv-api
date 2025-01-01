@@ -92,54 +92,6 @@ pub struct ProposalRequest {
 
 
 
-/// [Optional] Barrier range for callputspread.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum BarrierRangeEnum {
-    Tight,
-    Middle,
-    Wide,
-}
-
-impl BarrierRangeEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Tight => "tight",
-            Self::Middle => "middle",
-            Self::Wide => "wide",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "tight" => Some(Self::Tight),
-            "middle" => Some(Self::Middle),
-            "wide" => Some(Self::Wide),
-            _ => None,
-        }
-    }
-}
-/// [Optional] The product type.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum ProductTypeEnum {
-    Basic,
-}
-
-impl ProductTypeEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Basic => "basic",
-        }
-    }
-
-    pub fn from_str(s: &str) -> Option<Self> {
-        match s {
-            "basic" => Some(Self::Basic),
-            _ => None,
-        }
-    }
-}
 /// Must be `1`
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

@@ -97,5 +97,83 @@ pub struct PaymentMethodsvalue {
 
 
 
+/// When 1, users in this country may place orders on ads in other countries.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CrossBorderAdsEnabledEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl CrossBorderAdsEnabledEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
+            _ => None,
+        }
+    }
+}
+/// Availability of fixed rate adverts.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum FixedRateAdvertsEnum {
+    Disabled,
+    Enabled,
+    List_Only,
+}
+
+impl FixedRateAdvertsEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
+            Self::List_Only => "list_only",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "disabled" => Some(Self::Disabled),
+            "enabled" => Some(Self::Enabled),
+            "list_only" => Some(Self::List_Only),
+            _ => None,
+        }
+    }
+}
+/// Availability of floating rate adverts.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum FloatRateAdvertsEnum {
+    Disabled,
+    Enabled,
+    List_Only,
+}
+
+impl FloatRateAdvertsEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Disabled => "disabled",
+            Self::Enabled => "enabled",
+            Self::List_Only => "list_only",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "disabled" => Some(Self::Disabled),
+            "enabled" => Some(Self::Enabled),
+            "list_only" => Some(Self::List_Only),
+            _ => None,
+        }
+    }
+}
 
 

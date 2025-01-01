@@ -191,6 +191,66 @@ impl AcceptRiskEnum {
         }
     }
 }
+/// [Optional] Purpose and reason for requesting the account opening.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AccountOpeningReasonEnum {
+    Speculative,
+    Income_Earning,
+    Hedging,
+}
+
+impl AccountOpeningReasonEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Speculative => "Speculative",
+            Self::Income_Earning => "Income Earning",
+            Self::Hedging => "Hedging",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "Speculative" => Some(Self::Speculative),
+            "Income Earning" => Some(Self::Income_Earning),
+            "Hedging" => Some(Self::Hedging),
+            _ => None,
+        }
+    }
+}
+/// [Optional] The anticipated account turnover.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AccountTurnoverEnum {
+    Less_Than_$25,000,
+    $25,000__$50,000,
+    $50,001__$100,000,
+    $100,001__$500,000,
+    Over_$500,000,
+}
+
+impl AccountTurnoverEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Less_Than_$25,000 => "Less than $25,000",
+            Self::$25,000__$50,000 => "$25,000 - $50,000",
+            Self::$50,001__$100,000 => "$50,001 - $100,000",
+            Self::$100,001__$500,000 => "$100,001 - $500,000",
+            Self::Over_$500,000 => "Over $500,000",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "Less than $25,000" => Some(Self::Less_Than_$25,000),
+            "$25,000 - $50,000" => Some(Self::$25,000__$50,000),
+            "$50,001 - $100,000" => Some(Self::$50,001__$100,000),
+            "$100,001 - $500,000" => Some(Self::$100,001__$500,000),
+            "Over $500,000" => Some(Self::Over_$500,000),
+            _ => None,
+        }
+    }
+}
 /// How much experience do you have in CFD trading?
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -280,6 +340,30 @@ impl CfdTradingDefinitionEnum {
             "Place a bet on the price movement." => Some(Self::Place_A_Bet_On_The_Price_Movement),
             "Speculate on the price movement." => Some(Self::Speculate_On_The_Price_Movement),
             "Make a long-term investment." => Some(Self::Make_A_Longterm_Investment),
+            _ => None,
+        }
+    }
+}
+/// [Optional] Indicates whether this is for a client requesting an account with professional status.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ClientTypeEnum {
+    Professional,
+    Retail,
+}
+
+impl ClientTypeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Professional => "professional",
+            Self::Retail => "retail",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "professional" => Some(Self::Professional),
+            "retail" => Some(Self::Retail),
             _ => None,
         }
     }
@@ -400,6 +484,30 @@ impl EstimatedWorthEnum {
             "$250,001 - $500,000" => Some(Self::$250,001__$500,000),
             "$500,001 - $1,000,000" => Some(Self::$500,001__$1,000,000),
             "Over $1,000,000" => Some(Self::Over_$1,000,000),
+            _ => None,
+        }
+    }
+}
+/// [Optional] Indicates client's self-declaration of FATCA.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum FatcaDeclarationEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl FatcaDeclarationEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
             _ => None,
         }
     }
@@ -689,6 +797,78 @@ impl RiskToleranceEnum {
         }
     }
 }
+/// Accept any value in enum list.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SalutationEnum {
+    Mr,
+    Ms,
+    Miss,
+    Mrs,
+}
+
+impl SalutationEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Mr => "Mr",
+            Self::Ms => "Ms",
+            Self::Miss => "Miss",
+            Self::Mrs => "Mrs",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "Mr" => Some(Self::Mr),
+            "Ms" => Some(Self::Ms),
+            "Miss" => Some(Self::Miss),
+            "Mrs" => Some(Self::Mrs),
+            _ => None,
+        }
+    }
+}
+/// [Optional] Accept any value in enum list.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SecretQuestionEnum {
+    Mothers_Maiden_Name,
+    Name_Of_Your_Pet,
+    Name_Of_First_Love,
+    Memorable_Town/city,
+    Memorable_Date,
+    Favourite_Dish,
+    Brand_Of_First_Car,
+    Favourite_Artist,
+}
+
+impl SecretQuestionEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Mothers_Maiden_Name => "Mother&#x27;s maiden name",
+            Self::Name_Of_Your_Pet => "Name of your pet",
+            Self::Name_Of_First_Love => "Name of first love",
+            Self::Memorable_Town/city => "Memorable town/city",
+            Self::Memorable_Date => "Memorable date",
+            Self::Favourite_Dish => "Favourite dish",
+            Self::Brand_Of_First_Car => "Brand of first car",
+            Self::Favourite_Artist => "Favourite artist",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "Mother&#x27;s maiden name" => Some(Self::Mothers_Maiden_Name),
+            "Name of your pet" => Some(Self::Name_Of_Your_Pet),
+            "Name of first love" => Some(Self::Name_Of_First_Love),
+            "Memorable town/city" => Some(Self::Memorable_Town/city),
+            "Memorable date" => Some(Self::Memorable_Date),
+            "Favourite dish" => Some(Self::Favourite_Dish),
+            "Brand of first car" => Some(Self::Brand_Of_First_Car),
+            "Favourite artist" => Some(Self::Favourite_Artist),
+            _ => None,
+        }
+    }
+}
 /// How much knowledge and experience do you have in relation to online trading?
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -757,6 +937,30 @@ impl SourceOfWealthEnum {
             "Inheritance" => Some(Self::Inheritance),
             "Investment Income" => Some(Self::Investment_Income),
             "Sale of Property" => Some(Self::Sale_Of_Property),
+            _ => None,
+        }
+    }
+}
+/// The tnc acceptance status of the user.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum TncAcceptanceEnum {
+    Value0,
+    Value1 = 1,
+}
+
+impl TncAcceptanceEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value0 => "0",
+            Self::Value1 => "1",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "0" => Some(Self::Value0),
+            "1" => Some(Self::Value1),
             _ => None,
         }
     }

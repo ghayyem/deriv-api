@@ -35,32 +35,6 @@ pub struct ContractUpdateRequest {
 
 
 
-// Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: 
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
-
-
-/// Specify limit order to update.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-
-pub struct LimitOrder {
-    /// New stop loss value for a contract. To cancel, pass `null`.
-    #[serde(rename = "stop_loss", skip_serializing_if = "Option::is_none")]
-    pub stop_loss: Option<Value>,
-    /// New take profit value for a contract. To cancel, pass `null`.
-    #[serde(rename = "take_profit", skip_serializing_if = "Option::is_none")]
-    pub take_profit: Option<Value>,
-}
-
-
-
-
-
-
 /// Must be `1`
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
