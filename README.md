@@ -142,6 +142,13 @@ make generate
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## Credits & Acknowledgments
+
+This project draws inspiration from and acknowledges the following projects:
+
+- [deriv-api-go](https://github.com/ksysoev/deriv-api) - Unofficial Go implementation of Deriv API
+- [flutter-deriv-api](https://github.com/deriv-com/flutter-deriv-api) - Official Flutter implementation by Deriv.com
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
