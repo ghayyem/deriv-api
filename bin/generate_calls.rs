@@ -16,11 +16,12 @@ use crate::client::DerivClient;
 use crate::error::Result;
 use deriv_api_schema::*;
 use crate::subscription::Subscription;
+
+impl DerivClient {
 "#;
 
 const API_CALL_TEMPLATE: &str = r#"
 /// {{description}}
-#[cfg(any(feature = "{{feature_name}}"))]
 pub async fn {{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> Result<deriv_api_schema::{{response_type}}> {
     self.send_request(&request).await
 }
@@ -28,10 +29,9 @@ pub async fn {{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> 
 
 const SUBSCRIPTION_CALL_TEMPLATE: &str = r#"
 /// Subscribe to {{description}}
-#[cfg(any(feature = "{{feature_name}}"))]
 pub async fn subscribe_{{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> Result<(deriv_api_schema::{{response_type}}, Subscription<deriv_api_schema::{{stream_type}}>)> {
     let mut request = request;
-    request.subscribe = Some(1);
+    {{{subscribe_assignment}}} // Use placeholder for assignment
     let initial_response = self.send_request(&request).await?;
     // Subscription setup will be implemented here
     unimplemented!("Subscription not implemented yet")
@@ -79,6 +79,27 @@ impl From<handlebars::RenderError> for GeneratorError {
     fn from(err: handlebars::RenderError) -> Self {
         GeneratorError::Render(err)
     }
+}
+
+// Copied from schema_generator.rs for consistency
+fn to_type_name(name: &str) -> String {
+    let mut result = String::new();
+    let mut capitalize_next = true;
+
+    for c in name.chars() {
+        if c == '_' || c == '-' { // Treat hyphen like underscore for capitalization
+            capitalize_next = true;
+        } else if capitalize_next {
+            result.extend(c.to_uppercase());
+            capitalize_next = false;
+        } else {
+            // Preserve existing uppercase chars for acronyms like P2P
+            result.push(c);
+        }
+    }
+    // Handle snake_case parts like `p2p_` -> `P2p`
+    // Also explicitly replace hyphens remaining in the structure
+    result.replace("P2p", "P2p").replace('-', "_")
 }
 
 fn main() -> Result<(), GeneratorError> {
@@ -175,8 +196,9 @@ fn parse_endpoint(
         .and_then(|props| props.get("subscribe"))
         .is_some();
 
-    let request_type = format!("{}Request", name.to_case(Case::Pascal));
-    let response_type = format!("{}Response", name.to_case(Case::Pascal));
+    // Use the consistent to_type_name function
+    let request_type = format!("{}Request", to_type_name(name));
+    let response_type = format!("{}Response", to_type_name(name));
     let stream_type = if has_subscription {
         Some(response_type.clone())
     } else {
@@ -213,6 +235,8 @@ fn generate_api_calls(endpoints: &[ApiEndpoint]) -> Result<(), GeneratorError> {
         output.push_str(&handlebars.render("api_call", &data)?);
     }
 
+    output.push_str("}
+");
     fs::write(API_CALLS_FILE, output)?;
 
     Ok(())
@@ -220,6 +244,8 @@ fn generate_api_calls(endpoints: &[ApiEndpoint]) -> Result<(), GeneratorError> {
 
 fn generate_subscription_calls(endpoints: &[ApiEndpoint]) -> Result<(), GeneratorError> {
     let mut handlebars = Handlebars::new();
+    // No need to escape for code gen
+    handlebars.register_escape_fn(|s| -> String { s.to_string() });
     handlebars.register_template_string("subscription_call", SUBSCRIPTION_CALL_TEMPLATE)?;
 
     let mut output = String::from(HEADER_TEMPLATE);
@@ -229,17 +255,28 @@ fn generate_subscription_calls(endpoints: &[ApiEndpoint]) -> Result<(), Generato
             continue;
         }
 
+        // Determine the correct subscribe assignment string
+        let subscribe_assignment = if endpoint.name == "transaction" {
+            "request.subscribe = deriv_api_schema::SubscribeEnum::Value1;".to_string()
+        } else {
+            "request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1);".to_string()
+        };
+
         let data = json!({
             "fn_name": endpoint.name.to_case(Case::Snake),
             "description": endpoint.description,
             "request_type": endpoint.request_type,
             "response_type": endpoint.response_type,
             "stream_type": endpoint.stream_type.as_ref().unwrap_or(&endpoint.response_type),
+            "subscribe_assignment": subscribe_assignment // Add the assignment string to the data
         });
 
+        // Render the single template with the correct data
         output.push_str(&handlebars.render("subscription_call", &data)?);
     }
 
+    output.push_str("}
+");
     fs::write(SUBSCRIPTION_CALLS_FILE, output)?;
 
     Ok(())
