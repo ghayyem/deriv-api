@@ -303,6 +303,18 @@ impl SchemaParser {
                 let type_name = self.to_type_name(name_hint);
                 let already_collected = self.type_definitions.contains_key(&type_name);
 
+                // --- Debug Logging Start ---
+                if name_hint == "landingCompanyInfo" || type_name == "LandingCompanyInfo" {
+                    info!("Processing object definition hint/type: '{}' / '{}' from {}", name_hint, type_name, source_file);
+                    if let Some(properties) = obj.get("properties").and_then(|p| p.as_object()) {
+                        let keys: Vec<_> = properties.keys().collect(); // Collect keys into a Vec
+                        info!("  -> Found properties: {:?}", keys);
+                    } else {
+                        info!("  -> No direct properties found for {}", type_name);
+                    }
+                }
+                // --- Debug Logging End ---
+
                 // Collect the main object definition if it's custom and not yet collected
                 if !self.is_primitive_or_known_or_handled(&type_name) && !already_collected {
                      if obj.contains_key("properties") || obj.contains_key("patternProperties") || obj.contains_key("additionalProperties") {
@@ -903,7 +915,11 @@ impl SchemaParser {
             "p2p_order_info" |
             "p2p_order_create" |
             "questions" | // Covers the HashMap<String, QuestionsValue> error
-            "verified_jurisdiction" // Add this to bypass trait bounds issue for now
+            "verified_jurisdiction" | // Add this to bypass trait bounds issue for now
+            // Fields with missing definitions in source schema:
+            "signup" | 
+            "partner" | // Also corresponds to SignUpRequirements
+            "withdrawal"
 
         )
     }
