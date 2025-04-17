@@ -9,15 +9,15 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::account_turnover_enum::AccountTurnoverEnum;
-use crate::salutation_enum::SalutationEnum;
 use crate::provider_enum::ProviderEnum;
 use crate::secret_question_enum::SecretQuestionEnum;
+use crate::landing_company_short_enum::LandingCompanyShortEnum;
+use crate::account_turnover_enum::AccountTurnoverEnum;
+use crate::new_partner_account_enum::NewPartnerAccountEnum;
+use crate::salutation_enum::SalutationEnum;
+use crate::fatca_declaration_enum::FatcaDeclarationEnum;
 use crate::client_type_enum::ClientTypeEnum;
 use crate::partner_type_enum::PartnerTypeEnum;
-use crate::new_partner_account_enum::NewPartnerAccountEnum;
-use crate::landing_company_short_enum::LandingCompanyShortEnum;
-use crate::fatca_declaration_enum::FatcaDeclarationEnum;
 
 /// This call opens a new Real-Partner Account
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,11 +9,11 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::income::Income; 
-use crate::attempts::Attempts; 
 use crate::document::Document; 
 use crate::identity::Identity; 
+use crate::attempts::Attempts; 
 use crate::ownership::Ownership; 
+use crate::income::Income; 
 
 // It's a struct
 /// This represents the authentication status of the user and it includes what authentication is needed.

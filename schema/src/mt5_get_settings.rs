@@ -9,12 +9,12 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::market_type_enum::MarketTypeEnum; 
 use crate::account_type_enum::AccountTypeEnum; 
-use crate::landing_company_short_enum::LandingCompanyShortEnum; 
-use crate::sub_account_category_enum::SubAccountCategoryEnum; 
 use crate::sub_account_type_enum::SubAccountTypeEnum; 
+use crate::landing_company_short_enum::LandingCompanyShortEnum; 
 use crate::server_info::ServerInfo; 
+use crate::sub_account_category_enum::SubAccountCategoryEnum; 
+use crate::market_type_enum::MarketTypeEnum; 
 
 // It's a struct
 /// MT5 user account details

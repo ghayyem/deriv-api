@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::subscription::Subscription;
+use crate::msg_type_enum::MsgTypeEnum;
 use crate::balance::Balance;
 
 /// Return details of user account balance

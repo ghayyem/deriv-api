@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::subscription::Subscription;
 use crate::msg_type_enum::MsgTypeEnum;
 use crate::ticks_batch_item::TicksBatchItem;
-use crate::subscription::Subscription;
 
 /// Latest spot price for a group symbols. Continuous responses with a frequency of up to one second.
 #[derive(Debug, Clone, Serialize, Deserialize)]

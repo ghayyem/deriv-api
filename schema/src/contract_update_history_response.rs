@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::contract_update_history_item::ContractUpdateHistoryItem;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// Contract update history status
 #[derive(Debug, Clone, Serialize, Deserialize)]

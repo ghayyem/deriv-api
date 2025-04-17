@@ -13,23 +13,40 @@ categories = ["api-bindings", "asynchronous", "web-programming::websocket"]
 exclude = ["deriv-api-docs/*", "bin/*", "schema.patch", ".gitignore"]
 
 [workspace]
-members = [".", "schema"]
+members = [".", "schema", "examples/ping_example"]
 
-[dependencies]
-tokio = { version = "1.32", features = ["full"] }
-tokio-tungstenite = { version = "0.20", features = ["native-tls"] }
-futures = "0.3"
+# Add workspace dependencies table
+[workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-url = "2.4"
+serde_json =  "1.0" 
+chrono = { version = "0.4", features = ["serde"] }
+tokio = "1.32"
+tokio-tungstenite = "0.20"
+futures = "0.3"
 log = "0.4"
 thiserror = "1.0"
+url = "2.4"
 async-trait = "0.1"
 futures-util = "0.3"
-uuid = { version = "1.4", features = ["v4"] }
-deriv-api-schema = { path = "./schema", version = "0.1.0" }
+uuid = "1.4"
 env_logger = "0.10"
-chrono = { version = "0.4", features = ["serde"] }
+
+[dependencies]
+# Inherit versions/features from workspace
+tokio = { workspace = true, features = ["full"] }
+tokio-tungstenite = { workspace = true, features = ["native-tls"] }
+futures = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+url = { workspace = true }
+log = { workspace = true }
+thiserror = { workspace = true }
+async-trait = { workspace = true }
+futures-util = { workspace = true }
+uuid = { workspace = true, features = ["v4"] }
+deriv-api-schema = { path = "./schema", version = "0.1.1" }
+env_logger = { workspace = true }
+chrono = { workspace = true }
 
 # Optional dependencies for code generation
 convert_case = { version = "0.6", optional = true }

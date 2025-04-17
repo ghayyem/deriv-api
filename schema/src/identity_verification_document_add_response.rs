@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::identity_verification_document_add_enum::IdentityVerificationDocumentAddEnum;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// Adds document information such as issuing country, id and type for identity verification processes.
 #[derive(Debug, Clone, Serialize, Deserialize)]

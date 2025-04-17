@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::limit_order::LimitOrder;
 use crate::contract_update_enum::ContractUpdateEnum;
+use crate::limit_order::LimitOrder;
 
 /// Update a contract condition.
 #[derive(Debug, Clone, Serialize, Deserialize)]

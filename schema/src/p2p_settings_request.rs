@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::p2p_settings_enum::P2pSettingsEnum;
 use crate::subscribe_enum::SubscribeEnum;
+use crate::p2p_settings_enum::P2pSettingsEnum;
 
 /// Request P2P Settings information.
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,25 +9,25 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::salutation_enum::SalutationEnum;
-use crate::cfd_trading_definition_enum::CfdTradingDefinitionEnum;
-use crate::secret_question_enum::SecretQuestionEnum;
-use crate::client_type_enum::ClientTypeEnum;
-use crate::tnc_acceptance_enum::TncAcceptanceEnum;
-use crate::trading_experience_financial_instruments_enum::TradingExperienceFinancialInstrumentsEnum;
-use crate::cfd_frequency_enum::CfdFrequencyEnum;
-use crate::trading_frequency_financial_instruments_enum::TradingFrequencyFinancialInstrumentsEnum;
-use crate::leverage_impact_trading_enum::LeverageImpactTradingEnum;
-use crate::fatca_declaration_enum::FatcaDeclarationEnum;
-use crate::source_of_experience_enum::SourceOfExperienceEnum;
-use crate::required_initial_margin_enum::RequiredInitialMarginEnum;
 use crate::tin_skipped_enum::TinSkippedEnum;
-use crate::new_account_maltainvest_enum::NewAccountMaltainvestEnum;
-use crate::risk_tolerance_enum::RiskToleranceEnum;
-use crate::accept_risk_enum::AcceptRiskEnum;
+use crate::secret_question_enum::SecretQuestionEnum;
 use crate::leverage_trading_high_risk_stop_loss_enum::LeverageTradingHighRiskStopLossEnum;
-use crate::cfd_experience_enum::CfdExperienceEnum;
+use crate::required_initial_margin_enum::RequiredInitialMarginEnum;
 use crate::resident_self_declaration_enum::ResidentSelfDeclarationEnum;
+use crate::cfd_experience_enum::CfdExperienceEnum;
+use crate::risk_tolerance_enum::RiskToleranceEnum;
+use crate::source_of_experience_enum::SourceOfExperienceEnum;
+use crate::new_account_maltainvest_enum::NewAccountMaltainvestEnum;
+use crate::cfd_trading_definition_enum::CfdTradingDefinitionEnum;
+use crate::leverage_impact_trading_enum::LeverageImpactTradingEnum;
+use crate::trading_frequency_financial_instruments_enum::TradingFrequencyFinancialInstrumentsEnum;
+use crate::tnc_acceptance_enum::TncAcceptanceEnum;
+use crate::salutation_enum::SalutationEnum;
+use crate::fatca_declaration_enum::FatcaDeclarationEnum;
+use crate::client_type_enum::ClientTypeEnum;
+use crate::accept_risk_enum::AcceptRiskEnum;
+use crate::cfd_frequency_enum::CfdFrequencyEnum;
+use crate::trading_experience_financial_instruments_enum::TradingExperienceFinancialInstrumentsEnum;
 
 /// This call opens a new real-money account with the `maltainvest` Landing Company. This call can be made from a virtual-money account or real-money account at Deriv (Europe) Limited. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
 #[derive(Debug, Clone, Serialize, Deserialize)]

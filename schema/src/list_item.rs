@@ -9,14 +9,14 @@ use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::visibility_status_item_enum::VisibilityStatusItemEnum; 
 use crate::advertiser_details::AdvertiserDetails; 
+use crate::is_visible_enum::IsVisibleEnum; 
+use crate::is_active_enum::IsActiveEnum; 
+use crate::type_enum::TypeEnum; 
+use crate::rate_type_enum::RateTypeEnum; 
+use crate::visibility_status_item_enum::VisibilityStatusItemEnum; 
 use crate::block_trade_enum::BlockTradeEnum; 
 use crate::counterparty_type_enum::CounterpartyTypeEnum; 
-use crate::rate_type_enum::RateTypeEnum; 
-use crate::is_active_enum::IsActiveEnum; 
-use crate::is_visible_enum::IsVisibleEnum; 
-use crate::type_enum::TypeEnum; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,10 +9,10 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::supported_payment_methods_item::SupportedPaymentMethodsItem;
 use crate::phone_numbers_item::PhoneNumbersItem;
-use crate::paymentagent_create_enum::PaymentagentCreateEnum;
 use crate::code_of_conduct_approval_enum::CodeOfConductApprovalEnum;
+use crate::supported_payment_methods_item::SupportedPaymentMethodsItem;
+use crate::paymentagent_create_enum::PaymentagentCreateEnum;
 use crate::urls_item::UrlsItem;
 
 /// Saves client's payment agent details.

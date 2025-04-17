@@ -9,11 +9,11 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::is_deposit_suspended_enum::IsDepositSuspendedEnum; 
-use crate::transfer_between_accounts::TransferBetweenAccounts; 
 use crate::is_withdrawal_suspended_enum::IsWithdrawalSuspendedEnum; 
-use crate::platform::Platform; 
 use crate::is_suspended_enum::IsSuspendedEnum; 
+use crate::transfer_between_accounts::TransferBetweenAccounts; 
+use crate::is_deposit_suspended_enum::IsDepositSuspendedEnum; 
+use crate::platform::Platform; 
 use crate::type_enum::TypeEnum; 
 
 // It's a struct

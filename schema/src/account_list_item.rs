@@ -11,8 +11,8 @@ use chrono::{DateTime, Utc};
 // Import shared types from the *same* crate
 use crate::account_category_enum::AccountCategoryEnum; 
 use crate::is_disabled_enum::IsDisabledEnum; 
-use crate::is_virtual_enum::IsVirtualEnum; 
 use crate::linked_to_item::LinkedToItem; 
+use crate::is_virtual_enum::IsVirtualEnum; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

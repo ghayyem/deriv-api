@@ -10,8 +10,8 @@ use std::collections::HashMap;
 
 // Import required types from the *same* crate
 use crate::email_consent_enum::EmailConsentEnum;
-use crate::signup_device_enum::SignupDeviceEnum;
 use crate::type_enum::TypeEnum;
+use crate::signup_device_enum::SignupDeviceEnum;
 
 /// Create a new virtual-money account.
 #[derive(Debug, Clone, Serialize, Deserialize)]

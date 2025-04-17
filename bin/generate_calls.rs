@@ -34,7 +34,7 @@ pub async fn subscribe_{{fn_name}}(&self, request: deriv_api_schema::{{request_t
     {{{subscribe_assignment}}} // Use placeholder for assignment
     let initial_response = self.send_request(&request).await?;
     // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
+    Ok(unimplemented!("Subscription not implemented yet"))
 }
 "#;
 

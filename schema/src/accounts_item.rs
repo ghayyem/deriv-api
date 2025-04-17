@@ -9,13 +9,13 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
+use crate::account_type_enum::AccountTypeEnum; 
+use crate::account_category_enum::AccountCategoryEnum; 
+use crate::sub_account_type_enum::SubAccountTypeEnum; 
+use crate::demo_account_enum::DemoAccountEnum; 
+use crate::product_enum::ProductEnum; 
 use crate::transfers_enum::TransfersEnum; 
 use crate::market_type_enum::MarketTypeEnum; 
-use crate::demo_account_enum::DemoAccountEnum; 
-use crate::account_type_enum::AccountTypeEnum; 
-use crate::sub_account_type_enum::SubAccountTypeEnum; 
-use crate::account_category_enum::AccountCategoryEnum; 
-use crate::product_enum::ProductEnum; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

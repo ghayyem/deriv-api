@@ -10,20 +10,20 @@ use std::collections::HashMap;
 
 // Import shared types from the *same* crate
 use crate::require_address_postcode_enum::RequireAddressPostcodeEnum; 
+use crate::dxtrade_all_company::DxtradeAllCompany; 
+use crate::need_set_max_turnover_limit_enum::NeedSetMaxTurnoverLimitEnum; 
+use crate::dxtrade_financial_company::DxtradeFinancialCompany; 
 use crate::ctrader::Ctrader; 
+use crate::require_poi_enum::RequirePoiEnum; 
+use crate::dxtrade_gaming_company::DxtradeGamingCompany; 
+use crate::is_idv_supported_enum::IsIdvSupportedEnum; 
+use crate::address_parseable_enum::AddressParseableEnum; 
 use crate::require_verification_when_not_age_verified_enum::RequireVerificationWhenNotAgeVerifiedEnum; 
 use crate::skip_deposit_verification_enum::SkipDepositVerificationEnum; 
+use crate::no_province_enum::NoProvinceEnum; 
 use crate::mt5_age_verification_enum::Mt5AgeVerificationEnum; 
 use crate::all_company_enum::AllCompanyEnum; 
-use crate::no_province_enum::NoProvinceEnum; 
-use crate::is_idv_supported_enum::IsIdvSupportedEnum; 
-use crate::need_set_max_turnover_limit_enum::NeedSetMaxTurnoverLimitEnum; 
-use crate::dxtrade_gaming_company::DxtradeGamingCompany; 
-use crate::address_parseable_enum::AddressParseableEnum; 
-use crate::dxtrade_all_company::DxtradeAllCompany; 
-use crate::dxtrade_financial_company::DxtradeFinancialCompany; 
 use crate::require_age_verified_for_synthetic_enum::RequireAgeVerifiedForSyntheticEnum; 
-use crate::require_poi_enum::RequirePoiEnum; 
 
 // It's a struct
 /// Landing Company

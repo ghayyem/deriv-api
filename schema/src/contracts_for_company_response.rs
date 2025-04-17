@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::contracts_for_company::ContractsForCompany;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::contracts_for_company::ContractsForCompany;
 
 /// Get the list of currently available contracts for a given landing company.
 #[derive(Debug, Clone, Serialize, Deserialize)]

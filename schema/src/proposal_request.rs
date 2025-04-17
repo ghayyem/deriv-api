@@ -9,14 +9,14 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import required types from the *same* crate
-use crate::duration_unit_enum::DurationUnitEnum;
+use crate::basis_enum::BasisEnum;
 use crate::barrier_range_enum::BarrierRangeEnum;
 use crate::product_type_enum::ProductTypeEnum;
 use crate::contract_type_enum::ContractTypeEnum;
-use crate::limit_order::LimitOrder;
-use crate::basis_enum::BasisEnum;
 use crate::trade_risk_profile_enum::TradeRiskProfileEnum;
+use crate::limit_order::LimitOrder;
 use crate::subscribe_enum::SubscribeEnum;
+use crate::duration_unit_enum::DurationUnitEnum;
 
 /// Gets latest price for a specific contract.
 #[derive(Debug, Clone, Serialize, Deserialize)]

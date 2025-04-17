@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::app_markup_details::AppMarkupDetails;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::app_markup_details::AppMarkupDetails;
 
 /// Per transaction reporting of app_markup
 #[derive(Debug, Clone, Serialize, Deserialize)]

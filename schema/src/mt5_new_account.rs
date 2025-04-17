@@ -10,10 +10,10 @@ use serde::{Deserialize, Serialize};
 
 // Import shared types from the *same* crate
 use crate::account_type_enum::AccountTypeEnum; 
-use crate::sub_account_type_enum::SubAccountTypeEnum; 
-use crate::mt5_account_type_enum::Mt5AccountTypeEnum; 
 use crate::product_enum::ProductEnum; 
+use crate::sub_account_type_enum::SubAccountTypeEnum; 
 use crate::mt5_account_category_enum::Mt5AccountCategoryEnum; 
+use crate::mt5_account_type_enum::Mt5AccountTypeEnum; 
 
 // It's a struct
 /// New MT5 account details

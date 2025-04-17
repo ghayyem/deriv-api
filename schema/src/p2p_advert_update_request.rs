@@ -10,8 +10,8 @@ use std::collections::HashMap;
 
 // Import required types from the *same* crate
 use crate::rate_type_enum::RateTypeEnum;
-use crate::is_active_enum::IsActiveEnum;
 use crate::delete_enum::DeleteEnum;
+use crate::is_active_enum::IsActiveEnum;
 
 /// Updates a P2P advert. Can only be used by the advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]

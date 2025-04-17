@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::subscription::Subscription;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// Latest price and other details for an open contract in the user's portfolio
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,12 +9,12 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::environment_enum::EnvironmentEnum; 
-use crate::geolocation::Geolocation; 
-use crate::recommended_enum::RecommendedEnum; 
 use crate::account_type_enum::AccountTypeEnum; 
 use crate::disabled_enum::DisabledEnum; 
 use crate::id_enum::IdEnum; 
+use crate::environment_enum::EnvironmentEnum; 
+use crate::recommended_enum::RecommendedEnum; 
+use crate::geolocation::Geolocation; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

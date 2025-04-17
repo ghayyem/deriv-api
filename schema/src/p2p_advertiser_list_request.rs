@@ -9,10 +9,10 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::is_blocked_enum::IsBlockedEnum;
-use crate::p2p_advertiser_list_enum::P2pAdvertiserListEnum;
 use crate::sort_by_enum::SortByEnum;
+use crate::p2p_advertiser_list_enum::P2pAdvertiserListEnum;
 use crate::trade_partners_enum::TradePartnersEnum;
+use crate::is_blocked_enum::IsBlockedEnum;
 
 /// Retrieve advertisers has/had trade with the current advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]

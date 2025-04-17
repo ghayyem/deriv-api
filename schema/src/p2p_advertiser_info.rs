@@ -9,17 +9,17 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
+use crate::show_name_enum::ShowNameEnum; 
+use crate::is_online_enum::IsOnlineEnum; 
+use crate::is_favourite_enum::IsFavouriteEnum; 
 use crate::is_listed_enum::IsListedEnum; 
+use crate::upgradable_daily_limits::UpgradableDailyLimits; 
+use crate::full_verification_enum::FullVerificationEnum; 
 use crate::basic_verification_enum::BasicVerificationEnum; 
 use crate::is_blocked_enum::IsBlockedEnum; 
-use crate::is_online_enum::IsOnlineEnum; 
-use crate::upgradable_daily_limits::UpgradableDailyLimits; 
-use crate::is_favourite_enum::IsFavouriteEnum; 
-use crate::block_trade::BlockTrade; 
-use crate::show_name_enum::ShowNameEnum; 
-use crate::is_approved_enum::IsApprovedEnum; 
-use crate::full_verification_enum::FullVerificationEnum; 
 use crate::is_recommended_enum::IsRecommendedEnum; 
+use crate::is_approved_enum::IsApprovedEnum; 
+use crate::block_trade::BlockTrade; 
 use crate::is_schedule_available_enum::IsScheduleAvailableEnum; 
 
 // It's a struct

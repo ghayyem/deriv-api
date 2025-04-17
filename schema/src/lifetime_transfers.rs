@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
+use crate::fiat_to_crypto::FiatToCrypto; 
 use crate::crypto_to_crypto::CryptoToCrypto; 
 use crate::crypto_to_fiat::CryptoToFiat; 
-use crate::fiat_to_crypto::FiatToCrypto; 
 
 // It's a struct
 /// Lifetime transfer limits. Only present when applicable to the current accout.

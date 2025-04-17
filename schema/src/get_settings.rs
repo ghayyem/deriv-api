@@ -9,16 +9,16 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::email_consent_enum::EmailConsentEnum; 
-use crate::request_professional_status_enum::RequestProfessionalStatusEnum; 
+use crate::non_pep_declaration_enum::NonPepDeclarationEnum; 
 use crate::has_secret_answer_enum::HasSecretAnswerEnum; 
-use crate::tin_skipped_enum::TinSkippedEnum; 
 use crate::is_authenticated_payment_agent_enum::IsAuthenticatedPaymentAgentEnum; 
 use crate::dxtrade_user_exception_enum::DxtradeUserExceptionEnum; 
-use crate::allow_copiers_enum::AllowCopiersEnum; 
-use crate::phone_number_verification::PhoneNumberVerification; 
+use crate::email_consent_enum::EmailConsentEnum; 
 use crate::feature_flag::FeatureFlag; 
-use crate::non_pep_declaration_enum::NonPepDeclarationEnum; 
+use crate::request_professional_status_enum::RequestProfessionalStatusEnum; 
+use crate::tin_skipped_enum::TinSkippedEnum; 
+use crate::phone_number_verification::PhoneNumberVerification; 
+use crate::allow_copiers_enum::AllowCopiersEnum; 
 
 // It's a struct
 /// User information and settings.

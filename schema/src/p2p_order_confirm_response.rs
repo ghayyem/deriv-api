@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::p2p_order_confirm::P2pOrderConfirm;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::p2p_order_confirm::P2pOrderConfirm;
 
 /// Result of the P2P order confirmation.
 #[derive(Debug, Clone, Serialize, Deserialize)]

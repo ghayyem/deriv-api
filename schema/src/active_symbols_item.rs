@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::is_trading_suspended_enum::IsTradingSuspendedEnum; 
 use crate::exchange_is_open_enum::ExchangeIsOpenEnum; 
+use crate::is_trading_suspended_enum::IsTradingSuspendedEnum; 
 use crate::allow_forward_starting_enum::AllowForwardStartingEnum; 
 
 // It's a struct

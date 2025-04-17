@@ -10,8 +10,8 @@ use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
 use crate::basis_enum::BasisEnum; 
-use crate::duration_unit_enum::DurationUnitEnum; 
 use crate::contract_type_enum::ContractTypeEnum; 
+use crate::duration_unit_enum::DurationUnitEnum; 
 
 // It's a struct
 /// [Optional] Used to pass the parameters for contract buy.

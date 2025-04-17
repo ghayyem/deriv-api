@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::confirm_email_enum::ConfirmEmailEnum;
 use crate::email_consent_enum::EmailConsentEnum;
 use crate::created_for_enum::CreatedForEnum;
-use crate::confirm_email_enum::ConfirmEmailEnum;
 
 /// Verifies the email for the user using verification code passed in the request object
 #[derive(Debug, Clone, Serialize, Deserialize)]

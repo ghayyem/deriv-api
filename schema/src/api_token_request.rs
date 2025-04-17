@@ -10,8 +10,8 @@ use std::collections::HashMap;
 
 // Import required types from the *same* crate
 use crate::api_token_enum::ApiTokenEnum;
-use crate::new_token_scopes_item_enum::NewTokenScopesItemEnum;
 use crate::valid_for_current_ip_only_enum::ValidForCurrentIpOnlyEnum;
+use crate::new_token_scopes_item_enum::NewTokenScopesItemEnum;
 
 /// This call manages API tokens
 #[derive(Debug, Clone, Serialize, Deserialize)]

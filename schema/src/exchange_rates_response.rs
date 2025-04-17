@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::subscription::Subscription;
 use crate::msg_type_enum::MsgTypeEnum;
 use crate::exchange_rates::ExchangeRates;
-use crate::subscription::Subscription;
 
 /// The exchange rate values from the specified base currency to the specified target currency supported by the system.
 #[derive(Debug, Clone, Serialize, Deserialize)]

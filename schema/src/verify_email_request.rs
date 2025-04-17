@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::url_parameters::UrlParameters;
 use crate::type_enum::TypeEnum;
+use crate::url_parameters::UrlParameters;
 
 /// Verify an email address for various purposes. The system will send an email to the address containing a security code for verification.
 #[derive(Debug, Clone, Serialize, Deserialize)]

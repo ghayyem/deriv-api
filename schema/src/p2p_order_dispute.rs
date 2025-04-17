@@ -9,16 +9,16 @@ use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
+use crate::is_incoming_enum::IsIncomingEnum; 
+use crate::advert_details::AdvertDetails; 
+use crate::verification_pending_enum::VerificationPendingEnum; 
+use crate::client_details::ClientDetails; 
 use crate::dispute_details::DisputeDetails; 
 use crate::advertiser_details::AdvertiserDetails; 
-use crate::is_incoming_enum::IsIncomingEnum; 
-use crate::verification_pending_enum::VerificationPendingEnum; 
-use crate::advert_details::AdvertDetails; 
 use crate::status_enum::StatusEnum; 
 use crate::is_seen_enum::IsSeenEnum; 
-use crate::client_details::ClientDetails; 
-use crate::is_reviewable_enum::IsReviewableEnum; 
 use crate::type_enum::TypeEnum; 
+use crate::is_reviewable_enum::IsReviewableEnum; 
 
 // It's a struct
 /// Details of the disputed order.

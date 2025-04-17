@@ -9,11 +9,11 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::market_type_enum::MarketTypeEnum;
 use crate::account_type_enum::AccountTypeEnum;
 use crate::platform_enum::PlatformEnum;
 use crate::environment_enum::EnvironmentEnum;
 use crate::trading_servers_enum::TradingServersEnum;
+use crate::market_type_enum::MarketTypeEnum;
 
 /// Get the list of servers for a trading platform.
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,19 +9,19 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::type_enum::TypeEnum; 
-use crate::visibility_status_item_enum::VisibilityStatusItemEnum; 
-use crate::payment_method_details_value::PaymentMethodDetailsValue; 
 use crate::advertiser_details::AdvertiserDetails; 
+use crate::is_visible_enum::IsVisibleEnum; 
+use crate::deleted_enum::DeletedEnum; 
+use crate::is_eligible_enum::IsEligibleEnum; 
+use crate::is_active_enum::IsActiveEnum; 
+use crate::visibility_status_item_enum::VisibilityStatusItemEnum; 
+use crate::eligibility_status_item_enum::EligibilityStatusItemEnum; 
+use crate::type_enum::TypeEnum; 
+use crate::is_client_schedule_available_enum::IsClientScheduleAvailableEnum; 
+use crate::payment_method_details_value::PaymentMethodDetailsValue; 
+use crate::rate_type_enum::RateTypeEnum; 
 use crate::block_trade_enum::BlockTradeEnum; 
 use crate::counterparty_type_enum::CounterpartyTypeEnum; 
-use crate::deleted_enum::DeletedEnum; 
-use crate::eligibility_status_item_enum::EligibilityStatusItemEnum; 
-use crate::rate_type_enum::RateTypeEnum; 
-use crate::is_client_schedule_available_enum::IsClientScheduleAvailableEnum; 
-use crate::is_active_enum::IsActiveEnum; 
-use crate::is_eligible_enum::IsEligibleEnum; 
-use crate::is_visible_enum::IsVisibleEnum; 
 
 // It's a struct
 /// P2P advert information.

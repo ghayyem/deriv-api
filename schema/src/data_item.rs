@@ -10,9 +10,9 @@ use serde::{Deserialize, Serialize};
 
 // Import shared types from the *same* crate
 use crate::market::Market; 
-use crate::symbol_item::SymbolItem; 
 use crate::submarket::Submarket; 
 use crate::trade_durations_item::TradeDurationsItem; 
+use crate::symbol_item::SymbolItem; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::asset_index_enum::AssetIndexEnum;
 use crate::landing_company_short_enum::LandingCompanyShortEnum;
 use crate::landing_company_enum::LandingCompanyEnum;
-use crate::asset_index_enum::AssetIndexEnum;
 
 /// Retrieve a list of all available underlyings and the corresponding contract types and duration boundaries. If the user is logged in, only the assets available for that user's landing company will be returned.
 #[derive(Debug, Clone, Serialize, Deserialize)]

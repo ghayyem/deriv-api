@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::forget_enum::ForgetEnum;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// The result of forget request made.
 #[derive(Debug, Clone, Serialize, Deserialize)]

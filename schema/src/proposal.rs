@@ -10,9 +10,9 @@ use std::collections::HashMap;
 
 // Import shared types from the *same* crate
 use crate::contract_details::ContractDetails; 
-use crate::cancellation::Cancellation; 
-use crate::limit_order::LimitOrder; 
 use crate::validation_params::ValidationParams; 
+use crate::limit_order::LimitOrder; 
+use crate::cancellation::Cancellation; 
 
 // It's a struct
 /// Latest price and other details for a given contract

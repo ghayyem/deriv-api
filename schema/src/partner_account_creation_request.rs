@@ -9,13 +9,13 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::salutation_enum::SalutationEnum;
 use crate::provider_enum::ProviderEnum;
-use crate::tnc_acceptance_enum::TncAcceptanceEnum;
-use crate::partner_type_enum::PartnerTypeEnum;
-use crate::landing_company_short_enum::LandingCompanyShortEnum;
-use crate::fatca_declaration_enum::FatcaDeclarationEnum;
 use crate::partner_account_creation_enum::PartnerAccountCreationEnum;
+use crate::landing_company_short_enum::LandingCompanyShortEnum;
+use crate::tnc_acceptance_enum::TncAcceptanceEnum;
+use crate::salutation_enum::SalutationEnum;
+use crate::fatca_declaration_enum::FatcaDeclarationEnum;
+use crate::partner_type_enum::PartnerTypeEnum;
 
 /// This call initiates the state machine for account creation process
 #[derive(Debug, Clone, Serialize, Deserialize)]

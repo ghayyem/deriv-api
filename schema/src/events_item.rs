@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::forecast::Forecast; 
 use crate::previous::Previous; 
 use crate::actual::Actual; 
+use crate::forecast::Forecast; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

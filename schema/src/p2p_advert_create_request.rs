@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::block_trade_enum::BlockTradeEnum;
 use crate::rate_type_enum::RateTypeEnum;
 use crate::type_enum::TypeEnum;
+use crate::block_trade_enum::BlockTradeEnum;
 
 /// Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -10,8 +10,8 @@ use std::collections::HashMap;
 
 // Import required types from the *same* crate
 use crate::sort_enum::SortEnum;
-use crate::contract_type_item_enum::ContractTypeItemEnum;
 use crate::description_enum::DescriptionEnum;
+use crate::contract_type_item_enum::ContractTypeItemEnum;
 
 /// Retrieve a summary of account Profit Table, according to given search criteria
 #[derive(Debug, Clone, Serialize, Deserialize)]

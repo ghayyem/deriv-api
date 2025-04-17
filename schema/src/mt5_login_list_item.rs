@@ -9,16 +9,16 @@ use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
-use crate::server_info::ServerInfo; 
-use crate::client_kyc_status::ClientKycStatus; 
-use crate::market_type_enum::MarketTypeEnum; 
-use crate::sub_account_category_enum::SubAccountCategoryEnum; 
-use crate::account_type_enum::AccountTypeEnum; 
-use crate::sub_account_type_enum::SubAccountTypeEnum; 
 use crate::white_label_links::WhiteLabelLinks; 
+use crate::account_type_enum::AccountTypeEnum; 
+use crate::product_enum::ProductEnum; 
+use crate::server_info::ServerInfo; 
+use crate::sub_account_type_enum::SubAccountTypeEnum; 
+use crate::client_kyc_status::ClientKycStatus; 
+use crate::sub_account_category_enum::SubAccountCategoryEnum; 
 use crate::error::Error; 
 use crate::landing_company_short_enum::LandingCompanyShortEnum; 
-use crate::product_enum::ProductEnum; 
+use crate::market_type_enum::MarketTypeEnum; 
 use crate::rights::Rights; 
 
 // It's a struct

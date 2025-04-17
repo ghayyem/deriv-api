@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::mt5_get_settings::Mt5GetSettings;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// Get MT5 user settings
 #[derive(Debug, Clone, Serialize, Deserialize)]

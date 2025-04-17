@@ -9,10 +9,10 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::is_listed_enum::IsListedEnum;
-use crate::p2p_advertiser_update_enum::P2pAdvertiserUpdateEnum;
-use crate::upgrade_limits_enum::UpgradeLimitsEnum;
 use crate::show_name_enum::ShowNameEnum;
+use crate::is_listed_enum::IsListedEnum;
+use crate::upgrade_limits_enum::UpgradeLimitsEnum;
+use crate::p2p_advertiser_update_enum::P2pAdvertiserUpdateEnum;
 
 /// Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]

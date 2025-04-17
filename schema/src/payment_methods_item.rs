@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
-use crate::withdraw_limits_value::WithdrawLimitsValue; 
 use crate::deposit_limits_value::DepositLimitsValue; 
+use crate::withdraw_limits_value::WithdrawLimitsValue; 
 
 // It's a struct
 /// A payment method suported for the given country

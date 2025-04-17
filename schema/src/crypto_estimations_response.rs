@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::subscription::Subscription;
 use crate::crypto_estimations_value::CryptoEstimationsValue;
+use crate::subscription::Subscription;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// Latest cryptocurrency estimations.
 #[derive(Debug, Clone, Serialize, Deserialize)]

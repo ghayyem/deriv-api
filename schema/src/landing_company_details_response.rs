@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::landing_company_details::LandingCompanyDetails;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// A message with Landing Company.
 #[derive(Debug, Clone, Serialize, Deserialize)]

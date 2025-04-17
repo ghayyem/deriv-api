@@ -9,12 +9,12 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::lifetime_valid_enum::LifetimeValidEnum;
 use crate::document_type_enum::DocumentTypeEnum;
+use crate::page_type_enum::PageTypeEnum;
 use crate::document_upload_enum::DocumentUploadEnum;
 use crate::proof_of_ownership::ProofOfOwnership;
 use crate::document_format_enum::DocumentFormatEnum;
-use crate::lifetime_valid_enum::LifetimeValidEnum;
-use crate::page_type_enum::PageTypeEnum;
 
 /// Request KYC information from client
 #[derive(Debug, Clone, Serialize, Deserialize)]

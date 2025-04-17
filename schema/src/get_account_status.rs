@@ -9,12 +9,12 @@ use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
-use crate::authentication::Authentication; 
-use crate::currency_config_value::CurrencyConfigValue; 
-use crate::social_identity_provider_enum::SocialIdentityProviderEnum; 
+use crate::p2p_poa_required_enum::P2pPoaRequiredEnum; 
 use crate::prompt_client_to_authenticate_enum::PromptClientToAuthenticateEnum; 
 use crate::p2p_status_enum::P2pStatusEnum; 
-use crate::p2p_poa_required_enum::P2pPoaRequiredEnum; 
+use crate::social_identity_provider_enum::SocialIdentityProviderEnum; 
+use crate::authentication::Authentication; 
+use crate::currency_config_value::CurrencyConfigValue; 
 
 // It's a struct
 /// Account status details

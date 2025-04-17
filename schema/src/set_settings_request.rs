@@ -9,17 +9,17 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::salutation_enum::SalutationEnum;
-use crate::secret_question_enum::SecretQuestionEnum;
-use crate::set_settings_enum::SetSettingsEnum;
-use crate::email_consent_enum::EmailConsentEnum;
-use crate::request_professional_status_enum::RequestProfessionalStatusEnum;
-use crate::trading_hub_enum::TradingHubEnum;
-use crate::tin_skipped_enum::TinSkippedEnum;
-use crate::dxtrade_user_exception_enum::DxtradeUserExceptionEnum;
-use crate::allow_copiers_enum::AllowCopiersEnum;
-use crate::feature_flag::FeatureFlag;
 use crate::non_pep_declaration_enum::NonPepDeclarationEnum;
+use crate::tin_skipped_enum::TinSkippedEnum;
+use crate::email_consent_enum::EmailConsentEnum;
+use crate::secret_question_enum::SecretQuestionEnum;
+use crate::request_professional_status_enum::RequestProfessionalStatusEnum;
+use crate::dxtrade_user_exception_enum::DxtradeUserExceptionEnum;
+use crate::feature_flag::FeatureFlag;
+use crate::salutation_enum::SalutationEnum;
+use crate::set_settings_enum::SetSettingsEnum;
+use crate::trading_hub_enum::TradingHubEnum;
+use crate::allow_copiers_enum::AllowCopiersEnum;
 
 /// Set User Settings (this call should be used in conjunction with `get_settings`)
 #[derive(Debug, Clone, Serialize, Deserialize)]

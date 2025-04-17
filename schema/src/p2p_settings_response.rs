@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::subscription::Subscription;
+use crate::msg_type_enum::MsgTypeEnum;
 use crate::p2p_settings::P2pSettings;
 
 /// Information of the P2P settings.

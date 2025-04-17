@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::has_adverts_enum::HasAdvertsEnum; 
-use crate::is_floating_rate_ad_supported_enum::IsFloatingRateAdSupportedEnum; 
 use crate::is_default_enum::IsDefaultEnum; 
+use crate::is_floating_rate_ad_supported_enum::IsFloatingRateAdSupportedEnum; 
+use crate::has_adverts_enum::HasAdvertsEnum; 
 
 // It's a struct
 /// Local currency details.

@@ -11,8 +11,8 @@ use std::collections::HashMap;
 // Import shared types from the *same* crate
 use crate::linked_to_item::LinkedToItem; 
 use crate::account_list_item::AccountListItem; 
-use crate::is_virtual_enum::IsVirtualEnum; 
 use crate::local_currencies_value::LocalCurrenciesValue; 
+use crate::is_virtual_enum::IsVirtualEnum; 
 
 // It's a struct
 /// Account information for the holder of the token.

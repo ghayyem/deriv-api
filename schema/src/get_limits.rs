@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
-use crate::lifetime_transfers::LifetimeTransfers; 
 use crate::market_specific_value_item::MarketSpecificValueItem; 
+use crate::lifetime_transfers::LifetimeTransfers; 
 
 // It's a struct
 /// Trading limits of real account user

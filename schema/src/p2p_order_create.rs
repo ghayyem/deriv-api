@@ -9,16 +9,16 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::status_enum::StatusEnum; 
-use crate::type_enum::TypeEnum; 
-use crate::dispute_details::DisputeDetails; 
-use crate::is_seen_enum::IsSeenEnum; 
-use crate::payment_method_details_value::PaymentMethodDetailsValue; 
-use crate::advertiser_details::AdvertiserDetails; 
 use crate::is_incoming_enum::IsIncomingEnum; 
-use crate::client_details::ClientDetails; 
 use crate::advert_details::AdvertDetails; 
+use crate::client_details::ClientDetails; 
+use crate::dispute_details::DisputeDetails; 
+use crate::advertiser_details::AdvertiserDetails; 
+use crate::status_enum::StatusEnum; 
+use crate::is_seen_enum::IsSeenEnum; 
+use crate::type_enum::TypeEnum; 
 use crate::is_reviewable_enum::IsReviewableEnum; 
+use crate::payment_method_details_value::PaymentMethodDetailsValue; 
 
 // It's a struct
 /// Information of the creates P2P order.

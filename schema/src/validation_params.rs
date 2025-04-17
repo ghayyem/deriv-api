@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::take_profit::TakeProfit; 
 use crate::stop_loss::StopLoss; 
 use crate::payout::Payout; 
+use crate::take_profit::TakeProfit; 
 use crate::stake::Stake; 
 
 // It's a struct

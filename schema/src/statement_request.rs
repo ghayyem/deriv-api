@@ -9,8 +9,8 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import required types from the *same* crate
-use crate::action_type_enum::ActionTypeEnum;
 use crate::description_enum::DescriptionEnum;
+use crate::action_type_enum::ActionTypeEnum;
 
 /// Retrieve a summary of account transactions, according to given search criteria
 #[derive(Debug, Clone, Serialize, Deserialize)]

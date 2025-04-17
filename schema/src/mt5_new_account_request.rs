@@ -10,13 +10,13 @@ use std::collections::HashMap;
 
 // Import required types from the *same* crate
 use crate::account_type_enum::AccountTypeEnum;
-use crate::server_enum::ServerEnum;
-use crate::sub_account_category_enum::SubAccountCategoryEnum;
-use crate::dry_run_enum::DryRunEnum;
 use crate::sub_account_type_enum::SubAccountTypeEnum;
-use crate::mt5_account_type_enum::Mt5AccountTypeEnum;
-use crate::product_enum::ProductEnum;
 use crate::mt5_account_category_enum::Mt5AccountCategoryEnum;
+use crate::server_enum::ServerEnum;
+use crate::dry_run_enum::DryRunEnum;
+use crate::product_enum::ProductEnum;
+use crate::sub_account_category_enum::SubAccountCategoryEnum;
+use crate::mt5_account_type_enum::Mt5AccountTypeEnum;
 
 /// This call creates new MT5 user, either demo or real money user.
 #[derive(Debug, Clone, Serialize, Deserialize)]

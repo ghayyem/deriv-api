@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::dry_run_enum::DryRunEnum;
 use crate::p2p_order_confirm_enum::P2pOrderConfirmEnum;
+use crate::dry_run_enum::DryRunEnum;
 
 /// Confirm a P2P order.
 #[derive(Debug, Clone, Serialize, Deserialize)]

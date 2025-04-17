@@ -9,15 +9,15 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::visibility_status_item_enum::VisibilityStatusItemEnum; 
-use crate::payment_method_details_value::PaymentMethodDetailsValue; 
+use crate::is_visible_enum::IsVisibleEnum; 
+use crate::rate_type_enum::RateTypeEnum; 
 use crate::advertiser_details::AdvertiserDetails; 
+use crate::is_active_enum::IsActiveEnum; 
+use crate::type_enum::TypeEnum; 
+use crate::payment_method_details_value::PaymentMethodDetailsValue; 
+use crate::visibility_status_item_enum::VisibilityStatusItemEnum; 
 use crate::block_trade_enum::BlockTradeEnum; 
 use crate::counterparty_type_enum::CounterpartyTypeEnum; 
-use crate::rate_type_enum::RateTypeEnum; 
-use crate::is_active_enum::IsActiveEnum; 
-use crate::is_visible_enum::IsVisibleEnum; 
-use crate::type_enum::TypeEnum; 
 
 // It's a struct
 /// The information of the created P2P advert.

@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::tnc_approval_enum::TncApprovalEnum;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// The result of T&C approval request.
 #[derive(Debug, Clone, Serialize, Deserialize)]

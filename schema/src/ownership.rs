@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::requests_item::RequestsItem; 
 use crate::status_enum::StatusEnum; 
+use crate::requests_item::RequestsItem; 
 
 // It's a struct
 /// The current state of the proof of ownership.

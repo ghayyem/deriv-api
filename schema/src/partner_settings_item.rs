@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::provider_enum::ProviderEnum; 
 use crate::partner_type_enum::PartnerTypeEnum; 
+use crate::provider_enum::ProviderEnum; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]

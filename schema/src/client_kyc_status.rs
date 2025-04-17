@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::valid_tin_enum::ValidTinEnum; 
 use crate::poi_status_enum::PoiStatusEnum; 
+use crate::valid_tin_enum::ValidTinEnum; 
 use crate::poa_status_enum::PoaStatusEnum; 
 
 // It's a struct

@@ -9,10 +9,10 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::style_enum::StyleEnum;
-use crate::adjust_start_time_enum::AdjustStartTimeEnum;
 use crate::granularity_enum::GranularityEnum;
+use crate::adjust_start_time_enum::AdjustStartTimeEnum;
 use crate::subscribe_enum::SubscribeEnum;
+use crate::style_enum::StyleEnum;
 
 /// Get historic tick data for a given symbol.
 #[derive(Debug, Clone, Serialize, Deserialize)]

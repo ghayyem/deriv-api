@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::delete_token_enum::DeleteTokenEnum; 
-use crate::tokens_item::TokensItem; 
 use crate::new_token_enum::NewTokenEnum; 
+use crate::tokens_item::TokensItem; 
+use crate::delete_token_enum::DeleteTokenEnum; 
 
 // It's a struct
 /// Contains the result of API token according to the type of request.

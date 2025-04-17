@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::answers_item::AnswersItem; 
 use crate::type_enum::TypeEnum; 
+use crate::answers_item::AnswersItem; 
 
 // It's a struct
 /// Question object containing the question details and possible answers

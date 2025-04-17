@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::partner_settings_update_enum::PartnerSettingsUpdateEnum;
 use crate::provider_enum::ProviderEnum;
+use crate::partner_settings_update_enum::PartnerSettingsUpdateEnum;
 use crate::partner_type_enum::PartnerTypeEnum;
 
 /// A message with Partner Settings

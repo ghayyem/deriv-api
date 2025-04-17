@@ -10,17 +10,17 @@ use serde::{Deserialize, Serialize};
 
 // Import shared types from the *same* crate
 use crate::bvi_enum::BviEnum; 
+use crate::virtual_enum::VirtualEnum; 
+use crate::labuan_enum::LabuanEnum; 
+use crate::svg_enum::SvgEnum; 
+use crate::malta_enum::MaltaEnum; 
+use crate::dml_enum::DmlEnum; 
 use crate::dsl_enum::DslEnum; 
 use crate::samoa_enum::SamoaEnum; 
-use crate::labuan_enum::LabuanEnum; 
-use crate::dml_enum::DmlEnum; 
-use crate::maltainvest_enum::MaltainvestEnum; 
 use crate::samoa_virtual_enum::SamoaVirtualEnum; 
 use crate::vanuatu_enum::VanuatuEnum; 
 use crate::iom_enum::IomEnum; 
-use crate::virtual_enum::VirtualEnum; 
-use crate::svg_enum::SvgEnum; 
-use crate::malta_enum::MaltaEnum; 
+use crate::maltainvest_enum::MaltainvestEnum; 
 
 // It's a struct
 /// This represents the current status of authentication for each mt5 jurisdiction.

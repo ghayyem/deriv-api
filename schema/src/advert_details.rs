@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::block_trade_enum::BlockTradeEnum; 
 use crate::type_enum::TypeEnum; 
+use crate::block_trade_enum::BlockTradeEnum; 
 
 // It's a struct
 /// Details of the advert for this order.

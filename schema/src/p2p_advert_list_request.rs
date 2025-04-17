@@ -9,14 +9,14 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::use_client_limits_enum::UseClientLimitsEnum;
-use crate::hide_ineligible_enum::HideIneligibleEnum;
-use crate::block_trade_enum::BlockTradeEnum;
-use crate::favourites_only_enum::FavouritesOnlyEnum;
-use crate::counterparty_type_enum::CounterpartyTypeEnum;
+use crate::sort_by_enum::SortByEnum;
 use crate::p2p_advert_list_enum::P2pAdvertListEnum;
 use crate::hide_client_schedule_unavailable_enum::HideClientScheduleUnavailableEnum;
-use crate::sort_by_enum::SortByEnum;
+use crate::favourites_only_enum::FavouritesOnlyEnum;
+use crate::hide_ineligible_enum::HideIneligibleEnum;
+use crate::use_client_limits_enum::UseClientLimitsEnum;
+use crate::block_trade_enum::BlockTradeEnum;
+use crate::counterparty_type_enum::CounterpartyTypeEnum;
 
 /// Returns available adverts for use with `p2p_order_create` .
 #[derive(Debug, Clone, Serialize, Deserialize)]

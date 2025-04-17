@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::trading_platform_password_reset_enum::TradingPlatformPasswordResetEnum;
 use crate::platform_enum::PlatformEnum;
+use crate::trading_platform_password_reset_enum::TradingPlatformPasswordResetEnum;
 
 /// Reset the password of a Trading Platform Account
 #[derive(Debug, Clone, Serialize, Deserialize)]

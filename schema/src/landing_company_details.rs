@@ -9,10 +9,10 @@ use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
+use crate::tin_not_mandatory_enum::TinNotMandatoryEnum; 
 use crate::currency_config::CurrencyConfig; 
 use crate::has_reality_check_enum::HasRealityCheckEnum; 
 use crate::requirements::Requirements; 
-use crate::tin_not_mandatory_enum::TinNotMandatoryEnum; 
 use crate::support_professional_client_enum::SupportProfessionalClientEnum; 
 
 // It's a struct

@@ -10,11 +10,11 @@ use std::collections::HashMap;
 
 // Import shared types from the *same* crate
 use crate::supported_payment_methods_item::SupportedPaymentMethodsItem; 
-use crate::code_of_conduct_approval_enum::CodeOfConductApprovalEnum; 
-use crate::phone_numbers_item::PhoneNumbersItem; 
 use crate::urls_item::UrlsItem; 
-use crate::newly_authorized_enum::NewlyAuthorizedEnum; 
+use crate::phone_numbers_item::PhoneNumbersItem; 
 use crate::can_apply_enum::CanApplyEnum; 
+use crate::newly_authorized_enum::NewlyAuthorizedEnum; 
+use crate::code_of_conduct_approval_enum::CodeOfConductApprovalEnum; 
 
 // It's a struct
 /// The payment agent details.

@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::name_enum::NameEnum;
 use crate::get_third_party_redirect_enum::GetThirdPartyRedirectEnum;
+use crate::name_enum::NameEnum;
 
 /// Get Third Party Redirect URL for sso login.
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::p2p_ping_enum::P2pPingEnum;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::p2p_ping_enum::P2pPingEnum;
 
 /// The response of P2P ping request.
 #[derive(Debug, Clone, Serialize, Deserialize)]

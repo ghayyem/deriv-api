@@ -9,16 +9,16 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::cross_border_ads_enabled_enum::CrossBorderAdsEnabledEnum; 
-use crate::counterparty_term_steps::CounterpartyTermSteps; 
-use crate::float_rate_adverts_enum::FloatRateAdvertsEnum; 
-use crate::payment_methods_enabled_enum::PaymentMethodsEnabledEnum; 
-use crate::disabled_enum::DisabledEnum; 
-use crate::fixed_rate_adverts_enum::FixedRateAdvertsEnum; 
-use crate::pnv_required_enum::PnvRequiredEnum; 
 use crate::local_currencies_item::LocalCurrenciesItem; 
-use crate::block_trade::BlockTrade; 
+use crate::pnv_required_enum::PnvRequiredEnum; 
+use crate::disabled_enum::DisabledEnum; 
+use crate::counterparty_term_steps::CounterpartyTermSteps; 
 use crate::poa_required_enum::PoaRequiredEnum; 
+use crate::payment_methods_enabled_enum::PaymentMethodsEnabledEnum; 
+use crate::cross_border_ads_enabled_enum::CrossBorderAdsEnabledEnum; 
+use crate::float_rate_adverts_enum::FloatRateAdvertsEnum; 
+use crate::block_trade::BlockTrade; 
+use crate::fixed_rate_adverts_enum::FixedRateAdvertsEnum; 
 
 // It's a struct
 /// Peer-to-peer payment system settings.

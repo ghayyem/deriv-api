@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::subscription::Subscription;
 use crate::msg_type_enum::MsgTypeEnum;
 use crate::website_status::WebsiteStatus;
-use crate::subscription::Subscription;
 
 /// Server status alongside general settings like call limits, currencies information, supported languages, etc.
 #[derive(Debug, Clone, Serialize, Deserialize)]

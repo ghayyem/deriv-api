@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::p2p_advert_list::P2pAdvertList;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::p2p_advert_list::P2pAdvertList;
 
 /// Available adverts matching the requested criteria.
 #[derive(Debug, Clone, Serialize, Deserialize)]

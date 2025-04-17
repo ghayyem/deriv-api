@@ -9,10 +9,10 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::max_requests_outcome::MaxRequestsOutcome; 
 use crate::max_proposal_subscription::MaxProposalSubscription; 
-use crate::max_requests_pricing::MaxRequestsPricing; 
 use crate::max_requestes_general::MaxRequestesGeneral; 
+use crate::max_requests_pricing::MaxRequestsPricing; 
+use crate::max_requests_outcome::MaxRequestsOutcome; 
 
 // It's a struct
 /// Maximum number of API calls during specified period of time.

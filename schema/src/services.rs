@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::onfido::Onfido; 
 use crate::manual::Manual; 
 use crate::idv::Idv; 
+use crate::onfido::Onfido; 
 
 // It's a struct
 /// This shows the information about the authentication services implemented

@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::subscription::Subscription;
 use crate::msg_type_enum::MsgTypeEnum;
 use crate::p2p_advertiser_info::P2pAdvertiserInfo;
-use crate::subscription::Subscription;
 
 /// Returns information about the given advertiser ID.
 #[derive(Debug, Clone, Serialize, Deserialize)]

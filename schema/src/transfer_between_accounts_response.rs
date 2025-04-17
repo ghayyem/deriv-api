@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::msg_type_enum::MsgTypeEnum;
 use crate::accounts_item::AccountsItem;
 use crate::transfer_between_accounts_enum::TransferBetweenAccountsEnum;
-use crate::msg_type_enum::MsgTypeEnum;
 
 /// The result of transfer order.
 #[derive(Debug, Clone, Serialize, Deserialize)]

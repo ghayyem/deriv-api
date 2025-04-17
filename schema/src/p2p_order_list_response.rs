@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::subscription::Subscription;
+use crate::msg_type_enum::MsgTypeEnum;
 use crate::p2p_order_list::P2pOrderList;
 
 /// All orders matching the requested criteria.

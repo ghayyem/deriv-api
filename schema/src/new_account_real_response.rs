@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::new_account_real::NewAccountReal;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::new_account_real::NewAccountReal;
 
 /// Create real account Receive
 #[derive(Debug, Clone, Serialize, Deserialize)]

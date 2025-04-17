@@ -9,11 +9,11 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::partner_signup_enum::PartnerSignupEnum; 
-use crate::jurisdiction_risk_assessment::JurisdictionRiskAssessment; 
-use crate::identity::Identity; 
-use crate::wallet_signup_enum::WalletSignupEnum; 
 use crate::account_opening_self_declaration_required_enum::AccountOpeningSelfDeclarationRequiredEnum; 
+use crate::jurisdiction_risk_assessment::JurisdictionRiskAssessment; 
+use crate::partner_signup_enum::PartnerSignupEnum; 
+use crate::wallet_signup_enum::WalletSignupEnum; 
+use crate::identity::Identity; 
 use crate::common_reporting_standard::CommonReportingStandard; 
 
 // It's a struct

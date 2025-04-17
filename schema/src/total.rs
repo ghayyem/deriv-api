@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::mt5::Mt5; 
 use crate::deriv::Deriv; 
 use crate::mt5_demo::Mt5Demo; 
+use crate::mt5::Mt5; 
 use crate::deriv_demo::DerivDemo; 
 
 // It's a struct

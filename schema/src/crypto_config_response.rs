@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::crypto_config::CryptoConfig;
 use crate::msg_type_enum::MsgTypeEnum;
+use crate::crypto_config::CryptoConfig;
 
 /// The response will display the configuration details related to cryptocurrencies
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::copytrading_statistics::CopytradingStatistics;
+use crate::msg_type_enum::MsgTypeEnum;
 
 /// The statistics of the trader.
 #[derive(Debug, Clone, Serialize, Deserialize)]

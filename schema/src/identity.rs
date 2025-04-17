@@ -9,8 +9,8 @@ use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::services::Services; 
 use crate::status_enum::StatusEnum; 
+use crate::services::Services; 
 
 // It's a struct
 /// The authentication status for identity.

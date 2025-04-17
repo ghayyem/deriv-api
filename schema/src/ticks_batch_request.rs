@@ -9,9 +9,9 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
+use crate::market_enum::MarketEnum;
 use crate::ticks_batch_enum::TicksBatchEnum;
 use crate::subscribe_enum::SubscribeEnum;
-use crate::market_enum::MarketEnum;
 
 /// Initiate a continuous stream of spot price updates for a group symbols.
 #[derive(Debug, Clone, Serialize, Deserialize)]

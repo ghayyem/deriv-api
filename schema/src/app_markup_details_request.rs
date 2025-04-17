@@ -9,10 +9,10 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::sort_fields_item_enum::SortFieldsItemEnum;
 use crate::sort_enum::SortEnum;
 use crate::description_enum::DescriptionEnum;
 use crate::app_markup_details_enum::AppMarkupDetailsEnum;
+use crate::sort_fields_item_enum::SortFieldsItemEnum;
 
 /// Retrieve details of `app_markup` according to criteria specified.
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
-use crate::fields_value::FieldsValue; 
 use crate::type_enum::TypeEnum; 
+use crate::fields_value::FieldsValue; 
 
 // It's a struct
 /// Payment method identifier.

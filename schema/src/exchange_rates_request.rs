@@ -9,8 +9,8 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::include_spread_enum::IncludeSpreadEnum;
 use crate::exchange_rates_enum::ExchangeRatesEnum;
+use crate::include_spread_enum::IncludeSpreadEnum;
 use crate::subscribe_enum::SubscribeEnum;
 
 /// Retrieves the exchange rate from a base currency to a target currency supported by the system.

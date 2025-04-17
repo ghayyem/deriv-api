@@ -9,14 +9,14 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::account_turnover_enum::AccountTurnoverEnum;
-use crate::salutation_enum::SalutationEnum;
+use crate::tin_skipped_enum::TinSkippedEnum;
 use crate::secret_question_enum::SecretQuestionEnum;
 use crate::new_account_real_enum::NewAccountRealEnum;
-use crate::client_type_enum::ClientTypeEnum;
+use crate::account_turnover_enum::AccountTurnoverEnum;
 use crate::tnc_acceptance_enum::TncAcceptanceEnum;
+use crate::salutation_enum::SalutationEnum;
 use crate::fatca_declaration_enum::FatcaDeclarationEnum;
-use crate::tin_skipped_enum::TinSkippedEnum;
+use crate::client_type_enum::ClientTypeEnum;
 
 /// This call opens a new real-money account. This call can be made from a virtual-money or a real-money account. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
 #[derive(Debug, Clone, Serialize, Deserialize)]
