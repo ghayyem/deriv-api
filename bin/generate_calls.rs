@@ -1,6 +1,6 @@
 use convert_case::{Case, Casing};
 use handlebars::Handlebars;
-use log::{debug, info};
+use log::{debug, info, warn};
 use serde_json::{json, Value};
 use std::fs;
 use std::path::Path;
@@ -16,11 +16,12 @@ use crate::client::DerivClient;
 use crate::error::Result;
 use deriv_api_schema::*;
 use crate::subscription::Subscription;
+
+impl DerivClient {
 "#;
 
 const API_CALL_TEMPLATE: &str = r#"
 /// {{description}}
-#[cfg(any(feature = "{{feature_name}}"))]
 pub async fn {{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> Result<deriv_api_schema::{{response_type}}> {
     self.send_request(&request).await
 }
@@ -28,13 +29,12 @@ pub async fn {{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> 
 
 const SUBSCRIPTION_CALL_TEMPLATE: &str = r#"
 /// Subscribe to {{description}}
-#[cfg(any(feature = "{{feature_name}}"))]
 pub async fn subscribe_{{fn_name}}(&self, request: deriv_api_schema::{{request_type}}) -> Result<(deriv_api_schema::{{response_type}}, Subscription<deriv_api_schema::{{stream_type}}>)> {
     let mut request = request;
-    request.subscribe = Some(1);
+    {{{subscribe_assignment}}} // Use placeholder for assignment
     let initial_response = self.send_request(&request).await?;
     // Subscription setup will be implemented here
-    unimplemented!("Subscription not implemented yet")
+    Ok(unimplemented!("Subscription not implemented yet"))
 }
 "#;
 
@@ -47,6 +47,8 @@ struct ApiEndpoint {
     response_type: String,
     stream_type: Option<String>,
     feature_name: String,
+    subscribe_field_type: Option<String>,
+    subscribe_field_required: bool,
 }
 
 #[derive(Debug)]
@@ -79,6 +81,27 @@ impl From<handlebars::RenderError> for GeneratorError {
     fn from(err: handlebars::RenderError) -> Self {
         GeneratorError::Render(err)
     }
+}
+
+// Copied from schema_generator.rs for consistency
+fn to_type_name(name: &str) -> String {
+    let mut result = String::new();
+    let mut capitalize_next = true;
+
+    for c in name.chars() {
+        if c == '_' || c == '-' { // Treat hyphen like underscore for capitalization
+            capitalize_next = true;
+        } else if capitalize_next {
+            result.extend(c.to_uppercase());
+            capitalize_next = false;
+        } else {
+            // Preserve existing uppercase chars for acronyms like P2P
+            result.push(c);
+        }
+    }
+    // Handle snake_case parts like `p2p_` -> `P2p`
+    // Also explicitly replace hyphens remaining in the structure
+    result.replace("P2p", "P2p").replace('-', "_")
 }
 
 fn main() -> Result<(), GeneratorError> {
@@ -170,15 +193,75 @@ fn parse_endpoint(
 ) -> Result<ApiEndpoint, GeneratorError> {
     let description = send["description"].as_str().unwrap_or("").to_string();
 
-    let has_subscription = send["properties"]
-        .as_object()
-        .and_then(|props| props.get("subscribe"))
-        .is_some();
+    let mut has_subscription = false;
+    let mut subscribe_field_type: Option<String> = None;
+    let mut subscribe_field_required = false;
 
-    let request_type = format!("{}Request", name.to_case(Case::Pascal));
-    let response_type = format!("{}Response", name.to_case(Case::Pascal));
+    let required_fields: std::collections::HashSet<String> = send["required"]
+        .as_array()
+        .map(|arr| arr.iter().filter_map(|v| v.as_str().map(String::from)).collect())
+        .unwrap_or_default();
+
+    if let Some(props) = send["properties"].as_object() {
+        if let Some(subscribe_prop) = props.get("subscribe") {
+            has_subscription = true;
+            subscribe_field_type = subscribe_prop["type"].as_str().map(String::from);
+            if subscribe_field_type.is_none() {
+                // Handle cases like type: ["integer", "null"] - extract non-null type
+                if let Some(types) = subscribe_prop["type"].as_array() {
+                    subscribe_field_type = types.iter()
+                        .find(|t| t.as_str().map_or(false, |s| s != "null"))
+                        .and_then(|t| t.as_str())
+                        .map(String::from);
+                }
+            }
+            subscribe_field_required = required_fields.contains("subscribe");
+             debug!("Endpoint '{}': Found subscribe field. Type: {:?}, Required: {}", name, subscribe_field_type, subscribe_field_required);
+        }
+    }
+
+    // Use the consistent to_type_name function
+    let base_type_name = to_type_name(name);
+
+    // --- BEGIN FIX: Handle known endpoint naming exceptions ---
+    let (request_type, response_type) = match name {
+        "p2p_advertiser_payment_methods" => (
+            "P2pAdvertiserPaymentMethods".to_string(), // Request IS the enum
+            "P2pAdvertiserPaymentMethods".to_string(), // Response IS ALSO the enum
+        ),
+        "set_financial_assessment" => (
+            "SetFinancialAssessment".to_string(), // Request is just SetFinancialAssessment
+            "SetFinancialAssessmentResponse".to_string(), // Response exists
+        ),
+         "crypto_estimations" => (
+             "CryptoEstimationsRequest".to_string(), // Request exists
+             "CryptoEstimations".to_string(), // Response is just CryptoEstimations
+         ),
+        // Default case: Assume standard Request/Response naming
+        _ => (
+            format!("{}Request", base_type_name),
+            format!("{}Response", base_type_name),
+        ),
+    };
+    // --- END FIX ---
+
+    // --- BEGIN FIX: Handle special stream types ---
+    let stream_type_base = match name {
+        "buy" => "ProposalOpenContractResponse".to_string(),
+        "p2p_order_create" | "p2p_order_list" => "P2pOrderInfoResponse".to_string(),
+        "p2p_advertiser_create" => "P2pAdvertInfoResponse".to_string(),
+        // --- BEGIN ADD: Handle p2p_advertiser_payment_methods stream --- 
+        // If this endpoint *could* subscribe, its stream type would be the enum itself.
+        "p2p_advertiser_payment_methods" => "P2pAdvertiserPaymentMethods".to_string(), 
+        // --- END ADD ---
+        // Default: Stream type is the same as the response type
+        _ => response_type.clone(),
+    };
+    // --- END FIX ---
+
     let stream_type = if has_subscription {
-        Some(response_type.clone())
+        // Some(stream_type_base)
+        Some(stream_type_base) // Use the potentially adjusted stream type
     } else {
         None
     };
@@ -192,6 +275,8 @@ fn parse_endpoint(
         response_type,
         stream_type,
         feature_name,
+        subscribe_field_type,
+        subscribe_field_required,
     })
 }
 
@@ -213,6 +298,8 @@ fn generate_api_calls(endpoints: &[ApiEndpoint]) -> Result<(), GeneratorError> {
         output.push_str(&handlebars.render("api_call", &data)?);
     }
 
+    output.push_str("}
+");
     fs::write(API_CALLS_FILE, output)?;
 
     Ok(())
@@ -220,6 +307,8 @@ fn generate_api_calls(endpoints: &[ApiEndpoint]) -> Result<(), GeneratorError> {
 
 fn generate_subscription_calls(endpoints: &[ApiEndpoint]) -> Result<(), GeneratorError> {
     let mut handlebars = Handlebars::new();
+    // No need to escape for code gen
+    handlebars.register_escape_fn(|s| -> String { s.to_string() });
     handlebars.register_template_string("subscription_call", SUBSCRIPTION_CALL_TEMPLATE)?;
 
     let mut output = String::from(HEADER_TEMPLATE);
@@ -229,17 +318,46 @@ fn generate_subscription_calls(endpoints: &[ApiEndpoint]) -> Result<(), Generato
             continue;
         }
 
+        // Determine the correct subscribe assignment string based on generated type errors
+        let subscribe_assignment = match endpoint.name.as_str() {
+            "transaction" => {
+                // Assumed non-optional i64(1) from previous checks
+                 "request.subscribe = 1;".to_string()
+            }
+            "proposal" => {
+                // Linter error showed expected String
+                "request.subscribe = Some(\"1\".to_string());".to_string()
+            }
+            "website_status" | "balance" => {
+                // Linter error showed expected Subscribe
+                "request.subscribe = Some(deriv_api_schema::Subscribe::Value1);".to_string()
+            }
+             // Add other specific endpoints here if they expect Subscribe::Value1
+             // "p2p_order_create" | "ticks" | ... => {
+             //     "request.subscribe = Some(deriv_api_schema::Subscribe::Value1);".to_string()
+             // }
+            _ => {
+                 // Default: Assuming most other subscribe fields are Option<i64>
+                 // This covers p2p_order_create, ticks, ticks_history, etc. based on errors
+                 "request.subscribe = Some(1);".to_string()
+            }
+        };
+
         let data = json!({
             "fn_name": endpoint.name.to_case(Case::Snake),
             "description": endpoint.description,
             "request_type": endpoint.request_type,
             "response_type": endpoint.response_type,
             "stream_type": endpoint.stream_type.as_ref().unwrap_or(&endpoint.response_type),
+            "subscribe_assignment": subscribe_assignment // Add the assignment string to the data
         });
 
+        // Render the single template with the correct data
         output.push_str(&handlebars.render("subscription_call", &data)?);
     }
 
+    output.push_str("}
+");
     fs::write(SUBSCRIPTION_CALLS_FILE, output)?;
 
     Ok(())

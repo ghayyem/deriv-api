@@ -4,13 +4,15 @@ use futures_util::{SinkExt, StreamExt};
 use log::debug;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
+use serde::de::Error as SerdeError;
 use std::future::Future;
 use std::sync::atomic::{AtomicI64, Ordering};
 use std::sync::Arc;
-use tokio::sync::{mpsc, RwLock};
+use tokio::sync::{mpsc, oneshot, RwLock};
 use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::protocol::Message;
 use url::Url;
+use crate::subscription::Subscription;
 
 const DEFAULT_BUFFER_SIZE: usize = 1024;
 
@@ -31,7 +33,7 @@ impl Default for ClientConfig {
 }
 
 /// The main client for interacting with the Deriv API
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct DerivClient {
     endpoint: Url,
     origin: Url,
@@ -40,19 +42,26 @@ pub struct DerivClient {
     config: ClientConfig,
     last_request_id: Arc<AtomicI64>,
     request_sender: Option<mpsc::Sender<ApiRequest>>,
+    pending_request_registrar: Option<mpsc::Sender<PendingRequestInfo>>,
     connection_status: Arc<RwLock<bool>>,
 }
 
 #[derive(Debug)]
 struct ApiRequest {
     message: Vec<u8>,
-    response_sender: mpsc::Sender<Vec<u8>>,
     request_id: i32,
+}
+
+#[derive(Debug)]
+struct PendingRequestInfo {
+    req_id: i32,
+    response_sender: oneshot::Sender<Result<Vec<u8>>>,
 }
 
 #[derive(Debug, Deserialize)]
 struct ApiResponseReqId {
     req_id: Option<i32>,
+    error: Option<serde_json::Value>,
 }
 
 impl DerivClient {
@@ -86,6 +95,7 @@ impl DerivClient {
             config: config.unwrap_or_default(),
             last_request_id: Arc::new(AtomicI64::new(0)),
             request_sender: None,
+            pending_request_registrar: None,
             connection_status: Arc::new(RwLock::new(false)),
         })
     }
@@ -99,61 +109,117 @@ impl DerivClient {
         debug!("Connecting to {}", self.endpoint);
 
         let ws_stream = connect_async(&self.endpoint).await?.0;
-        let (write, read) = ws_stream.split();
+        let (mut write, mut read) = ws_stream.split();
 
-        let (request_sender, request_receiver) = mpsc::channel(DEFAULT_BUFFER_SIZE);
-        let (response_sender, mut response_receiver) = mpsc::channel(DEFAULT_BUFFER_SIZE);
+        let (request_sender, mut request_receiver) = mpsc::channel(DEFAULT_BUFFER_SIZE);
+        let (incoming_msg_sender, mut incoming_msg_receiver) = mpsc::channel(DEFAULT_BUFFER_SIZE);
+        let (pending_request_sender, mut pending_request_receiver) = mpsc::channel::<PendingRequestInfo>(DEFAULT_BUFFER_SIZE);
 
         self.request_sender = Some(request_sender);
+        self.pending_request_registrar = Some(pending_request_sender);
         *self.connection_status.write().await = true;
+        let connection_status_write = self.connection_status.clone();
+        let _connection_status_read = self.connection_status.clone();
 
-        // Spawn message sender task
-        let write_task = tokio::spawn(async move {
-            let mut write = write;
-            let mut request_receiver = request_receiver; // Make mutable here
+        let _write_task = tokio::spawn(async move {
             while let Some(request) = request_receiver.recv().await {
-                if let Err(e) = write
-                    .send(Message::Text(
-                        String::from_utf8_lossy(&request.message).into_owned(),
-                    ))
-                    .await
-                {
-                    debug!("Failed to send message: {}", e);
+                let msg_str = String::from_utf8_lossy(&request.message).into_owned();
+                debug!("Sending message: {}", msg_str);
+                if let Err(e) = write.send(Message::Text(msg_str)).await {
+                    debug!("Failed to send message for req_id {}: {}", request.request_id, e);
                     break;
                 }
+                debug!("Message sent successfully for req_id: {}", request.request_id);
             }
+            debug!("Sender task finished.");
         });
 
-        // Spawn message receiver task
-        let read_task = tokio::spawn(async move {
-            let mut read = read;
-            while let Some(Ok(message)) = read.next().await {
-                match message {
-                    Message::Text(text) => {
-                        if let Err(e) = response_sender.send(text.into_bytes()).await {
-                            debug!("Failed to forward response: {}", e);
+        let _read_task = tokio::spawn(async move {
+            while let Some(message_result) = read.next().await {
+                debug!("Received raw message: {:?}", message_result);
+                match message_result {
+                    Ok(Message::Text(text)) => {
+                        debug!("Received text message: {}", text);
+                        if incoming_msg_sender.send(text.into_bytes()).await.is_err() {
+                            debug!("Failed to forward response to handler, receiver dropped.");
                             break;
                         }
                     }
-                    Message::Close(_) => break,
-                    _ => continue,
-                }
-            }
-        });
-
-        // Spawn response handler task
-        let response_handler = tokio::spawn(async move {
-            let mut response_map: std::collections::HashMap<i32, mpsc::Sender<Vec<u8>>> =
-                std::collections::HashMap::new();
-
-            while let Some(response) = response_receiver.recv().await {
-                if let Ok(api_response) = serde_json::from_slice::<ApiResponseReqId>(&response) {
-                    if let Some(req_id) = api_response.req_id {
-                        if let Some(sender) = response_map.remove(&req_id) {
-                            let _ = sender.send(response).await;
-                        }
+                    Ok(Message::Close(close_frame)) => {
+                        debug!("Received Close frame: {:?}", close_frame);
+                        break;
+                    }
+                    Ok(Message::Ping(ping_data)) => {
+                        debug!("Received Ping: {:?}", ping_data);
+                    }
+                    Ok(_) => {
+                        debug!("Received other message type");
+                    }
+                    Err(e) => {
+                        debug!("WebSocket read error: {}", e);
+                        break;
                     }
                 }
+            }
+            debug!("Receiver task finished.");
+            *connection_status_write.write().await = false;
+        });
+
+        let _response_handler = tokio::spawn(async move {
+            let mut pending_requests: std::collections::HashMap<i32, oneshot::Sender<Result<Vec<u8>>>> =
+                std::collections::HashMap::new();
+
+            loop {
+                tokio::select! {
+                    Some(pending_info) = pending_request_receiver.recv() => {
+                        debug!("Registering pending request: {}", pending_info.req_id);
+                        pending_requests.insert(pending_info.req_id, pending_info.response_sender);
+                    }
+                    Some(response_bytes) = incoming_msg_receiver.recv() => {
+                        match serde_json::from_slice::<ApiResponseReqId>(&response_bytes) {
+                            Ok(api_response) => {
+                                if let Some(req_id) = api_response.req_id {
+                                    if let Some(sender) = pending_requests.remove(&req_id) {
+                                        debug!("Routing response for req_id: {}", req_id);
+                                        if api_response.error.is_some() {
+                                            debug!("API Error found for req_id: {}", req_id);
+                                            match crate::error::parse_error(&response_bytes) {
+                                                Ok(_) => {
+                                                    debug!("Warning: API error flag set, but parse_error succeeded for req_id: {}", req_id);
+                                                    let _ = sender.send(Ok(response_bytes));
+                                                }
+                                                Err(e) => {
+                                                    debug!("Sending parsed error for req_id: {}: {:?}", req_id, e);
+                                                    let _ = sender.send(Err(e));
+                                                }
+                                            }
+                                        } else {
+                                            debug!("Success response for req_id: {}", req_id);
+                                            let _ = sender.send(Ok(response_bytes));
+                                        }
+                                    } else {
+                                        debug!("Received response for unknown req_id: {}", req_id);
+                                    }
+                                } else {
+                                    debug!("Received message without req_id (likely subscription): {:?}", String::from_utf8_lossy(&response_bytes));
+                                    // Process subscription message
+                                    crate::subscription::handle_subscription_message(&response_bytes);
+                                }
+                            }
+                            Err(e) => {
+                                debug!("Failed to parse incoming message JSON for req_id: {}", e);
+                            }
+                        }
+                    }
+                    else => {
+                        debug!("Response handler loop exiting.");
+                        break;
+                    }
+                }
+            }
+            debug!("Response handler task finished.");
+            for (_, sender) in pending_requests.drain() {
+                let _ = sender.send(Err(DerivError::ConnectionClosed));
             }
         });
 
@@ -169,51 +235,118 @@ impl DerivClient {
         debug!("Disconnecting from {}", self.endpoint);
 
         self.request_sender = None;
+        self.pending_request_registrar = None;
         *self.connection_status.write().await = false;
     }
 
     /// Sends a request to the Deriv API and receives a response
     pub async fn send_request<T, R>(&self, request: &T) -> Result<R>
     where
-        T: Serialize,
+        T: Serialize + std::fmt::Debug,
         R: DeserializeOwned,
     {
+        if !*self.connection_status.read().await {
+            debug!("Attempted send_request while not connected.");
+            return Err(DerivError::ConnectionClosed);
+        }
+
         let request_id = self.get_next_request_id();
-        let (response_sender, mut response_receiver) = mpsc::channel(1);
+        let (response_sender, response_receiver) = oneshot::channel();
 
         let mut request_value = serde_json::to_value(request)?;
         if let Some(obj) = request_value.as_object_mut() {
             obj.insert("req_id".to_string(), serde_json::json!(request_id));
+        } else {
+            return Err(DerivError::SerializationError(serde_json::Error::custom("Request is not a JSON object")));
         }
-
         let message = serde_json::to_vec(&request_value)?;
+
+        debug!("Serialized JSON being sent: {}", String::from_utf8_lossy(&message));
+
+        debug!("Preparing request req_id: {}, payload: {:?}", request_id, request);
+
+        if let Some(registrar) = &self.pending_request_registrar {
+            let pending_info = PendingRequestInfo {
+                req_id: request_id,
+                response_sender,
+            };
+            if registrar.send(pending_info).await.is_err() {
+                debug!("Failed to register pending request {}, response handler likely dead.", request_id);
+                return Err(DerivError::ConnectionClosed);
+            }
+            debug!("Pending request {} registered.", request_id);
+        } else {
+            debug!("Attempted send_request but registrar is None (not connected?).");
+            return Err(DerivError::ConnectionClosed);
+        }
 
         let api_request = ApiRequest {
             message,
-            response_sender,
             request_id,
         };
 
         if let Some(sender) = &self.request_sender {
-            sender
-                .send(api_request)
-                .await
-                .map_err(|_| DerivError::ConnectionClosed)?;
+            debug!("Sending request {} to writer task.", request_id);
+            if sender.send(api_request).await.is_err() {
+                debug!("Failed to send request {} to writer task (channel closed).", request_id);
+                return Err(DerivError::ConnectionClosed);
+            }
+            debug!("Request {} sent to writer task.", request_id);
         } else {
+            debug!("Attempted send_request but sender is None (not connected?).");
             return Err(DerivError::ConnectionClosed);
         }
 
-        let response = response_receiver
-            .recv()
-            .await
-            .ok_or(DerivError::ConnectionClosed)?;
-
-        crate::error::parse_error(&response)?;
-        Ok(serde_json::from_slice(&response)?)
+        debug!("Waiting for response for req_id: {}", request_id);
+        match response_receiver.await {
+            Ok(Ok(response_bytes)) => {
+                debug!("Received successful response bytes for req_id: {}", request_id);
+                crate::error::parse_error(&response_bytes)?;
+                debug!("Deserializing successful response for req_id: {}", request_id);
+                Ok(serde_json::from_slice(&response_bytes)?)
+            }
+            Ok(Err(e)) => {
+                debug!("Received error from response handler for req_id: {}: {:?}", request_id, e);
+                Err(e)
+            }
+            Err(_) => {
+                debug!("Oneshot channel closed for req_id: {} (handler died?).", request_id);
+                Err(DerivError::ConnectionClosed)
+            }
+        }
     }
 
     fn get_next_request_id(&self) -> i32 {
         self.last_request_id.fetch_add(1, Ordering::SeqCst) as i32
+    }
+    
+    /// Creates a subscription from a subscription-enabled API
+    pub async fn create_subscription<T, R, S>(&self, request: &mut T, msg_type: &str) -> Result<(R, Subscription<S>)>
+    where
+        T: Serialize + std::fmt::Debug,
+        R: DeserializeOwned + Serialize,
+        S: DeserializeOwned + Send + 'static,
+    {
+        if !*self.connection_status.read().await {
+            debug!("Attempted create_subscription while not connected.");
+            return Err(DerivError::ConnectionClosed);
+        }
+        
+        // Send the initial request to start the subscription
+        let initial_response: R = self.send_request(request).await?;
+        
+        // Extract the subscription ID from the response
+        let response_value = serde_json::to_vec(&initial_response)?;
+        let subscription_id = crate::subscription::parse_subscription_response(&response_value)?;
+        
+        // Create a channel for the subscription updates
+        let (_sender, receiver) = mpsc::channel::<S>(100);
+        
+        // Create the subscription with an Arc to self
+        let client_arc = Arc::new(self.clone());
+        let subscription = Subscription::new(receiver, subscription_id, client_arc, msg_type);
+        
+        Ok((initial_response, subscription))
     }
 }
 
@@ -279,3 +412,4 @@ impl<T> ReceiverExt<T> for mpsc::Receiver<T> {
         self.recv().await
     }
 }
+
