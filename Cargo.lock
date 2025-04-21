@@ -250,7 +250,7 @@ dependencies = [
  "async-trait",
  "chrono",
  "convert_case",
- "deriv-api-schema",
+ "deriv-api-schema 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "derive_builder",
  "env_logger",
  "futures",
@@ -272,6 +272,17 @@ dependencies = [
 [[package]]
 name = "deriv-api-schema"
 version = "0.1.1"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "deriv-api-schema"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "189f8108243503503f2b6dcad18a66d20fa10347a4429dd14467e70f2705ba77"
 dependencies = [
  "chrono",
  "serde",
@@ -1004,7 +1015,7 @@ name = "ping_example"
 version = "0.1.0"
 dependencies = [
  "deriv-api",
- "deriv-api-schema",
+ "deriv-api-schema 0.1.1",
  "dotenv",
  "futures-util",
  "serde_json",
@@ -1393,7 +1404,7 @@ name = "ticks_stream_example"
 version = "0.1.0"
 dependencies = [
  "deriv-api",
- "deriv-api-schema",
+ "deriv-api-schema 0.1.1",
  "dotenv",
  "env_logger",
  "futures",
