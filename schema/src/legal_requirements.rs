@@ -5,12 +5,12 @@
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import shared types from the *same* crate
-use crate::after_first_deposit_requirements::AfterFirstDepositRequirements; 
 use crate::compliance_requirements::ComplianceRequirements; 
+use crate::after_first_deposit_requirements::AfterFirstDepositRequirements; 
 
 // It's a struct
 /// Legal requirements for the Landing Company

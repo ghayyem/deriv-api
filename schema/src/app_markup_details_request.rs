@@ -5,14 +5,13 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::sort_enum::SortEnum;
-use crate::description_enum::DescriptionEnum;
-use crate::app_markup_details_enum::AppMarkupDetailsEnum;
-use crate::sort_fields_item_enum::SortFieldsItemEnum;
+use crate::description::Description;
+use crate::sort::Sort;
+use crate::sort_field_item::SortFieldItem;
 
 /// Retrieve details of `app_markup` according to criteria specified.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -25,7 +24,7 @@ pub struct AppMarkupDetailsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub app_markup_details: AppMarkupDetailsEnum,
+    pub app_markup_details: i64,
     /// [Optional] Specific client loginid to report on, like CR12345\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -41,7 +40,7 @@ pub struct AppMarkupDetailsRequest {
     /// [Optional] If set to 1, will return `app_markup` transaction details.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub description: Option<DescriptionEnum>,
+    pub description: Option<Description>,
     /// [Optional] Apply upper limit to count of transactions received.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -65,10 +64,10 @@ pub struct AppMarkupDetailsRequest {
     /// [Optional] Sort direction on `transaction_time`. Other fields sort order is ASC.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sort: Option<SortEnum>,
+    pub sort: Option<Sort>,
     /// [Optional] One or more of the specified fields to sort on. Default sort field is by `transaction_time`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sort_fields: Option<Vec<SortFieldsItemEnum>>,
+    pub sort_fields: Option<Vec<SortFieldItem>>,
 }
 

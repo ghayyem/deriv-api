@@ -5,13 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::active_enum::ActiveEnum;
-use crate::p2p_order_list_enum::P2pOrderListEnum;
-use crate::subscribe_enum::SubscribeEnum;
 
 /// List active orders.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,7 +17,7 @@ pub struct P2pOrderListRequest {
     /// [Optional] Should be 1 to list active, 0 to list inactive (historical).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub active: Option<ActiveEnum>,
+    pub active: Option<f64>,
     /// [Optional] If present, lists orders applying to a specific advert.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -48,7 +45,7 @@ pub struct P2pOrderListRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub p2p_order_list: P2pOrderListEnum,
+    pub p2p_order_list: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -60,6 +57,6 @@ pub struct P2pOrderListRequest {
     /// [Optional] If set to 1, will send updates whenever there is a change to any order belonging to you.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
 }
 

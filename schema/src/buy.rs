@@ -22,7 +22,7 @@ pub struct Buy {
     /// Actual effected purchase price\n
     // Correct serde attribute construction - Use helper
     
-    pub buy_price: f64,
+    pub buy_price: String,
     /// Internal contract identifier\n
     // Correct serde attribute construction - Use helper
     
@@ -34,11 +34,11 @@ pub struct Buy {
     /// Proposed payout value\n
     // Correct serde attribute construction - Use helper
     
-    pub payout: f64,
+    pub payout: String,
     /// Epoch value of the transaction purchase time\n
     // Correct serde attribute construction - Use helper
     
-    pub purchase_time: i64,
+    pub purchase_time: String,
     /// Compact description of the contract purchased\n
     // Correct serde attribute construction - Use helper
     
@@ -46,7 +46,7 @@ pub struct Buy {
     /// Epoch value showing the expected start time of the contract\n
     // Correct serde attribute construction - Use helper
     
-    pub start_time: i64,
+    pub start_time: String,
     /// Internal transaction identifier\n
     // Correct serde attribute construction - Use helper
     

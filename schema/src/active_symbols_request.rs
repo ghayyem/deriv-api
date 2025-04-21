@@ -5,15 +5,14 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::product_type_enum::ProductTypeEnum;
-use crate::landing_company_short_enum::LandingCompanyShortEnum;
-use crate::barrier_category_item_enum::BarrierCategoryItemEnum;
-use crate::contract_type_item_enum::ContractTypeItemEnum;
-use crate::landing_company_enum::LandingCompanyEnum;
+use crate::contract_type_item::ContractTypeItem;
+use crate::landing_company_short::LandingCompanyShort;
+use crate::barrier_category_item::BarrierCategoryItem;
+use crate::landing_company::LandingCompany;
 
 /// Retrieve a list of all currently active symbols (underlying markets upon which contracts are available for trading).
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,19 +25,19 @@ pub struct ActiveSymbolsRequest {
     /// [Optional] Category of barrier.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub barrier_category: Option<Vec<BarrierCategoryItemEnum>>,
+    pub barrier_category: Option<Vec<BarrierCategoryItem>>,
     /// [Optional] The proposed contract type\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub contract_type: Option<Vec<ContractTypeItemEnum>>,
+    pub contract_type: Option<Vec<ContractTypeItem>>,
     /// Deprecated - replaced by landing_company_short.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company: Option<LandingCompanyEnum>,
+    pub landing_company: Option<LandingCompany>,
     /// [Optional] If you specify this field, only symbols available for trading by that landing company will be returned. If you are logged in, only symbols available for trading by your landing company will be returned regardless of what you specify in this field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company_short: Option<LandingCompanyShortEnum>,
+    pub landing_company_short: Option<LandingCompanyShort>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -50,7 +49,7 @@ pub struct ActiveSymbolsRequest {
     /// [Optional] If you specify this field, only symbols that can be traded through that product type will be returned.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub product_type: Option<ProductTypeEnum>,
+    pub product_type: Option<String>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

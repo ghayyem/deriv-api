@@ -18,11 +18,11 @@ pub struct Tick {
     /// Market ask at the epoch\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub ask: Option<f64>,
+    pub ask: Option<DateTime<Utc>>,
     /// Market bid at the epoch\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub bid: Option<f64>,
+    pub bid: Option<DateTime<Utc>>,
     /// Epoch time of the tick\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -34,11 +34,11 @@ pub struct Tick {
     /// Indicates the number of decimal points that the returned amounts must be displayed with\n
     // Correct serde attribute construction - Use helper
     
-    pub pip_size: f64,
+    pub pip_size: String,
     /// Market value at the epoch\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub quote: Option<f64>,
+    pub quote: Option<DateTime<Utc>>,
     /// Symbol\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -26,7 +26,7 @@ pub struct AppUpdate {
     /// Markup added to contract prices (as a percentage of contract payout).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub app_markup_percentage: Option<f64>,
+    pub app_markup_percentage: Option<String>,
     /// Application's App Store URL.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

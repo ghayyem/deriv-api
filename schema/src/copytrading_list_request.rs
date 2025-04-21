@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::copytrading_list_enum::CopytradingListEnum;
 
 /// Retrieves a list of active copiers and/or traders for Copy Trading
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct CopytradingListRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub copytrading_list: CopytradingListEnum,
+    pub copytrading_list: i64,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

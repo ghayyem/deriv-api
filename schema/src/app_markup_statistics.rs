@@ -1,6 +1,6 @@
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: ./deriv-api-docs/config/v3/app_markup_statistics/receive.json
+// Source: ./deriv-api-docs/config/v3/app_markup_statistics/send.json
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
@@ -9,24 +9,23 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::breakdown_item::BreakdownItem; 
 
-// It's a struct
-/// App Markup transaction statistics
-#[derive(Debug, Clone, Serialize, Deserialize)]
+/// Must be `1`
+#[derive(Debug, Clone, Serialize, Deserialize)] // Enums should also derive Serialize/Deserialize
 #[serde(rename_all = "snake_case")]
-pub struct AppMarkupStatistics {
-    /// Array of summed app markups grouped by app_id\n
-    // Correct serde attribute construction - Use helper
-    #[serde(skip_serializing_if = "Option::is_none")] 
-    pub breakdown: Option<Vec<BreakdownItem>>,
-    /// The sum of markup the client paid in USD\n
-    // Correct serde attribute construction - Use helper
-    #[serde(skip_serializing_if = "Option::is_none")] 
-    pub total_app_markup_usd: Option<f64>,
-    /// The total count of transactions\n
-    // Correct serde attribute construction - Use helper
-    #[serde(skip_serializing_if = "Option::is_none")] 
-    pub total_transactions_count: Option<f64>,
+pub enum AppMarkupStatistics {
+    Value1 = 1,
 }
+
+// Optional: Derive Default for enums, defaulting to the first variant? Or require explicit handling?
+// For now, DO NOT derive Default for enums automatically. Structs needing them must handle it.
+
+/* // Example: Deriving Default for Enum (use with caution)
+impl Default for AppMarkupStatistics {
+    fn default() -> Self {
+        // Default to the first variant found
+        Self::Value1
+    }
+}
+*/
 

@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::reality_check_enum::RealityCheckEnum;
 
 /// Retrieve summary of client's trades and account for the Reality Check facility. A 'reality check' means a display of time elapsed since the session began, and associated client profit/loss. The Reality Check facility is a regulatory requirement for certain landing companies.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,7 +25,7 @@ pub struct RealityCheckRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub reality_check: RealityCheckEnum,
+    pub reality_check: i64,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

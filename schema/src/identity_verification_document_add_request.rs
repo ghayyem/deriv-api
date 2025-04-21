@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::identity_verification_document_add_enum::IdentityVerificationDocumentAddEnum;
 
 /// Adds document information such as issuing country, id and type for identity verification processes.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -30,7 +29,7 @@ pub struct IdentityVerificationDocumentAddRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub identity_verification_document_add: IdentityVerificationDocumentAddEnum,
+    pub identity_verification_document_add: i64,
     /// 2-letter country code (can obtained from `residence_list` call).\n
     // Correct serde attribute construction - Use helper
     

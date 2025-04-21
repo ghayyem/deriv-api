@@ -5,13 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::email_consent_enum::EmailConsentEnum;
-use crate::type_enum::TypeEnum;
-use crate::signup_device_enum::SignupDeviceEnum;
+use crate::type_::Type;
+use crate::signup_device::SignupDevice;
 
 /// Create a new virtual-money account.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -36,7 +35,7 @@ pub struct NewAccountVirtualRequest {
     /// [Optional] Boolean value: 1 or 0, indicating whether the client has given consent for marketing emails.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub email_consent: Option<EmailConsentEnum>,
+    pub email_consent: Option<String>,
     /// [Optional] Google Click Identifier to track source.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -64,11 +63,11 @@ pub struct NewAccountVirtualRequest {
     /// [Optional] Show whether user has used mobile or desktop.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub signup_device: Option<SignupDeviceEnum>,
+    pub signup_device: Option<SignupDevice>,
     /// Account type\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")] 
-    pub r#type: Option<TypeEnum>,
+    pub type_: Option<Type>,
     /// [Optional] Identifier of particular ad. Value must match Regex pattern to be recorded\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

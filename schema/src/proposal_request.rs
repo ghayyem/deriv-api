@@ -5,18 +5,14 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 use chrono::{DateTime, Utc};
 
 // Import required types from the *same* crate
-use crate::basis_enum::BasisEnum;
-use crate::barrier_range_enum::BarrierRangeEnum;
-use crate::product_type_enum::ProductTypeEnum;
-use crate::contract_type_enum::ContractTypeEnum;
-use crate::trade_risk_profile_enum::TradeRiskProfileEnum;
+use crate::contract_type::ContractType;
 use crate::limit_order::LimitOrder;
-use crate::subscribe_enum::SubscribeEnum;
-use crate::duration_unit_enum::DurationUnitEnum;
+use crate::barrier_range::BarrierRange;
+use crate::duration_unit::DurationUnit;
 
 /// Gets latest price for a specific contract.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -29,19 +25,19 @@ pub struct ProposalRequest {
     /// [Optional] Barrier for the contract (or last digit prediction for digit contracts). Contracts less than 24 hours in duration would need a relative barrier (barriers which need +/-), where entry spot would be adjusted accordingly with that amount to define a barrier, except for Synthetic Indices as they support both relative and absolute barriers. Not needed for lookbacks.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub barrier: Option<f64>,
+    pub barrier: Option<String>,
     /// [Optional] Low barrier for the contract (for contracts with two barriers). Contracts less than 24 hours in duration would need a relative barrier (barriers which need +/-), where entry spot would be adjusted accordingly with that amount to define a barrier, except for Synthetic Indices as they support both relative and absolute barriers. Not needed for lookbacks.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub barrier2: Option<f64>,
+    pub barrier2: Option<String>,
     /// [Optional] Barrier range for callputspread.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub barrier_range: Option<BarrierRangeEnum>,
+    pub barrier_range: Option<BarrierRange>,
     /// [Optional] Indicates type of the `amount`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub basis: Option<BasisEnum>,
+    pub basis: Option<String>,
     /// Cancellation duration option (only for `MULTUP` and `MULTDOWN` contracts).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -49,7 +45,7 @@ pub struct ProposalRequest {
     /// The proposed contract type\n
     // Correct serde attribute construction - Use helper
     
-    pub contract_type: ContractTypeEnum,
+    pub contract_type: ContractType,
     /// This can only be the account-holder's currency (obtained from `payout_currencies` call).\n
     // Correct serde attribute construction - Use helper
     
@@ -57,7 +53,7 @@ pub struct ProposalRequest {
     /// [Optional] Epoch value of the expiry time of the contract. Either date_expiry or duration is required.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub date_expiry: Option<i64>,
+    pub date_expiry: Option<String>,
     /// [Optional] Indicates epoch value of the starting time of the contract. If left empty, the start time of the contract is now.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -69,7 +65,7 @@ pub struct ProposalRequest {
     /// [Optional] Duration unit - `s`: seconds, `m`: minutes, `h`: hours, `d`: days, `t`: ticks.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub duration_unit: Option<DurationUnitEnum>,
+    pub duration_unit: Option<DurationUnit>,
     /// [Optional] Growth rate of an accumulator contract.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -93,11 +89,11 @@ pub struct ProposalRequest {
     /// [Optional] Clients can provide payout_per_point directly, and the barrier will be calculated based on this payout_per_point value.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub payout_per_point: Option<f64>,
+    pub payout_per_point: Option<String>,
     /// [Optional] The product type.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub product_type: Option<ProductTypeEnum>,
+    pub product_type: Option<String>,
     /// Field 'proposal' mapped to Value due to complexity/potential issues.\n
     // Correct serde attribute construction - Use helper
     
@@ -109,11 +105,11 @@ pub struct ProposalRequest {
     /// [Optional] The tick that is predicted to have the highest/lowest value - for `TICKHIGH` and `TICKLOW` contracts.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub selected_tick: Option<i64>,
+    pub selected_tick: Option<String>,
     /// [Optional] 1 - to initiate a realtime stream of prices. Note that tick trades (without a user-defined barrier), digit trades and less than 24 hours at-the-money contracts for the following underlying symbols are not streamed: `R_10`, `R_25`, `R_50`, `R_75`, `R_100`, `RDBULL`, `RDBEAR` (this is because their price is constant).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<String>,
     /// The short symbol name (obtained from `active_symbols` call).\n
     // Correct serde attribute construction - Use helper
     
@@ -121,7 +117,7 @@ pub struct ProposalRequest {
     /// [Only for Snowball] The trade risk profile for the Snowball contract. Higher risk profile offers higher coupon rate at the expense of higher probability of breaching caution price\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub trade_risk_profile: Option<TradeRiskProfileEnum>,
+    pub trade_risk_profile: Option<String>,
     /// [Optional] Required only for multi-barrier trading. Defines the epoch value of the trading period start time.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

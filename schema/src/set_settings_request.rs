@@ -5,21 +5,13 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::non_pep_declaration_enum::NonPepDeclarationEnum;
-use crate::tin_skipped_enum::TinSkippedEnum;
-use crate::email_consent_enum::EmailConsentEnum;
-use crate::secret_question_enum::SecretQuestionEnum;
-use crate::request_professional_status_enum::RequestProfessionalStatusEnum;
-use crate::dxtrade_user_exception_enum::DxtradeUserExceptionEnum;
+use crate::trading_hub::TradingHub;
 use crate::feature_flag::FeatureFlag;
-use crate::salutation_enum::SalutationEnum;
-use crate::set_settings_enum::SetSettingsEnum;
-use crate::trading_hub_enum::TradingHubEnum;
-use crate::allow_copiers_enum::AllowCopiersEnum;
+use crate::tin_skipped::TinSkipped;
 
 /// Set User Settings (this call should be used in conjunction with `get_settings`)
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -52,15 +44,15 @@ pub struct SetSettingsRequest {
     /// [Optional] Boolean value 1 or 0, indicating permission to allow others to follow your trades. Note: not applicable for Virtual account. Only allow for real money account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub allow_copiers: Option<AllowCopiersEnum>,
+    pub allow_copiers: Option<String>,
     /// [Optional] The phone's calling country code. Don't include the `+` sign. Up to 4 digits.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub calling_country_code: Option<String>,
+    pub calling_country_code: Option<Value>,
     /// [Optional] Country of legal citizenship, 2-letter country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub citizen: Option<String>,
+    pub citizen: Option<Value>,
     /// [Optional] Date of birth format: yyyy-mm-dd (can only be changed on unauthenticated svg accounts).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -68,11 +60,11 @@ pub struct SetSettingsRequest {
     /// Boolean value 1 or 0, indicating if user email belong to dxtrade exception list.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub dxtrade_user_exception: Option<DxtradeUserExceptionEnum>,
+    pub dxtrade_user_exception: Option<String>,
     /// [Optional] Boolean value 1 or 0, indicating permission to use email address for any contact which may include marketing\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub email_consent: Option<EmailConsentEnum>,
+    pub email_consent: Option<String>,
     /// [Optional] Employment Status.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -100,7 +92,7 @@ pub struct SetSettingsRequest {
     /// [Optional] Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed Person/Relatives and Close Associates). Effective for real accounts only.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub non_pep_declaration: Option<NonPepDeclarationEnum>,
+    pub non_pep_declaration: Option<i64>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -108,7 +100,7 @@ pub struct SetSettingsRequest {
     /// [Optional] The phone's national format, don't include the `+` sign nor the calling country code. Up to 15 digits are allowed.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub phone: Option<String>,
+    pub phone: Option<Value>,
     /// [Optional] Place of birth, 2-letter country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -116,7 +108,7 @@ pub struct SetSettingsRequest {
     /// [Optional] User's preferred language, ISO standard language code\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub preferred_language: Option<String>,
+    pub preferred_language: Option<Value>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -124,15 +116,15 @@ pub struct SetSettingsRequest {
     /// [Optional] Required when client wants to be treated as professional. Applicable for financial accounts only.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub request_professional_status: Option<RequestProfessionalStatusEnum>,
+    pub request_professional_status: Option<i64>,
     /// [Optional] 2-letter country code. Note: not applicable for real money account. Only allow for Virtual account without residence set.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub residence: Option<String>,
+    pub residence: Option<Value>,
     /// [Optional] Accept any value in enum list (can only be changed on unauthenticated svg accounts).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub salutation: Option<SalutationEnum>,
+    pub salutation: Option<String>,
     /// [Optional] Answer to secret question, within 4-50 characters. Required for new account and existing client details will be used if client opens another account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -140,11 +132,11 @@ pub struct SetSettingsRequest {
     /// [Optional] Accept any value in enum list. Required for new account and existing client details will be used if client opens another account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub secret_question: Option<SecretQuestionEnum>,
+    pub secret_question: Option<String>,
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub set_settings: SetSettingsEnum,
+    pub set_settings: i64,
     /// [Optional] Tax identification number. Only applicable for real money account. Required for maltainvest landing company.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -156,10 +148,10 @@ pub struct SetSettingsRequest {
     /// [Optional] Whether the client has skipped the TIN form. Only applicable for real money account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub tin_skipped: Option<TinSkippedEnum>,
+    pub tin_skipped: Option<TinSkipped>,
     /// [Optional] Enable/Disable Trading Hub dashboard\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub trading_hub: Option<TradingHubEnum>,
+    pub trading_hub: Option<TradingHub>,
 }
 

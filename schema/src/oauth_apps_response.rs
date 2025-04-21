@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::oauth_apps_item::OauthAppsItem;
+use crate::oauth_app_item::OauthAppItem;
 
 /// A message with used applications
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,11 +22,11 @@ pub struct OauthAppsResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// List of 3rd party OAuth applications that used for the authorized account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub oauth_apps: Option<Vec<OauthAppsItem>>,
+    pub oauth_apps: Option<Vec<OauthAppItem>>,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

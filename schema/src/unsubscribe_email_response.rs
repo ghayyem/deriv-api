@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::email_unsubscribe_status_enum::EmailUnsubscribeStatusEnum;
+use crate::email_unsubscribe_status::EmailUnsubscribeStatus;
 
 /// The result of the unsubscribe email request.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,11 +26,11 @@ pub struct UnsubscribeEmailResponse {
     /// `1`: email notification unsubscribed sucssesfully, `0`: failed to unsubscribed email notification\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub email_unsubscribe_status: Option<EmailUnsubscribeStatusEnum>,
+    pub email_unsubscribe_status: Option<EmailUnsubscribeStatus>,
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

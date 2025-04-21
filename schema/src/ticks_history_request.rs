@@ -5,14 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::granularity_enum::GranularityEnum;
-use crate::adjust_start_time_enum::AdjustStartTimeEnum;
-use crate::subscribe_enum::SubscribeEnum;
-use crate::style_enum::StyleEnum;
+use crate::granularity::Granularity;
+use crate::style::Style;
 
 /// Get historic tick data for a given symbol.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -21,7 +19,7 @@ pub struct TicksHistoryRequest {
     /// [Optional] 1 - if the market is closed at the end time, or license limit is before end time, adjust interval backwards to compensate.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub adjust_start_time: Option<AdjustStartTimeEnum>,
+    pub adjust_start_time: Option<i64>,
     /// [Optional] An upper limit on ticks to receive.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -29,11 +27,11 @@ pub struct TicksHistoryRequest {
     /// Epoch value representing the latest boundary of the returned ticks. If `latest` is specified, this will be the latest available timestamp.\n
     // Correct serde attribute construction - Use helper
     
-    pub end: f64,
+    pub end: String,
     /// [Optional] Only applicable for style: `candles`. Candle time-dimension width setting. (default: `60`).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub granularity: Option<GranularityEnum>,
+    pub granularity: Option<Granularity>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -45,15 +43,15 @@ pub struct TicksHistoryRequest {
     /// [Optional] Epoch value representing the earliest boundary of the returned ticks.\n/// - For `"style": "ticks"`: this will default to 1 day ago.\n/// - For `"style": "candles"`: it will default to 1 day ago if count or granularity is undefined.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub start: Option<i64>,
+    pub start: Option<String>,
     /// [Optional] The tick-output style.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub style: Option<StyleEnum>,
+    pub style: Option<Style>,
     /// [Optional] 1 - to send updates whenever a new tick is received.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
     /// Short symbol name (obtained from the `active_symbols` call).\n
     // Correct serde attribute construction - Use helper
     

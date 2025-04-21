@@ -5,11 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::scopes_item_enum::ScopesItemEnum;
+use crate::scope_item::ScopeItem;
 
 /// Update a new OAuth application
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +18,7 @@ pub struct AppUpdateRequest {
     /// [Optional] Markup to be added to contract prices (as a percentage of contract payout). Max markup: 3%.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub app_markup_percentage: Option<f64>,
+    pub app_markup_percentage: Option<String>,
     /// Application app_id.\n
     // Correct serde attribute construction - Use helper
     
@@ -62,7 +62,7 @@ pub struct AppUpdateRequest {
     /// Change scopes will revoke all user's grants and log them out.\n
     // Correct serde attribute construction - Use helper
     
-    pub scopes: Vec<ScopesItemEnum>,
+    pub scopes: Vec<ScopeItem>,
     /// [Optional] Used when `verify_email` called. If available, a URL containing the verification token will send to the client's email, otherwise only the token will be sent.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

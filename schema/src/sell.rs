@@ -30,7 +30,7 @@ pub struct Sell {
     /// Actual effected sale price\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sold_for: Option<f64>,
+    pub sold_for: Option<String>,
     /// Internal transaction identifier for the sale transaction\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

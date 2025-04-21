@@ -5,11 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::query_item_enum::QueryItemEnum;
+use crate::query_item::QueryItem;
 
 /// This call returns a list of countries and 2-letter country codes, suitable for populating the account opening form.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +22,7 @@ pub struct ResidenceListRequest {
     /// [Optional] Specific keys from the response that you want. If not passed, it will return all the keys.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub query: Option<Vec<QueryItemEnum>>,
+    pub query: Option<Vec<QueryItem>>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

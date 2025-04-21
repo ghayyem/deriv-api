@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::topup_virtual_enum::TopupVirtualEnum;
 
 /// When a virtual-money's account balance becomes low, it can be topped up using this call.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -30,6 +29,6 @@ pub struct TopupVirtualRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub topup_virtual: TopupVirtualEnum,
+    pub topup_virtual: i64,
 }
 

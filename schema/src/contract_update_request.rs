@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::contract_update_enum::ContractUpdateEnum;
 use crate::limit_order::LimitOrder;
 
 /// Update a contract condition.
@@ -23,7 +22,7 @@ pub struct ContractUpdateRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub contract_update: ContractUpdateEnum,
+    pub contract_update: i64,
     /// Specify limit order to update.\n
     // Correct serde attribute construction - Use helper
     

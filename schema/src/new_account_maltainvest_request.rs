@@ -5,29 +5,25 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::tin_skipped_enum::TinSkippedEnum;
-use crate::secret_question_enum::SecretQuestionEnum;
-use crate::leverage_trading_high_risk_stop_loss_enum::LeverageTradingHighRiskStopLossEnum;
-use crate::required_initial_margin_enum::RequiredInitialMarginEnum;
-use crate::resident_self_declaration_enum::ResidentSelfDeclarationEnum;
-use crate::cfd_experience_enum::CfdExperienceEnum;
-use crate::risk_tolerance_enum::RiskToleranceEnum;
-use crate::source_of_experience_enum::SourceOfExperienceEnum;
-use crate::new_account_maltainvest_enum::NewAccountMaltainvestEnum;
-use crate::cfd_trading_definition_enum::CfdTradingDefinitionEnum;
-use crate::leverage_impact_trading_enum::LeverageImpactTradingEnum;
-use crate::trading_frequency_financial_instruments_enum::TradingFrequencyFinancialInstrumentsEnum;
-use crate::tnc_acceptance_enum::TncAcceptanceEnum;
-use crate::salutation_enum::SalutationEnum;
-use crate::fatca_declaration_enum::FatcaDeclarationEnum;
-use crate::client_type_enum::ClientTypeEnum;
-use crate::accept_risk_enum::AcceptRiskEnum;
-use crate::cfd_frequency_enum::CfdFrequencyEnum;
-use crate::trading_experience_financial_instruments_enum::TradingExperienceFinancialInstrumentsEnum;
+use crate::tnc_acceptance::TncAcceptance;
+use crate::accept_risk::AcceptRisk;
+use crate::fatca_declaration::FatcaDeclaration;
+use crate::tin_skipped::TinSkipped;
+use crate::cfd_trading_definition::CfdTradingDefinition;
+use crate::trading_frequency_financial_instruments::TradingFrequencyFinancialInstruments;
+use crate::leverage_trading_high_risk_stop_loss::LeverageTradingHighRiskStopLoss;
+use crate::source_of_experience::SourceOfExperience;
+use crate::trading_experience_financial_instruments::TradingExperienceFinancialInstruments;
+use crate::cfd_experience::CfdExperience;
+use crate::required_initial_margin::RequiredInitialMargin;
+use crate::risk_tolerance::RiskTolerance;
+use crate::client_type::ClientType;
+use crate::cfd_frequency::CfdFrequency;
+use crate::leverage_impact_trading::LeverageImpactTrading;
 
 /// This call opens a new real-money account with the `maltainvest` Landing Company. This call can be made from a virtual-money account or real-money account at Deriv (Europe) Limited. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -36,7 +32,7 @@ pub struct NewAccountMaltainvestRequest {
     /// Show whether client has accepted risk disclaimer.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub accept_risk: Option<AcceptRiskEnum>,
+    pub accept_risk: Option<AcceptRisk>,
     /// Field 'account_opening_reason' mapped to Value due to complexity/potential issues.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -64,7 +60,7 @@ pub struct NewAccountMaltainvestRequest {
     /// [Optional] Possible value receive from `states_list` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub address_state: Option<f64>,
+    pub address_state: Option<String>,
     /// [Optional] Affiliate token, within 32 characters.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -72,27 +68,27 @@ pub struct NewAccountMaltainvestRequest {
     /// [Optional] The phone's calling country code. Don't include the `+` sign. Up to 4 digits.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub calling_country_code: Option<String>,
+    pub calling_country_code: Option<Value>,
     /// How much experience do you have in CFD trading?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub cfd_experience: Option<CfdExperienceEnum>,
+    pub cfd_experience: Option<CfdExperience>,
     /// How many CFD trades have you placed in the past 12 months?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub cfd_frequency: Option<CfdFrequencyEnum>,
+    pub cfd_frequency: Option<CfdFrequency>,
     /// In your understanding, CFD trading allows you to:\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub cfd_trading_definition: Option<CfdTradingDefinitionEnum>,
+    pub cfd_trading_definition: Option<CfdTradingDefinition>,
     /// [Optional] Country of legal citizenship, 2-letter country code. Possible value receive from `residence_list` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub citizen: Option<f64>,
+    pub citizen: Option<String>,
     /// [Optional] Indicates whether this is for a client requesting an account with professional status.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub client_type: Option<ClientTypeEnum>,
+    pub client_type: Option<ClientType>,
     /// [Optional] To set currency of the account. List of supported currencies can be acquired with `payout_currencies` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -120,7 +116,7 @@ pub struct NewAccountMaltainvestRequest {
     /// [Optional] Indicates client's self-declaration of FATCA.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub fatca_declaration: Option<FatcaDeclarationEnum>,
+    pub fatca_declaration: Option<FatcaDeclaration>,
     /// [Optional] Version of the financial information\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -144,11 +140,11 @@ pub struct NewAccountMaltainvestRequest {
     /// How does leverage affect CFD trading?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub leverage_impact_trading: Option<LeverageImpactTradingEnum>,
+    pub leverage_impact_trading: Option<LeverageImpactTrading>,
     /// Leverage trading is high-risk, so it's a good idea to use risk management features such as stop loss. Stop loss allows you to\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub leverage_trading_high_risk_stop_loss: Option<LeverageTradingHighRiskStopLossEnum>,
+    pub leverage_trading_high_risk_stop_loss: Option<LeverageTradingHighRiskStopLoss>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -160,7 +156,7 @@ pub struct NewAccountMaltainvestRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub new_account_maltainvest: NewAccountMaltainvestEnum,
+    pub new_account_maltainvest: i64,
     /// [Optional] Indicates client's self-declaration of not being a PEP/RCA.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -176,7 +172,7 @@ pub struct NewAccountMaltainvestRequest {
     /// [Optional] The phone's national format, don't include the `+` sign nor the calling country code. Up to 15 digits are allowed.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub phone: Option<String>,
+    pub phone: Option<Value>,
     /// [Optional] Place of birth, 2-letter country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -188,23 +184,23 @@ pub struct NewAccountMaltainvestRequest {
     /// When would you be required to pay an initial margin?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub required_initial_margin: Option<RequiredInitialMarginEnum>,
+    pub required_initial_margin: Option<RequiredInitialMargin>,
     /// 2-letter country code, possible value receive from `residence_list` call.\n
     // Correct serde attribute construction - Use helper
     
-    pub residence: f64,
+    pub residence: String,
     /// [Optional] Indicates client's self declaration for opening account under own initiative, must be 1\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub resident_self_declaration: Option<ResidentSelfDeclarationEnum>,
+    pub resident_self_declaration: Option<i64>,
     /// Do you understand that you could potentially lose 100% of the money you use to trade?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub risk_tolerance: Option<RiskToleranceEnum>,
+    pub risk_tolerance: Option<RiskTolerance>,
     /// Accept any value in enum list.\n
     // Correct serde attribute construction - Use helper
     
-    pub salutation: SalutationEnum,
+    pub salutation: String,
     /// [Optional] Answer to secret question, within 4-50 characters.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -212,11 +208,11 @@ pub struct NewAccountMaltainvestRequest {
     /// [Optional] Accept any value in enum list.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub secret_question: Option<SecretQuestionEnum>,
+    pub secret_question: Option<String>,
     /// How much knowledge and experience do you have in relation to online trading?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub source_of_experience: Option<SourceOfExperienceEnum>,
+    pub source_of_experience: Option<SourceOfExperience>,
     /// [Optional] Source of wealth.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -232,18 +228,18 @@ pub struct NewAccountMaltainvestRequest {
     /// [Optional] Whether the client has skipped the TIN form. Only applicable for real money account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub tin_skipped: Option<TinSkippedEnum>,
+    pub tin_skipped: Option<TinSkipped>,
     /// The tnc acceptance status of the user.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub tnc_acceptance: Option<TncAcceptanceEnum>,
+    pub tnc_acceptance: Option<TncAcceptance>,
     /// How much experience do you have with other financial instruments?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub trading_experience_financial_instruments: Option<TradingExperienceFinancialInstrumentsEnum>,
+    pub trading_experience_financial_instruments: Option<TradingExperienceFinancialInstruments>,
     /// How many trades have you placed with other financial instruments in the past 12 months?\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub trading_frequency_financial_instruments: Option<TradingFrequencyFinancialInstrumentsEnum>,
+    pub trading_frequency_financial_instruments: Option<TradingFrequencyFinancialInstruments>,
 }
 

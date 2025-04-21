@@ -5,13 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::confirm_email_enum::ConfirmEmailEnum;
-use crate::email_consent_enum::EmailConsentEnum;
-use crate::created_for_enum::CreatedForEnum;
+use crate::created_for::CreatedFor;
 
 /// Verifies the email for the user using verification code passed in the request object
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,15 +18,15 @@ pub struct ConfirmEmailRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub confirm_email: ConfirmEmailEnum,
+    pub confirm_email: i64,
     /// [Optional] Purpose of the email verification. If set to 'account_opening', the API will only return the verification response without updating the user's email verification status.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub created_for: Option<CreatedForEnum>,
+    pub created_for: Option<CreatedFor>,
     /// Boolean value: 1 or 0, indicating whether the client has given consent for marketing emails.\n
     // Correct serde attribute construction - Use helper
     
-    pub email_consent: EmailConsentEnum,
+    pub email_consent: String,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
 use crate::subscription::Subscription;
-use crate::msg_type_enum::MsgTypeEnum;
 
 /// Latest price and other details for an open contract in the user's portfolio
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +22,7 @@ pub struct ProposalOpenContractResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub msg_type: Option<MsgTypeEnum>,
+    pub msg_type: Option<String>,
     /// Field 'proposal_open_contract' mapped to Value due to complexity/potential issues.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

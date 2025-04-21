@@ -9,10 +9,10 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
+use crate::symbol_item::SymbolItem; 
 use crate::market::Market; 
 use crate::submarket::Submarket; 
-use crate::trade_durations_item::TradeDurationsItem; 
-use crate::symbol_item::SymbolItem; 
+use crate::trade_duration_item::TradeDurationItem; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -33,6 +33,6 @@ pub struct DataItem {
     /// List of trade durations available for symbols and contract combinations.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub trade_durations: Option<Vec<TradeDurationsItem>>,
+    pub trade_durations: Option<Vec<TradeDurationItem>>,
 }
 

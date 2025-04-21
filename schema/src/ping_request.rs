@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::ping_enum::PingEnum;
 
 /// To send the ping request to the server. Mostly used to test the connection or to keep it alive.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +21,7 @@ pub struct PingRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub ping: PingEnum,
+    pub ping: i64,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

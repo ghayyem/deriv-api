@@ -9,10 +9,8 @@ use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
-use crate::account_category_enum::AccountCategoryEnum; 
-use crate::is_disabled_enum::IsDisabledEnum; 
 use crate::linked_to_item::LinkedToItem; 
-use crate::is_virtual_enum::IsVirtualEnum; 
+use crate::account_category::AccountCategory; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -21,7 +19,7 @@ pub struct AccountListItem {
     /// Account category.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub account_category: Option<AccountCategoryEnum>,
+    pub account_category: Option<AccountCategory>,
     /// Account type.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -49,11 +47,11 @@ pub struct AccountListItem {
     /// Boolean value: 1 or 0, indicating whether the account is marked as disabled or not.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub is_disabled: Option<IsDisabledEnum>,
+    pub is_disabled: Option<String>,
     /// Boolean value: 1 or 0, indicating whether the account is a virtual-money account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub is_virtual: Option<IsVirtualEnum>,
+    pub is_virtual: Option<String>,
     /// Landing company shortcode the account belongs to.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

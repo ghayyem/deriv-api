@@ -26,7 +26,7 @@ pub struct AppGet {
     /// Markup added to contract prices (as a percentage of contract payout).\n
     // Correct serde attribute construction - Use helper
     
-    pub app_markup_percentage: f64,
+    pub app_markup_percentage: String,
     /// Application's App Store URL.\n
     // Correct serde attribute construction - Use helper
     

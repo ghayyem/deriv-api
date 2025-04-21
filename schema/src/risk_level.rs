@@ -4,8 +4,8 @@
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
+use serde_json::Value;
 
-use std::collections::HashMap;
 
 
 // Import shared types from the *same* crate
@@ -22,6 +22,6 @@ pub struct RiskLevel {
     /// Flags for specific landing companies\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company: Option<HashMap<String, String>>,
+    pub landing_company: Option<Value>,
 }
 

@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::get_settings_enum::GetSettingsEnum;
 
 /// Get User Settings (email, date of birth, address etc)
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct GetSettingsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub get_settings: GetSettingsEnum,
+    pub get_settings: i64,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

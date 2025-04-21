@@ -5,7 +5,7 @@
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import shared types from the *same* crate
@@ -18,7 +18,7 @@ pub struct PaymentagentList {
     /// The list of countries in which payment agent is available.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub available_countries: Option<Vec<Vec<Option<String>>>>,
+    pub available_countries: Option<Vec<Vec<Option<Value>>>>,
     /// Field 'list' mapped to Value due to complexity/potential issues.\n
     // Correct serde attribute construction - Use helper
     

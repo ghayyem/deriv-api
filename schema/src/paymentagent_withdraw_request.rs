@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::paymentagent_withdraw_enum::PaymentagentWithdrawEnum;
-use crate::dry_run_enum::DryRunEnum;
+use crate::dry_run::DryRun;
 
 /// Initiate a withdrawal to an approved Payment Agent.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +18,7 @@ pub struct PaymentagentWithdrawRequest {
     /// The amount to withdraw to the payment agent.\n
     // Correct serde attribute construction - Use helper
     
-    pub amount: f64,
+    pub amount: String,
     /// The currency code.\n
     // Correct serde attribute construction - Use helper
     
@@ -31,7 +30,7 @@ pub struct PaymentagentWithdrawRequest {
     /// [Optional] If set to 1, just do validation.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub dry_run: Option<DryRunEnum>,
+    pub dry_run: Option<DryRun>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -47,7 +46,7 @@ pub struct PaymentagentWithdrawRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub paymentagent_withdraw: PaymentagentWithdrawEnum,
+    pub paymentagent_withdraw: i64,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

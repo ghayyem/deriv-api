@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::balance_enum::BalanceEnum;
-use crate::subscribe_enum::SubscribeEnum;
+use crate::subscribe::Subscribe;
 
 /// Get user account balance
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +22,7 @@ pub struct BalanceRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub balance: BalanceEnum,
+    pub balance: i64,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -39,6 +38,6 @@ pub struct BalanceRequest {
     /// [Optional] If set to 1, will send updates whenever the balance changes.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<Subscribe>,
 }
 

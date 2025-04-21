@@ -5,17 +5,15 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::provider_enum::ProviderEnum;
-use crate::partner_account_creation_enum::PartnerAccountCreationEnum;
-use crate::landing_company_short_enum::LandingCompanyShortEnum;
-use crate::tnc_acceptance_enum::TncAcceptanceEnum;
-use crate::salutation_enum::SalutationEnum;
-use crate::fatca_declaration_enum::FatcaDeclarationEnum;
-use crate::partner_type_enum::PartnerTypeEnum;
+use crate::tnc_acceptance::TncAcceptance;
+use crate::provider::Provider;
+use crate::fatca_declaration::FatcaDeclaration;
+use crate::landing_company_short::LandingCompanyShort;
+use crate::partner_type::PartnerType;
 
 /// This call initiates the state machine for account creation process
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -40,15 +38,15 @@ pub struct PartnerAccountCreationRequest {
     /// [Optional] Possible value receive from `states_list` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub address_state: Option<f64>,
+    pub address_state: Option<String>,
     /// [Optional] The phone's calling country code. Don't include the `+` sign. Up to 4 digits.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub calling_country_code: Option<String>,
+    pub calling_country_code: Option<Value>,
     /// [Optional] Country of legal citizenship, 2-letter country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub citizen: Option<String>,
+    pub citizen: Option<Value>,
     /// [Optional] Company name. Only applicable for partners of type company.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -72,7 +70,7 @@ pub struct PartnerAccountCreationRequest {
     /// [Optional] Indicates client's self-declaration of FATCA.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub fatca_declaration: Option<FatcaDeclarationEnum>,
+    pub fatca_declaration: Option<FatcaDeclaration>,
     /// Within 1-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -80,7 +78,7 @@ pub struct PartnerAccountCreationRequest {
     /// [Optional] If specified, will return only the underlyings for the specified landing company.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company_short: Option<LandingCompanyShortEnum>,
+    pub landing_company_short: Option<LandingCompanyShort>,
     /// Within 1-50 characters, use only letters, spaces, hyphens, full-stops or apostrophes.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -96,11 +94,11 @@ pub struct PartnerAccountCreationRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub partner_account_creation: PartnerAccountCreationEnum,
+    pub partner_account_creation: i64,
     /// Defines whether this partner is an individual or a company. Only applicable for partners\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub partner_type: Option<PartnerTypeEnum>,
+    pub partner_type: Option<PartnerType>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -112,7 +110,7 @@ pub struct PartnerAccountCreationRequest {
     /// [Optional] Name  of the provider platform.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub provider: Option<ProviderEnum>,
+    pub provider: Option<Provider>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -120,15 +118,15 @@ pub struct PartnerAccountCreationRequest {
     /// 2-letter country code, possible value receive from `residence_list` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub residence: Option<f64>,
+    pub residence: Option<String>,
     /// Accept any value in enum list.\n
     // Correct serde attribute construction - Use helper
     
-    pub salutation: SalutationEnum,
+    pub salutation: String,
     /// The tnc acceptance status of the user.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub tnc_acceptance: Option<TncAcceptanceEnum>,
+    pub tnc_acceptance: Option<TncAcceptance>,
     /// Partner's Website URI/Promotional Platform\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

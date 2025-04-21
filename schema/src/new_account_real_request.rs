@@ -5,18 +5,15 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::tin_skipped_enum::TinSkippedEnum;
-use crate::secret_question_enum::SecretQuestionEnum;
-use crate::new_account_real_enum::NewAccountRealEnum;
-use crate::account_turnover_enum::AccountTurnoverEnum;
-use crate::tnc_acceptance_enum::TncAcceptanceEnum;
-use crate::salutation_enum::SalutationEnum;
-use crate::fatca_declaration_enum::FatcaDeclarationEnum;
-use crate::client_type_enum::ClientTypeEnum;
+use crate::tnc_acceptance::TncAcceptance;
+use crate::fatca_declaration::FatcaDeclaration;
+use crate::account_turnover::AccountTurnover;
+use crate::tin_skipped::TinSkipped;
+use crate::client_type::ClientType;
 
 /// This call opens a new real-money account. This call can be made from a virtual-money or a real-money account. If it is the latter, client information fields in this call will be ignored and data from your existing real-money account will be used.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -29,7 +26,7 @@ pub struct NewAccountRealRequest {
     /// [Optional] The anticipated account turnover.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub account_turnover: Option<AccountTurnoverEnum>,
+    pub account_turnover: Option<AccountTurnover>,
     /// [Optional] Within 100 characters.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -49,7 +46,7 @@ pub struct NewAccountRealRequest {
     /// [Optional] Possible value receive from `states_list` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub address_state: Option<f64>,
+    pub address_state: Option<String>,
     /// [Optional] Affiliate token, within 32 characters.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -57,15 +54,15 @@ pub struct NewAccountRealRequest {
     /// [Optional] The phone's calling country code. Don't include the `+` sign. Up to 4 digits.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub calling_country_code: Option<String>,
+    pub calling_country_code: Option<Value>,
     /// [Optional] Country of legal citizenship, 2-letter country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub citizen: Option<String>,
+    pub citizen: Option<Value>,
     /// [Optional] Indicates whether this is for a client requesting an account with professional status.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub client_type: Option<ClientTypeEnum>,
+    pub client_type: Option<ClientType>,
     /// [Optional] To set currency of the account. List of supported currencies can be acquired with `payout_currencies` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -81,7 +78,7 @@ pub struct NewAccountRealRequest {
     /// [Optional] Indicates client's self-declaration of FATCA.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub fatca_declaration: Option<FatcaDeclarationEnum>,
+    pub fatca_declaration: Option<FatcaDeclaration>,
     /// [Optional] The version of the financial information form.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -101,7 +98,7 @@ pub struct NewAccountRealRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub new_account_real: NewAccountRealEnum,
+    pub new_account_real: i64,
     /// [Optional] Indicates client's self-declaration of not being a PEP/RCA (Politically Exposed Person/Relatives and Close Associates).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -113,7 +110,7 @@ pub struct NewAccountRealRequest {
     /// [Optional] The phone's national format, don't include the `+` sign nor the calling country code. Up to 15 digits are allowed.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub phone: Option<String>,
+    pub phone: Option<Value>,
     /// [Optional] Place of birth, 2-letter country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -125,11 +122,11 @@ pub struct NewAccountRealRequest {
     /// 2-letter country code, possible value receive from `residence_list` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub residence: Option<f64>,
+    pub residence: Option<String>,
     /// [Optional] Accept any value in enum list.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub salutation: Option<SalutationEnum>,
+    pub salutation: Option<String>,
     /// [Optional] Answer to secret question, within 4-50 characters. Required for new account and existing client details will be used if client open another account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -137,7 +134,7 @@ pub struct NewAccountRealRequest {
     /// [Optional] Accept any value in enum list. Required for new account and existing client details will be used if client open another account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub secret_question: Option<SecretQuestionEnum>,
+    pub secret_question: Option<String>,
     /// [Optional] Tax identification number. Only applicable for real money account. Required for `maltainvest` landing company.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -149,10 +146,10 @@ pub struct NewAccountRealRequest {
     /// [Optional] Whether the client has skipped the TIN form. Only applicable for real money account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub tin_skipped: Option<TinSkippedEnum>,
+    pub tin_skipped: Option<TinSkipped>,
     /// The tnc acceptance status of the user.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub tnc_acceptance: Option<TncAcceptanceEnum>,
+    pub tnc_acceptance: Option<TncAcceptance>,
 }
 

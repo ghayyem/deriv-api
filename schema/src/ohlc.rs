@@ -18,7 +18,7 @@ pub struct Ohlc {
     /// It is the close price value for the given time\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub close: Option<f64>,
+    pub close: Option<String>,
     /// It is an epoch value\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -30,7 +30,7 @@ pub struct Ohlc {
     /// It is the high price value for the given time\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub high: Option<f64>,
+    pub high: Option<String>,
     /// Subscription unique identifier. Can be passed to the `forget` API call to unsubscribe.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -38,11 +38,11 @@ pub struct Ohlc {
     /// It is the low price value for the given time\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub low: Option<f64>,
+    pub low: Option<String>,
     /// It is the open price value for the given time\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub open: Option<f64>,
+    pub open: Option<String>,
     /// It is an epoch of open time\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

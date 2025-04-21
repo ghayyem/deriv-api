@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::markets_item::MarketsItem; 
+use crate::market_item::MarketItem; 
 
 // It's a struct
 /// The trading times structure is a hierarchy as follows: Market -> SubMarket -> Underlyings
@@ -19,6 +19,6 @@ pub struct TradingTimes {
     /// An array of markets\n
     // Correct serde attribute construction - Use helper
     
-    pub markets: Vec<MarketsItem>,
+    pub markets: Vec<MarketItem>,
 }
 

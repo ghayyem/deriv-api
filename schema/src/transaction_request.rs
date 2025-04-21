@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::transaction_enum::TransactionEnum;
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Subscribe to transaction notifications
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -31,10 +29,10 @@ pub struct TransactionRequest {
     /// If set to 1, will send updates whenever there is an update to transactions. If not to 1 then it will not return any records.\n
     // Correct serde attribute construction - Use helper
     
-    pub subscribe: SubscribeEnum,
+    pub subscribe: i64,
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub transaction: TransactionEnum,
+    pub transaction: i64,
 }
 

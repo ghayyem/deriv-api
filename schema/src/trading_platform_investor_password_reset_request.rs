@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::platform_enum::PlatformEnum;
-use crate::trading_platform_investor_password_reset_enum::TradingPlatformInvestorPasswordResetEnum;
 
 /// Reset the investor password of a Trading Platform Account
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -35,7 +33,7 @@ pub struct TradingPlatformInvestorPasswordResetRequest {
     /// Name of trading platform.\n
     // Correct serde attribute construction - Use helper
     
-    pub platform: PlatformEnum,
+    pub platform: String,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -43,7 +41,7 @@ pub struct TradingPlatformInvestorPasswordResetRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub trading_platform_investor_password_reset: TradingPlatformInvestorPasswordResetEnum,
+    pub trading_platform_investor_password_reset: i64,
     /// Email verification code (received from a `verify_email` call, which must be done first)\n
     // Correct serde attribute construction - Use helper
     

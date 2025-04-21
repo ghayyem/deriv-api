@@ -5,14 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::show_name_enum::ShowNameEnum;
-use crate::is_listed_enum::IsListedEnum;
-use crate::upgrade_limits_enum::UpgradeLimitsEnum;
-use crate::p2p_advertiser_update_enum::P2pAdvertiserUpdateEnum;
+use crate::is_listed::IsListed;
+use crate::show_name::ShowName;
 
 /// Update the information of the P2P advertiser for the current account. Can only be used by an approved P2P advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -29,7 +27,7 @@ pub struct P2pAdvertiserUpdateRequest {
     /// [Optional] Used to set if the advertiser's adverts could be listed. When `0`, adverts won't be listed regardless of they are active or not. This doesn't change the `is_active` of each individual advert.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub is_listed: Option<IsListedEnum>,
+    pub is_listed: Option<IsListed>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -37,7 +35,7 @@ pub struct P2pAdvertiserUpdateRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub p2p_advertiser_update: P2pAdvertiserUpdateEnum,
+    pub p2p_advertiser_update: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -53,14 +51,14 @@ pub struct P2pAdvertiserUpdateRequest {
     /// [Optional] Weekly availability schedule. Ads are visible and orders can be created only during available periods.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub schedule: Option<Vec<Value>>,
+    pub schedule: Option<Vec<String>>,
     /// [Optional] When `1`, the advertiser's real name will be displayed on to other users on adverts and orders.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub show_name: Option<ShowNameEnum>,
+    pub show_name: Option<ShowName>,
     /// [Optional] Used to upgrade daily limits of eligible advertiser.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub upgrade_limits: Option<UpgradeLimitsEnum>,
+    pub upgrade_limits: Option<i64>,
 }
 

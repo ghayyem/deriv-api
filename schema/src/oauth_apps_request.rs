@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::oauth_apps_enum::OauthAppsEnum;
 
 /// List all my used OAuth applications.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +21,7 @@ pub struct OauthAppsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub oauth_apps: OauthAppsEnum,
+    pub oauth_apps: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

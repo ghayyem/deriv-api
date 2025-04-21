@@ -5,11 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::dispute_reason_enum::DisputeReasonEnum;
+use crate::dispute_reason::DisputeReason;
 
 /// Dispute a P2P order.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +18,7 @@ pub struct P2pOrderDisputeRequest {
     /// The predefined dispute reason\n
     // Correct serde attribute construction - Use helper
     
-    pub dispute_reason: DisputeReasonEnum,
+    pub dispute_reason: DisputeReason,
     /// The unique identifier for this order.\n
     // Correct serde attribute construction - Use helper
     

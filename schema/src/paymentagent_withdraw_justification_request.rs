@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::paymentagent_withdraw_justification_enum::PaymentagentWithdrawJustificationEnum;
 
 /// Provide justification to perform withdrawal using a Payment Agent.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -30,7 +29,7 @@ pub struct PaymentagentWithdrawJustificationRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub paymentagent_withdraw_justification: PaymentagentWithdrawJustificationEnum,
+    pub paymentagent_withdraw_justification: i64,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

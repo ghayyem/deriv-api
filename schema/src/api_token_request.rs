@@ -5,13 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::api_token_enum::ApiTokenEnum;
-use crate::valid_for_current_ip_only_enum::ValidForCurrentIpOnlyEnum;
-use crate::new_token_scopes_item_enum::NewTokenScopesItemEnum;
+use crate::valid_for_current_ip_only::ValidForCurrentIpOnly;
+use crate::new_token_scope_item::NewTokenScopeItem;
 
 /// This call manages API tokens
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,7 +19,7 @@ pub struct ApiTokenRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub api_token: ApiTokenEnum,
+    pub api_token: i64,
     /// [Optional] The token to remove.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -36,7 +35,7 @@ pub struct ApiTokenRequest {
     /// [Optional] List of permission scopes to provide with the token.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub new_token_scopes: Option<Vec<NewTokenScopesItemEnum>>,
+    pub new_token_scopes: Option<Vec<NewTokenScopeItem>>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -48,6 +47,6 @@ pub struct ApiTokenRequest {
     /// [Optional] If you set this parameter during token creation, then the token created will only work for the IP address that was used to create the token\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub valid_for_current_ip_only: Option<ValidForCurrentIpOnlyEnum>,
+    pub valid_for_current_ip_only: Option<ValidForCurrentIpOnly>,
 }
 

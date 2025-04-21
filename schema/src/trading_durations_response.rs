@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::trading_durations_item::TradingDurationsItem;
+use crate::trading_duration_item::TradingDurationItem;
 
 /// A message with trading duration information for symbol and contract combinations.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +22,7 @@ pub struct TradingDurationsResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -31,6 +30,6 @@ pub struct TradingDurationsResponse {
     /// List of underlyings by their display name and symbol followed by their available contract types and trading duration boundaries.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub trading_durations: Option<Vec<TradingDurationsItem>>,
+    pub trading_durations: Option<Vec<TradingDurationItem>>,
 }
 

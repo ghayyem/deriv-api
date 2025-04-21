@@ -5,15 +5,14 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::account_type_enum::AccountTypeEnum;
-use crate::platform_enum::PlatformEnum;
-use crate::environment_enum::EnvironmentEnum;
-use crate::trading_servers_enum::TradingServersEnum;
-use crate::market_type_enum::MarketTypeEnum;
+use crate::environment::Environment;
+use crate::market_type::MarketType;
+use crate::account_type::AccountType;
+use crate::platform::Platform;
 
 /// Get the list of servers for a trading platform.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,11 +21,11 @@ pub struct TradingServersRequest {
     /// [Optional] Trading account type.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub account_type: Option<AccountTypeEnum>,
+    pub account_type: Option<AccountType>,
     /// [Optional] Pass the environment (installation) instance. Currently, there are one demo and two real environments. Defaults to 'all'.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub environment: Option<EnvironmentEnum>,
+    pub environment: Option<Environment>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -34,7 +33,7 @@ pub struct TradingServersRequest {
     /// [Optional] Market type.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub market_type: Option<MarketTypeEnum>,
+    pub market_type: Option<MarketType>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -42,7 +41,7 @@ pub struct TradingServersRequest {
     /// [Optional] Pass the trading platform name, default to mt5\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub platform: Option<PlatformEnum>,
+    pub platform: Option<Platform>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -50,6 +49,6 @@ pub struct TradingServersRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub trading_servers: TradingServersEnum,
+    pub trading_servers: i64,
 }
 

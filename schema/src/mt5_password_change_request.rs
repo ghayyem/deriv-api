@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::password_type_enum::PasswordTypeEnum;
-use crate::mt5_password_change_enum::Mt5PasswordChangeEnum;
+use crate::password_type::PasswordType;
 
 /// To change passwords of the MT5 account.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,7 +26,7 @@ pub struct Mt5PasswordChangeRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub mt5_password_change: Mt5PasswordChangeEnum,
+    pub mt5_password_change: i64,
     /// New password of the account. For validation (Accepts any printable ASCII character. Must be within 8-25 characters, and include numbers, lowercase and uppercase letters. Must not be the same as the user's email address).\n
     // Correct serde attribute construction - Use helper
     
@@ -43,7 +42,7 @@ pub struct Mt5PasswordChangeRequest {
     /// [Optional] Type of the password to change.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub password_type: Option<PasswordTypeEnum>,
+    pub password_type: Option<PasswordType>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

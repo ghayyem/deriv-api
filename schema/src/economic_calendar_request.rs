@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::economic_calendar_enum::EconomicCalendarEnum;
 
 /// Specify a currency to receive a list of events related to that specific currency. For example, specifying USD will return a list of USD-related events. If the currency is omitted, you will receive a list for all currencies.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +21,7 @@ pub struct EconomicCalendarRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub economic_calendar: EconomicCalendarEnum,
+    pub economic_calendar: i64,
     /// [Optional] End date.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

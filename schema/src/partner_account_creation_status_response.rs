@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::partner_account_creation_status::PartnerAccountCreationStatus;
 
 /// A response message containing the status of partner account creation process
@@ -23,7 +22,7 @@ pub struct PartnerAccountCreationStatusResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Status information for the partner account creation process\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

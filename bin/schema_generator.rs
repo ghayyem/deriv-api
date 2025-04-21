@@ -279,108 +279,102 @@ impl SchemaParser {
         name_hint: &str, // Used to generate type names (e.g., property name)
         source_file: &str,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        if let Some(obj) = value.as_object() {
-            let type_str = obj.get("type").and_then(|t| t.as_str());
+        debug!("Collecting definition recursively, hint: {}", name_hint);
 
-            // Check for enums defined directly
-            if obj.contains_key("enum") && obj.get("enum").unwrap().is_array() && !obj.get("enum").unwrap().as_array().unwrap().is_empty() {
-                 let type_name = self.to_type_name(&format!("{}Enum", name_hint));
-                 if !self.type_definitions.contains_key(&type_name) {
-                    debug!("Collected enum definition: {} from {}", type_name, source_file);
+        // --- BEGIN MODIFICATION: Check for const integer ---
+        if let (Some(Value::String(json_type)), Some(Value::Number(_const_val))) = (value.get("type"), value.get("const")) {
+            if json_type == "integer" {
+                 debug!("Skipping registration for const integer property: {}", name_hint);
+                return Ok(()); // Do not register this as a distinct type
+            }
+        }
+         // --- END MODIFICATION ---
+
+        // Handle $ref - we don't collect definitions from external refs here
+        if value.get("$ref").is_some() {
+            return Ok(());
+        }
+
+        // Check if it's an object with properties (potential struct)
+        if let Some(properties) = value.get("properties").and_then(|p| p.as_object()) {
+            let type_name = self.to_type_name(name_hint);
+             debug!("Found potential struct definition: {} from hint: {}", type_name, name_hint);
+            if !self.type_definitions.contains_key(&type_name) {
+                self.type_definitions.insert(
+                    type_name.clone(),
+                    TypeDefinition {
+                        name: type_name.clone(),
+                        definition: value.clone(),
+                        source_file: source_file.to_string(),
+                        is_enum: false, // It's an object/struct
+                    },
+                );
+                // Recursively collect definitions from properties of this object
+                for (prop_name, prop_value) in properties {
+                     // --- BEGIN FIX: Use property name directly as hint --- 
+                     // let nested_name_hint = format!("{}{}", type_name, prop_name.to_case(Case::Pascal));
+                    self.collect_definition_recursive(prop_value, prop_name, source_file)?;
+                     // --- END FIX ---
+                }
+            }
+        }
+        // Check if it's an enum (string or integer based)
+        else if value.get("enum").is_some() {
+            // Only consider enums if they have a "type" specified as string or integer.
+            // Avoid generating enums for types like `{"enum": [1, "foo"]}` unless type is specified.
+             let json_type = value.get("type").and_then(|t| t.as_str());
+             if json_type == Some("string") || json_type == Some("integer") {
+                let type_name = self.to_type_name(name_hint);
+                debug!("Found potential enum definition: {} from hint: {}", type_name, name_hint);
+                if !self.type_definitions.contains_key(&type_name) {
                     self.type_definitions.insert(
                         type_name.clone(),
                         TypeDefinition {
-                            name: type_name,
+                            name: type_name.clone(),
                             definition: value.clone(),
                             source_file: source_file.to_string(),
-                            is_enum: true,
+                            is_enum: true, // It's an enum
                         },
                     );
                 }
-            }
-            // Check for objects
-            else if type_str == Some("object") {
-                let type_name = self.to_type_name(name_hint);
-                let already_collected = self.type_definitions.contains_key(&type_name);
+             } else {
+                 warn!("Skipping enum registration for '{}' due to missing or unsupported type: {:?}", name_hint, json_type);
+             }
 
-                // --- Debug Logging Start ---
-                if name_hint == "landingCompanyInfo" || type_name == "LandingCompanyInfo" {
-                    info!("Processing object definition hint/type: '{}' / '{}' from {}", name_hint, type_name, source_file);
-                    if let Some(properties) = obj.get("properties").and_then(|p| p.as_object()) {
-                        let keys: Vec<_> = properties.keys().collect(); // Collect keys into a Vec
-                        info!("  -> Found properties: {:?}", keys);
-                    } else {
-                        info!("  -> No direct properties found for {}", type_name);
-                    }
-                }
-                // --- Debug Logging End ---
-
-                // Collect the main object definition if it's custom and not yet collected
-                if !self.is_primitive_or_known_or_handled(&type_name) && !already_collected {
-                     if obj.contains_key("properties") || obj.contains_key("patternProperties") || obj.contains_key("additionalProperties") {
-                         debug!("Collected object definition: {} from {}", type_name, source_file);
-                         self.type_definitions.insert(
-                            type_name.clone(),
-                            TypeDefinition {
-                                name: type_name.clone(),
-                                definition: value.clone(),
-                                source_file: source_file.to_string(),
-                                is_enum: false,
-                            },
-                        );
-                     } else {
-                         // Don't collect empty objects unless specifically needed?
-                         // For now, let's assume objects without properties/patterns don't define a distinct type
-                         // unless it's a base type like KeyValueObject.
-                         // If it falls back to Value later, that's okay.
-                         debug!("Skipping collection of object '{}' with no properties/patterns from {}", type_name, source_file);
-                     }
-                }
-
-                // Always try to collect nested definitions, regardless of whether the parent object was collected
-                if let Some(properties) = obj.get("properties").and_then(|p| p.as_object()) {
-                    self.collect_definitions_from_properties(properties, source_file)?;
-                }
-                if let Some(pattern_props) = obj.get("patternProperties").and_then(|p| p.as_object()) {
-                    for (_pattern, prop_value) in pattern_props {
-                        // Use a more specific name hint for pattern property values if possible
-                        self.collect_definition_recursive(prop_value, &format!("{}Value", name_hint), source_file)?;
-                    }
-                }
-                if let Some(add_props_schema) = obj.get("additionalProperties").filter(|v| v.is_object()) {
-                    // Use a more specific name hint for additional property values if possible
-                    self.collect_definition_recursive(add_props_schema, &format!("{}Value", name_hint), source_file)?;
-                }
-            }
-            // Check for arrays
-            else if type_str == Some("array") {
-                if let Some(items_schema) = obj.get("items") {
-                    self.collect_definition_recursive(items_schema, &format!("{}Item", name_hint), source_file)?;
-                }
-            }
-            // Check for $ref (might point to a definition elsewhere)
-            else if let Some(ref_str) = obj.get("$ref").and_then(|r| r.as_str()) {
-                // We don't directly resolve $refs during collection, assuming the referenced
-                // type will be collected when its definition is processed.
-                // If $refs point outside the scanned files, this needs enhancement.
-                 debug!("Encountered $ref: {} (will be resolved during generation)", ref_str);
-            }
-
-            // Recursively check within properties even if the top level wasn't an object we defined
-            if let Some(properties) = obj.get("properties").and_then(|p| p.as_object()) {
-                 self.collect_definitions_from_properties(properties, source_file)?;
-            }
-            if let Some(defs) = obj.get("$defs").and_then(|p| p.as_object()) {
-                 self.collect_definitions_from_properties(defs, source_file)?;
-            }
+        }
+        // Check if it's an array with items definition
+        else if let Some(items) = value.get("items") {
+            // Arrays themselves don't define a named type, but their items might.
+            // Generate a name hint for the item type based on the array name + "Item".
+            let singular_hint = name_hint.strip_suffix('s').unwrap_or(name_hint); // Simple singularization
+            let item_type_hint = format!("{}Item", singular_hint);
+             debug!("Recursing into array items, hint: {}", item_type_hint);
+            self.collect_definition_recursive(items, &item_type_hint, source_file)?;
+        }
+         // Check for object with additionalProperties (potential map/dictionary)
+         else if let Some(add_props) = value.get("additionalProperties") {
+             // If additionalProperties defines a schema, recurse into that.
+             if add_props.is_object() {
+                 let map_value_hint = format!("{}Value", name_hint);
+                 debug!("Recursing into additionalProperties, hint: {}", map_value_hint);
+                 self.collect_definition_recursive(add_props, &map_value_hint, source_file)?;
+             }
+             // `additionalProperties: true` or `false` don't define a new type.
+         }
 
 
-        } else if let Some(arr) = value.as_array() {
-            // Handle type arrays (e.g., ["string", "null"]) - check the non-null type
-            for item in arr {
-                self.collect_definition_recursive(item, name_hint, source_file)?;
+        // Handle allOf, anyOf, oneOf - recurse into their definitions
+        for key in ["allOf", "anyOf", "oneOf"].iter() {
+            if let Some(sub_schemas) = value.get(key).and_then(|v| v.as_array()) {
+                for (i, sub_schema) in sub_schemas.iter().enumerate() {
+                     let sub_name_hint = format!("{}{}Sub{}", name_hint, key.to_case(Case::Pascal), i);
+                     debug!("Recursing into {}, hint: {}", key, sub_name_hint);
+                    self.collect_definition_recursive(sub_schema, &sub_name_hint, source_file)?;
+                }
             }
         }
+
+
         Ok(())
     }
 
@@ -552,191 +546,248 @@ impl SchemaParser {
         name_hint: &str,
         parent_type_name: &str, // For context
     ) -> Result<String, Box<dyn std::error::Error>> {
+        debug!("Determining type for property: {}, hint: {}, parent: {}", name_hint, name_hint, parent_type_name);
 
-        // 1. Handle $ref
-        if let Some(ref_str) = property.get("$ref").and_then(|v| v.as_str()) {
-            let referenced_type_name = self.process_ref(ref_str)?;
-            // Ensure the referenced type is imported if it's not primitive/known
-            if !self.is_primitive_or_known_or_handled(&referenced_type_name) {
-                 self.add_import(&referenced_type_name);
+        // Check for nullability first (common case)
+        let is_nullable = self.is_nullable_type(property);
+
+        // Handle allOf, anyOf, oneOf - often used for complex types or nullability
+        // TODO: Improve handling for `anyOf`, `oneOf`, `allOf` for more complex scenarios
+        if let Some(all_of) = property.get("allOf").and_then(|v| v.as_array()) {
+            // Simplified: Try to find a $ref within allOf, otherwise complex type
+            for item in all_of {
+                if let Some(ref_str) = item.get("$ref").and_then(|r| r.as_str()) {
+                    let base_type = self.process_ref(ref_str)?;
+                    return Ok(if is_nullable || self.is_nullable_alongside_ref(property) { format!("Option<{}>", base_type) } else { base_type });
+                }
             }
-             // Check nullability based on sibling keywords (less common for $ref)
-            let is_nullable = self.is_nullable_alongside_ref(property);
-            return Ok(if is_nullable {
-                format!("Option<{}>", referenced_type_name)
-            } else {
-                referenced_type_name
-            });
-        }
-
-        // 2. Handle enums
-         if let Some(enum_values) = property.get("enum") {
-             if enum_values.is_array() && !enum_values.as_array().unwrap().is_empty() {
-                 let enum_name = self.to_type_name(&format!("{}Enum", name_hint));
-                 // Make sure the definition exists (should have been collected)
-                 if self.type_definitions.contains_key(&enum_name) {
-                     self.add_import(&enum_name);
-                     return Ok(if self.is_nullable_type(property) {
-                         format!("Option<{}>", enum_name)
-                     } else {
-                         enum_name
-                     });
-                 } else {
-                      error!("Enum definition not found for {} referenced in {}", enum_name, parent_type_name);
-                      // Fallback to Value
-                      self.needs_hashmap = true; // Value might need HashMap
-                      return Ok("Value".to_string());
-                 }
-             }
-             // Empty enum array - treat as base type (below)
-         }
-
-
-        // 3. Handle explicit types (string, integer, number, boolean, object, array)
-        if let Some(type_val) = property.get("type") {
-            let types: Vec<&str> = if let Some(s) = type_val.as_str() {
-                vec![s]
-            } else if let Some(arr) = type_val.as_array() {
-                arr.iter().filter_map(|v| v.as_str()).collect()
-            } else {
-                vec![]
-            };
-
-            let is_nullable = types.contains(&"null");
-            let base_type_str = types.iter().find(|&&t| t != "null").copied();
-
-            match base_type_str {
-                Some("string") => {
-                    // Special cases for string-formatted numbers (like in ticks/ohlc)
-                    if self.is_numeric_string_field(name_hint, property) {
-                        debug!("Treating string field '{}' as f64", name_hint);
-                         self.needs_datetime = self.needs_datetime || self.is_datetime_field(property, "number"); // Check underlying if epoch
-                         Ok(if is_nullable { "Option<f64>".to_string() } else { "f64".to_string() })
-                    } else {
-                         self.needs_datetime = self.needs_datetime || self.is_datetime_field(property, "string");
-                         Ok(if is_nullable { "Option<String>".to_string() } else { "String".to_string() })
-                    }
-                },
-                Some("integer") => {
-                    self.needs_datetime = self.needs_datetime || self.is_datetime_field(property, "integer");
-                     // Use DateTime<Utc> for epoch integers
-                     if self.is_datetime_field(property, "integer") {
-                         self.needs_datetime = true;
-                         Ok(if is_nullable { "Option<DateTime<Utc>>".to_string() } else { "DateTime<Utc>".to_string() })
-                     } else {
-                        Ok(if is_nullable { "Option<i64>".to_string() } else { "i64".to_string() })
-                     }
-                },
-                 Some("number") => {
-                     self.needs_datetime = self.needs_datetime || self.is_datetime_field(property, "number");
-                     Ok(if is_nullable { "Option<f64>".to_string() } else { "f64".to_string() })
-                 },
-                Some("boolean") => {
-                     Ok(if is_nullable { "Option<bool>".to_string() } else { "bool".to_string() })
-                 },
-                Some("array") => {
-                    let items_schema = property.get("items").unwrap_or(&json!(null)); // Default to null if missing
-                    let item_type = self.determine_field_type(items_schema, &format!("{}Item", name_hint), parent_type_name)?;
-                    Ok(if is_nullable {
-                        format!("Option<Vec<{}>>", item_type)
-                    } else {
-                        format!("Vec<{}>", item_type)
-                    })
-                },
-                Some("object") => {
-                    // Check for patternProperties -> HashMap
-                    if let Some(pattern_props) = property.get("patternProperties").and_then(|p| p.as_object()) {
-                        // Assume first pattern's value schema is representative
-                        if let Some((_pattern, value_schema)) = pattern_props.iter().next() {
-                            let value_type = self.determine_field_type(value_schema, &format!("{}Value", name_hint), parent_type_name)?;
-                            self.needs_hashmap = true;
-                            return Ok(if is_nullable {
-                                format!("Option<HashMap<String, {}>>", value_type)
-                            } else {
-                                format!("HashMap<String, {}>", value_type)
-                            });
-                        }
-                    }
-                    // Check for additionalProperties -> HashMap (if schema provided)
-                    else if let Some(add_props_schema) = property.get("additionalProperties").filter(|v| v.is_object()) {
-                         let value_type = self.determine_field_type(add_props_schema, &format!("{}Value", name_hint), parent_type_name)?;
-                         self.needs_hashmap = true;
-                         return Ok(if is_nullable {
-                             format!("Option<HashMap<String, {}>>", value_type)
-                         } else {
-                             format!("HashMap<String, {}>", value_type)
-                         });
-                    }
-                    // Check if it's a defined object type
-                    else if let Some(obj) = property.as_object() {
-                        if obj.contains_key("properties") {
-                            let type_name = self.to_type_name(name_hint);
-                            if self.type_definitions.contains_key(&type_name) {
-                                 self.add_import(&type_name);
-                                 return Ok(if is_nullable {
-                                     format!("Option<{}>", type_name)
-                                 } else {
-                                     type_name
-                                 });
-                            } else {
-                                 warn!("Object definition expected but not found for type '{}' derived from field '{}' in {}. Falling back to Value.", type_name, name_hint, parent_type_name);
-                            }
-                        }
-                    }
-
-                    // Fallback for generic objects or uncollected types: use Value
-                    self.needs_hashmap = true; // Value might be a map
-                    self.needs_value = true;
-                     Ok(if is_nullable { "Option<Value>".to_string() } else { "Value".to_string() })
-                },
-                 None => { // Only "null" was specified, or type was missing/invalid
-                     warn!("Type field ambiguous or missing for '{}' in {}. Assuming nullable Value.", name_hint, parent_type_name);
-                     self.needs_hashmap = true; // Value might be a map
-                     self.needs_value = true;
-                     Ok("Option<Value>".to_string()) // Treat as nullable Value
-                 }
-                Some(other) => { // Unknown type string
-                     warn!("Unknown base type '{}' for field '{}' in {}. Falling back to Value.", other, name_hint, parent_type_name);
-                     self.needs_hashmap = true; // Value might be a map
-                     self.needs_value = true;
-                     Ok(if is_nullable { "Option<Value>".to_string() } else { "Value".to_string() })
-                 }
-            }
-        } else {
-            // No "type" field and not a $ref or enum -> default to Value
-            warn!("No 'type' or '$ref' found for field '{}' in {}. Falling back to Value.", name_hint, parent_type_name);
-             self.needs_hashmap = true; // Value might be a map
+             warn!("Unhandled allOf without $ref for property '{}', falling back to Value.", name_hint);
              self.needs_value = true;
-             Ok("Value".to_string())
+             return Ok("Value".to_string()); // Fallback for complex unhandled allOf
         }
+        // Add similar stubs for anyOf/oneOf if needed, potentially falling back to Value
+
+
+        // Handle $ref
+        if let Some(ref_str) = property.get("$ref").and_then(|v| v.as_str()) {
+            let base_type = self.process_ref(ref_str)?;
+             // Nullability might be defined alongside the $ref, not just within the referenced schema
+            return Ok(if is_nullable || self.is_nullable_alongside_ref(property) { format!("Option<{}>", base_type) } else { base_type });
+        }
+
+        // Determine the primary JSON type
+        let json_type = match property.get("type") {
+            Some(Value::String(s)) => s.as_str(),
+            Some(Value::Array(types)) => {
+                // Handle cases like ["string", "null"] or ["integer", "null"]
+                let non_null_type = types.iter().find(|t| !t.is_null()).and_then(|t| t.as_str());
+                match non_null_type {
+                    Some(t) => t,
+                    None => {
+                         warn!("Array type specification only contains null or is invalid for property '{}', falling back to Value.", name_hint);
+                         self.needs_value = true;
+                         return Ok("Value".to_string()); // Or handle as error?
+                    }
+                }
+            },
+            Some(_) => {
+                warn!("Unsupported 'type' format for property '{}', falling back to Value.", name_hint);
+                 self.needs_value = true;
+                 return Ok("Value".to_string());
+            },
+            None => {
+                 // If type is missing, it might be an object defined inline or an enum
+                 if property.get("properties").is_some() || property.get("additionalProperties").is_some() {
+                     "object" // Assume object if properties/additionalProperties exist
+                 } else if property.get("enum").is_some() {
+                      // Infer type from the first enum variant if possible, else default/fallback needed
+                      // For simplicity now, if 'type' is missing but 'enum' exists, might need fallback
+                      warn!("Property '{}' has 'enum' but no explicit 'type', inferring might be needed or fallback to Value.", name_hint);
+                      "object" // Placeholder, might need smarter inference or fallback
+                 } else {
+                    warn!("Missing 'type' and cannot infer for property '{}', falling back to Value.", name_hint);
+                    self.needs_value = true;
+                    return Ok("Value".to_string());
+                }
+            }
+        };
+
+
+        // Handle specific formats first
+        if self.is_datetime_field(property, json_type) {
+            self.needs_datetime = true;
+            let base_type = "DateTime<Utc>".to_string();
+            return Ok(if is_nullable { format!("Option<{}>", base_type) } else { base_type });
+        }
+
+        // Handle numeric strings identified by pattern (placed before basic types)
+        if self.is_numeric_string_field(name_hint, property) {
+            let base_type = "String".to_string(); // Still a string, but maybe needs special handling later
+             debug!("Field '{}' identified as numeric string.", name_hint);
+            return Ok(if is_nullable { format!("Option<{}>", base_type) } else { base_type });
+        }
+
+
+        let base_type = match json_type {
+            "string" => {
+                // Check for enum defined on string type
+                if let Some(enum_values) = property.get("enum").and_then(|v| v.as_array()) {
+                    // --- BEGIN FIX: Handle string enums correctly ---
+                    match enum_values.len() {
+                        0 => {
+                            warn!("String enum found for '{}' but it has no variants. Falling back to String.", name_hint);
+                            "String".to_string()
+                        }
+                        1 => {
+                            debug!("String enum found for '{}' with only one variant. Using String directly.", name_hint);
+                            "String".to_string() // Treat single-variant string enum as just String
+                        }
+                        _ => { // More than one variant
+                            let rust_enum_name = self.to_type_name(name_hint);
+                            self.add_import(&rust_enum_name); // Ensure import is added
+                            rust_enum_name
+                        }
+                    }
+                    // --- END FIX ---
+                 } else {
+                    self.type_mapping.get(json_type).cloned().unwrap_or_else(|| "String".to_string())
+                }
+            }
+            "integer" => {
+                 if let Some(enum_values) = property.get("enum").and_then(|v| v.as_array()) {
+                     // --- BEGIN FIX: Handle integer enums correctly ---
+                     match enum_values.len() {
+                        0 => {
+                            warn!("Integer enum found for '{}' but it has no variants. Falling back to i64.", name_hint);
+                            "i64".to_string()
+                        }
+                        1 => {
+                             debug!("Integer enum found for '{}' with only one variant. Using i64 directly.", name_hint);
+                             "i64".to_string() // Treat single-variant integer enum as just i64
+                        }
+                        _ => { // More than one variant
+                            let rust_enum_name = self.to_type_name(name_hint);
+                            self.add_import(&rust_enum_name);
+                            rust_enum_name
+                        }
+                    }
+                     // --- END FIX ---
+                 } else {
+                    self.type_mapping.get(json_type).cloned().unwrap_or_else(|| "i64".to_string())
+                 }
+            }
+            "number" => self.type_mapping.get(json_type).cloned().unwrap_or_else(|| "f64".to_string()),
+            "boolean" => self.type_mapping.get(json_type).cloned().unwrap_or_else(|| "bool".to_string()),
+            "array" => {
+                // --- BEGIN FIX: Extend lifetime of default value ---
+                let default_item_schema = json!({"type": "object"});
+                let items_prop = property.get("items").unwrap_or(&default_item_schema);
+                // --- END FIX ---
+                // --- BEGIN FIX: Singularize name hint for item type ---
+                let singular_hint = name_hint.strip_suffix('s').unwrap_or(name_hint); // Simple singularization
+                let item_type_hint = format!("{}Item", singular_hint);
+                let item_type = self.determine_field_type(items_prop, &item_type_hint, parent_type_name)?;
+                // --- END FIX ---
+                // --- BEGIN FIX: Add import for array item type ---
+                self.add_import(&item_type); // item_type should now be consistently singular
+                // --- END FIX ---
+                format!("Vec<{}>", item_type)
+            }
+            "object" => {
+                // Handle map-like objects (additionalProperties)
+                if let Some(add_props) = property.get("additionalProperties") {
+                    // Ensure add_props is not `false` (which means no additional props allowed)
+                    if add_props.is_boolean() && !add_props.as_bool().unwrap_or(true) {
+                        // Handle case where additionalProperties: false - Treat as standard object if 'properties' exist?
+                        if property.get("properties").is_some() {
+                            // Fall through to inline struct generation below
+                        } else {
+                           error!("Object '{}' has additionalProperties: false and no properties. Cannot represent.", name_hint);
+                           return Err(format!("Object '{}' has additionalProperties: false and no properties", name_hint).into());
+                        }
+                    } else if add_props.is_object() || (add_props.is_boolean() && add_props.as_bool().unwrap_or(false)) {
+                         // If additionalProperties is true or an object schema
+                         let value_type = if add_props.is_object() {
+                             self.determine_field_type(add_props, &format!("{}Value", name_hint), parent_type_name)?
+                         } else {
+                              self.needs_value = true;
+                              "Value".to_string()
+                         };
+                         self.needs_hashmap = true;
+                         let map_type = format!("HashMap<String, {}>", value_type);
+                         // Wrap in Option if nullable, then return
+                         return Ok(if is_nullable { format!("Option<{}>", map_type) } else { map_type });
+                    } else {
+                        // Fall through if additionalProperties is not defined or handled above
+                         warn!("Unhandled additionalProperties: {:?} for '{}', falling back to object/Value.", add_props, name_hint);
+                    }
+                }
+
+                // Handle objects defined inline via "properties"
+                if property.get("properties").is_some() {
+                     // --- BEGIN FIX: Use name_hint for inline struct name ---
+                     let rust_struct_name = self.to_type_name(name_hint);
+                     // --- END FIX ---
+                     // We expect this type to be collected in pass 1. If not, it's an error.
+                     if !self.type_definitions.contains_key(&rust_struct_name) {
+                          warn!("Inline object definition found for '{}' but type '{}' was not collected. Check collection logic.", name_hint, rust_struct_name);
+                         // Fallback to Value? Or error?
+                         self.needs_value = true;
+                         return Ok("Value".to_string()); // Fallback for now
+                     }
+                     self.add_import(&rust_struct_name); // Ensure import is added
+                     rust_struct_name
+
+                } else if property.get("additionalProperties").is_some() {
+                    // If only additionalProperties is specified (handled above), use that HashMap type.
+                    // Re-calculate here to avoid complex fall-through logic
+                     if let Some(add_props) = property.get("additionalProperties") {
+                          if add_props.is_boolean() && !add_props.as_bool().unwrap_or(true) {
+                               // Already handled: error or fallback needed
+                               warn!("Re-evaluating additionalProperties: false for '{}', falling back to Value.", name_hint);
+                               self.needs_value = true;
+                              return Ok("Value".to_string());
+                          } else if add_props.is_object() || (add_props.is_boolean() && add_props.as_bool().unwrap_or(false)) {
+                               let value_type = if add_props.is_object() {
+                                   self.determine_field_type(add_props, &format!("{}Value", name_hint), parent_type_name)?
+                               } else {
+                                    self.needs_value = true;
+                                    "Value".to_string()
+                               };
+                               self.needs_hashmap = true;
+                               format!("HashMap<String, {}>", value_type)
+                          } else {
+                               warn!("Unhandled additionalProperties case for '{}', falling back to Value.", name_hint);
+                                self.needs_value = true;
+                                "Value".to_string()
+                          }
+                     } else {
+                          // Should not happen if additionalProperties was the reason we are in "object" type
+                          warn!("Object type determined for '{}' but neither 'properties' nor 'additionalProperties' seem applicable. Falling back to Value.", name_hint);
+                           self.needs_value = true;
+                           "Value".to_string()
+                     }
+
+                }
+                 else {
+                    // Generic object, likely needs Value
+                     warn!("Unhandled object type for property '{}', falling back to Value.", name_hint);
+                    self.needs_value = true;
+                    "Value".to_string()
+                }
+            }
+            _ => {
+                warn!("Unknown JSON type '{}' for property '{}', falling back to Value.", json_type, name_hint);
+                self.needs_value = true;
+                "Value".to_string()
+            }
+        };
+
+
+        // Wrap in Option if nullable
+        Ok(if is_nullable { format!("Option<{}>", base_type) } else { base_type })
     }
 
-     // Processes a $ref string, resolves it to a type name, and ensures the definition exists.
-     fn process_ref(&self, ref_str: &str) -> Result<String, Box<dyn std::error::Error>> {
-         let def_name = ref_str.split('/').last().unwrap_or(""); // Get the last part after '/'
-
-         // Special remapping for patched schemas
-         let type_name = match def_name {
-             "landingCompanyDetails" => "LandingCompanyInfo".to_string(), // Remapped by patch
-             _ => self.to_type_name(def_name), // Convert the name part to PascalCase
-         };
-
-         // Check if the definition was collected or is a known type
-         if !self.type_definitions.contains_key(&type_name) && !self.is_primitive_or_known_or_handled(&type_name) {
-             warn!(
-                 "Definition for referenced type '{}' (from ref '{}', extracted name '{}') not found in collected definitions. Assuming it will be generated.",
-                 type_name,
-                 ref_str,
-                 def_name
-             );
-             // Return the expected type name anyway, generation might handle it elsewhere
-             // or fail later if truly missing.
-             return Ok(type_name);
-         }
-
-         // If found or known, return the mapped/converted type name
-         Ok(type_name)
-     }
 
     // --- Generation Helper Functions ---
 
@@ -1051,7 +1102,17 @@ impl SchemaParser {
             result.pop();
         }
 
-        result // No final .to_lowercase() needed if logic is correct
+        // --- BEGIN FIX: Explicitly handle 'type' keyword --- 
+        if result == "type" {
+             debug!("Filename is 'type', appending underscore.");
+             result.push('_');
+        } else {
+             // You could potentially keep the broader keyword match here as a fallback
+             // For now, let's only explicitly handle 'type' to see if it fixes the specific issue.
+        }
+        // --- END FIX ---
+        
+        result
     }
 
     fn to_type_name(&self, name: &str) -> String {
@@ -1115,17 +1176,17 @@ impl SchemaParser {
         }
 
         // Check if the resulting name is a Rust keyword and use raw identifier if needed
-        match result.as_str() {
-            // List common keywords that might conflict
+        let final_result = match result.as_str() {
+            // List common keywords
             "type" | "match" | "loop" | "ref" | "self" | "super" | "crate" | "mod" | "const" | "static" | "mut" | "pub" | "fn" | "struct" | "enum" | "trait" | "impl" | "use" | "extern" | "unsafe" | "async" | "await" | "dyn" | "for" | "in" | "if" | "else" | "while" | "let" | "return" | "true" | "false" | "as" | "break" | "continue" | "Self" |
-            "virtual" // Add virtual keyword
-            // Keywords reserved for future use (optional to include)
-            // | "abstract" | "become" | "box" | "do" | "final" | "macro" | "override" | "priv" | "typeof" | "unsized" | "virtual" | "yield"
+            "virtual"
              => {
-                format!("r#{}", result)
+                format!("{}_", result) // Append underscore
             }
             _ => result,
-        }
+        };
+
+        final_result
     }
 
     fn to_enum_variant_name(&self, name: &str) -> String {
@@ -1161,6 +1222,36 @@ impl SchemaParser {
         } else {
             result
         }
+    }
+
+    // Processes a $ref string, resolves it to a type name, and ensures the definition exists.
+    fn process_ref(&mut self, ref_str: &str) -> Result<String, Box<dyn std::error::Error>> {
+        let def_name = ref_str.split('/').last().unwrap_or(""); // Get the last part after '/' 
+
+        // Special remapping for patched schemas or inconsistencies 
+        let type_name = match def_name {
+            "landingCompanyDetails" => "LandingCompanyInfo".to_string(), // Remapped by patch 
+            _ => self.to_type_name(def_name), // Convert the name part to PascalCase 
+        };
+
+        // Check if the definition was collected or is a known type 
+        if !self.type_definitions.contains_key(&type_name) && !self.is_primitive_or_known_or_handled(&type_name) {
+            warn!(
+                "Definition for referenced type '{}' (from ref '{}', extracted name '{}') not found in collected definitions. Assuming it will be generated.",
+                type_name,
+                ref_str,
+                def_name
+            );
+            // Return the expected type name anyway, generation might handle it elsewhere 
+            // or fail later if truly missing. 
+            // Ensure import is attempted even if definition not found yet
+            self.add_import(&type_name);
+            return Ok(type_name);
+        }
+
+        // If found or known, return the mapped/converted type name and add import
+        self.add_import(&type_name); 
+        Ok(type_name)
     }
 
 }
@@ -1296,7 +1387,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 if let Err(e) = fs::write(&output_file_path, content) {
                      error!("Failed to write type file {}: {}", output_file_path.display(), e);
                  } else {
-                     debug!("Generated type file: {}", output_file_path.display());
+                     // --- BEGIN DEBUG LOG --- 
+                     debug!("Successfully wrote type file: {} and added '{}' to generated modules", output_file_path.display(), file_name_base);
+                     // --- END DEBUG LOG --- 
                      generated_modules.insert(file_name_base);
                  }
             }

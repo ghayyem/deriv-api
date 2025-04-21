@@ -5,7 +5,7 @@
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 use serde_json::Value;
-use std::collections::HashMap;
+
 use chrono::{DateTime, Utc};
 
 // Import shared types from the *same* crate
@@ -43,6 +43,6 @@ pub struct ContractsFor {
     /// Current spot price for this underlying\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub spot: Option<f64>,
+    pub spot: Option<String>,
 }
 

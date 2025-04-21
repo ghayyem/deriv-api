@@ -5,18 +5,17 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::sort_by_enum::SortByEnum;
-use crate::p2p_advert_list_enum::P2pAdvertListEnum;
-use crate::hide_client_schedule_unavailable_enum::HideClientScheduleUnavailableEnum;
-use crate::favourites_only_enum::FavouritesOnlyEnum;
-use crate::hide_ineligible_enum::HideIneligibleEnum;
-use crate::use_client_limits_enum::UseClientLimitsEnum;
-use crate::block_trade_enum::BlockTradeEnum;
-use crate::counterparty_type_enum::CounterpartyTypeEnum;
+use crate::hide_ineligible::HideIneligible;
+use crate::hide_client_schedule_unavailable::HideClientScheduleUnavailable;
+use crate::use_client_limits::UseClientLimits;
+use crate::counterparty_type::CounterpartyType;
+use crate::sort_by::SortBy;
+use crate::block_trade::BlockTrade;
+use crate::favourites_only::FavouritesOnly;
 
 /// Returns available adverts for use with `p2p_order_create` .
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -33,27 +32,27 @@ pub struct P2pAdvertListRequest {
     /// [Optional] How much to buy or sell, used to calculate prices.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub amount: Option<f64>,
+    pub amount: Option<String>,
     /// [Optional] Return block trade adverts when 1, non-block trade adverts when 0 (default).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub block_trade: Option<BlockTradeEnum>,
+    pub block_trade: Option<BlockTrade>,
     /// [Optional] Filter the adverts by `counterparty_type`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub counterparty_type: Option<CounterpartyTypeEnum>,
+    pub counterparty_type: Option<CounterpartyType>,
     /// [Optional] Only show adverts from favourite advertisers. Default is 0.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub favourites_only: Option<FavouritesOnlyEnum>,
+    pub favourites_only: Option<FavouritesOnly>,
     /// [Optional] If set to 1, adverts for which the current user's shcedule does not have availability from now until the full possible order expiry are not returned.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub hide_client_schedule_unavailable: Option<HideClientScheduleUnavailableEnum>,
+    pub hide_client_schedule_unavailable: Option<HideClientScheduleUnavailable>,
     /// [Optional] If set to 1, adverts for which the current user does not meet counteryparty terms are not returned.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub hide_ineligible: Option<HideIneligibleEnum>,
+    pub hide_ineligible: Option<HideIneligible>,
     /// [Optional] Used for paging.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -73,7 +72,7 @@ pub struct P2pAdvertListRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub p2p_advert_list: P2pAdvertListEnum,
+    pub p2p_advert_list: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -89,10 +88,10 @@ pub struct P2pAdvertListRequest {
     /// [Optional] How the results are sorted.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sort_by: Option<SortByEnum>,
+    pub sort_by: Option<SortBy>,
     /// [Optional] If set to 1, ads that exceed this account's balance or turnover limits will not be shown.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub use_client_limits: Option<UseClientLimitsEnum>,
+    pub use_client_limits: Option<UseClientLimits>,
 }
 

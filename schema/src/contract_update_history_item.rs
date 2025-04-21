@@ -22,7 +22,7 @@ pub struct ContractUpdateHistoryItem {
     /// The amount.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub order_amount: Option<f64>,
+    pub order_amount: Option<String>,
     /// The epoch when the changed was done.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -34,6 +34,6 @@ pub struct ContractUpdateHistoryItem {
     /// The pip-sized barrier value.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub value: Option<f64>,
+    pub value: Option<String>,
 }
 

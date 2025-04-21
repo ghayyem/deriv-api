@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::trading_platform_status_enum::TradingPlatformStatusEnum;
 
 /// Request trading platform status
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,6 +25,6 @@ pub struct TradingPlatformStatusRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub trading_platform_status: TradingPlatformStatusEnum,
+    pub trading_platform_status: i64,
 }
 

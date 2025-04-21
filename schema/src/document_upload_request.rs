@@ -5,16 +5,14 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::lifetime_valid_enum::LifetimeValidEnum;
-use crate::document_type_enum::DocumentTypeEnum;
-use crate::page_type_enum::PageTypeEnum;
-use crate::document_upload_enum::DocumentUploadEnum;
+use crate::document_format::DocumentFormat;
+use crate::document_type::DocumentType;
+use crate::page_type::PageType;
 use crate::proof_of_ownership::ProofOfOwnership;
-use crate::document_format_enum::DocumentFormatEnum;
 
 /// Request KYC information from client
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +21,7 @@ pub struct DocumentUploadRequest {
     /// Document file format\n
     // Correct serde attribute construction - Use helper
     
-    pub document_format: DocumentFormatEnum,
+    pub document_format: DocumentFormat,
     /// [Optional] Document ID (required for Passport, Proof of ID and Driver's License)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -35,11 +33,11 @@ pub struct DocumentUploadRequest {
     /// Document type\n
     // Correct serde attribute construction - Use helper
     
-    pub document_type: DocumentTypeEnum,
+    pub document_type: DocumentType,
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub document_upload: DocumentUploadEnum,
+    pub document_upload: i64,
     /// The checksum of the file to be uploaded\n
     // Correct serde attribute construction - Use helper
     
@@ -55,7 +53,7 @@ pub struct DocumentUploadRequest {
     /// [Optional] Boolean value that indicates whether this document is lifetime valid (only applies to POI document types, cancels out the expiration_date given if any)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub lifetime_valid: Option<LifetimeValidEnum>,
+    pub lifetime_valid: Option<String>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -63,7 +61,7 @@ pub struct DocumentUploadRequest {
     /// [Optional] To determine document side\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub page_type: Option<PageTypeEnum>,
+    pub page_type: Option<PageType>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

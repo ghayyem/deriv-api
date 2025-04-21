@@ -4,7 +4,7 @@
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
-
+use serde_json::Value;
 
 
 
@@ -25,23 +25,23 @@ pub struct AppListItem {
     /// Markup added to contract prices (as a percentage of contract payout).\n
     // Correct serde attribute construction - Use helper
     
-    pub app_markup_percentage: f64,
+    pub app_markup_percentage: String,
     /// Application's App Store URL.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub appstore: Option<String>,
+    pub appstore: Option<Value>,
     /// Application's GitHub page. (for open-source projects)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub github: Option<String>,
+    pub github: Option<Value>,
     /// Application's Google Play URL.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub googleplay: Option<String>,
+    pub googleplay: Option<Value>,
     /// Application's homepage URL.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub homepage: Option<String>,
+    pub homepage: Option<Value>,
     /// Application name.\n
     // Correct serde attribute construction - Use helper
     
@@ -57,6 +57,6 @@ pub struct AppListItem {
     /// Used when `verify_email` called. If available, a URL containing the verification token will send to the client's email, otherwise only the token will be sent.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub verification_uri: Option<String>,
+    pub verification_uri: Option<Value>,
 }
 

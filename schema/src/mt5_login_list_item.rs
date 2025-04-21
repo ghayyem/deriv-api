@@ -5,20 +5,20 @@
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import shared types from the *same* crate
-use crate::white_label_links::WhiteLabelLinks; 
-use crate::account_type_enum::AccountTypeEnum; 
-use crate::product_enum::ProductEnum; 
+use crate::sub_account_category::SubAccountCategory; 
+use crate::product::Product; 
+use crate::sub_account_type::SubAccountType; 
 use crate::server_info::ServerInfo; 
-use crate::sub_account_type_enum::SubAccountTypeEnum; 
-use crate::client_kyc_status::ClientKycStatus; 
-use crate::sub_account_category_enum::SubAccountCategoryEnum; 
 use crate::error::Error; 
-use crate::landing_company_short_enum::LandingCompanyShortEnum; 
-use crate::market_type_enum::MarketTypeEnum; 
+use crate::white_label_links::WhiteLabelLinks; 
+use crate::client_kyc_status::ClientKycStatus; 
+use crate::landing_company_short::LandingCompanyShort; 
+use crate::market_type::MarketType; 
+use crate::account_type::AccountType; 
 use crate::rights::Rights; 
 
 // It's a struct
@@ -28,7 +28,7 @@ pub struct Mt5LoginListItem {
     /// Account type.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub account_type: Option<AccountTypeEnum>,
+    pub account_type: Option<AccountType>,
     /// Balance of the MT5 account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -76,7 +76,7 @@ pub struct Mt5LoginListItem {
     /// Landing company shortcode of the MT5 account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company_short: Option<LandingCompanyShortEnum>,
+    pub landing_company_short: Option<LandingCompanyShort>,
     /// Leverage of the MT5 account (1 to 1000).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -88,7 +88,7 @@ pub struct Mt5LoginListItem {
     /// Market type\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub market_type: Option<MarketTypeEnum>,
+    pub market_type: Option<MarketType>,
     /// Name of the owner of the MT5 account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -96,7 +96,7 @@ pub struct Mt5LoginListItem {
     /// Product name that Deriv offer\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub product: Option<ProductEnum>,
+    pub product: Option<Product>,
     /// Timestamp of the latest MT5 request.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -116,15 +116,15 @@ pub struct Mt5LoginListItem {
     /// MT5 account status.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub status: Option<String>,
+    pub status: Option<Value>,
     /// Sub account category refer to the additional risk management\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sub_account_category: Option<SubAccountCategoryEnum>,
+    pub sub_account_category: Option<SubAccountCategory>,
     /// Sub account type refer to different offerings that we have for mt5\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sub_account_type: Option<SubAccountTypeEnum>,
+    pub sub_account_type: Option<SubAccountType>,
     /// MT5 webtrader url for each mt5 platform\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

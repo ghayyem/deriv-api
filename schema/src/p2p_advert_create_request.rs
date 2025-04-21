@@ -5,13 +5,13 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::rate_type_enum::RateTypeEnum;
-use crate::type_enum::TypeEnum;
-use crate::block_trade_enum::BlockTradeEnum;
+use crate::rate_type::RateType;
+use crate::type_::Type;
+use crate::block_trade::BlockTrade;
 
 /// Creates a P2P (Peer to Peer) advert. Can only be used by an approved P2P advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,11 +20,11 @@ pub struct P2pAdvertCreateRequest {
     /// The total amount of the advert, in advertiser's account currency.\n
     // Correct serde attribute construction - Use helper
     
-    pub amount: f64,
+    pub amount: String,
     /// [Optional] Indicates if this is block trade ad or not. Default: 0.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub block_trade: Option<BlockTradeEnum>,
+    pub block_trade: Option<BlockTrade>,
     /// [Optional] Advertiser contact information.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -48,11 +48,11 @@ pub struct P2pAdvertCreateRequest {
     /// Maximum allowed amount for the orders of this advert, in advertiser's `account_currency`. Should be more than or equal to `min_order_amount`\n
     // Correct serde attribute construction - Use helper
     
-    pub max_order_amount: f64,
+    pub max_order_amount: String,
     /// [Optional] Counterparties who have a 30 day completion rate less than this value will not be allowed to place orders against the advert.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub min_completion_rate: Option<f64>,
+    pub min_completion_rate: Option<String>,
     /// [Optional] Counterparties who joined less than this number of days ago will not be allowed to place orders against the advert.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -60,11 +60,11 @@ pub struct P2pAdvertCreateRequest {
     /// Minimum allowed amount for the orders of this advert, in advertiser's `account_currency`. Should be less than or equal to `max_order_amount`.\n
     // Correct serde attribute construction - Use helper
     
-    pub min_order_amount: f64,
+    pub min_order_amount: String,
     /// [Optional] Counterparties who have an average rating less than this value will not be allowed to place orders against the advert.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub min_rating: Option<f64>,
+    pub min_rating: Option<String>,
     /// [Optional] Expiry period (seconds) for order created against this ad.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -96,11 +96,11 @@ pub struct P2pAdvertCreateRequest {
     /// Conversion rate from advertiser's account currency to `local_currency`. An absolute rate value (fixed), or percentage offset from current market rate (floating).\n
     // Correct serde attribute construction - Use helper
     
-    pub rate: f64,
+    pub rate: String,
     /// Type of rate, fixed or floating.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub rate_type: Option<RateTypeEnum>,
+    pub rate_type: Option<RateType>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -108,6 +108,6 @@ pub struct P2pAdvertCreateRequest {
     /// The advertisement represents the intention to perform this action on your Deriv account funds.\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "type")] 
-    pub r#type: TypeEnum,
+    pub type_: Type,
 }
 

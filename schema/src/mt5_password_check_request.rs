@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::password_type_enum::PasswordTypeEnum;
-use crate::mt5_password_check_enum::Mt5PasswordCheckEnum;
+use crate::password_type::PasswordType;
 
 /// This call validates the main password for the MT5 user
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,7 +26,7 @@ pub struct Mt5PasswordCheckRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub mt5_password_check: Mt5PasswordCheckEnum,
+    pub mt5_password_check: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -39,7 +38,7 @@ pub struct Mt5PasswordCheckRequest {
     /// [Optional] Type of the password to check.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub password_type: Option<PasswordTypeEnum>,
+    pub password_type: Option<PasswordType>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

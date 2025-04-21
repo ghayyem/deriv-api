@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::tin_validations_enum::TinValidationsEnum;
 
 /// Get the validations for Tax Identification Numbers (TIN)
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -30,6 +29,6 @@ pub struct TinValidationsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub tin_validations: TinValidationsEnum,
+    pub tin_validations: i64,
 }
 

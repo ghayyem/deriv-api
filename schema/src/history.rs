@@ -18,10 +18,10 @@ pub struct History {
     /// An array containing list of tick values for the corresponding epoch values in `times` array.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub prices: Option<Vec<f64>>,
+    pub prices: Option<String>,
     /// An array containing list of epoch values for the corresponding tick values in `prices` array.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub times: Option<Vec<i64>>,
+    pub times: Option<String>,
 }
 

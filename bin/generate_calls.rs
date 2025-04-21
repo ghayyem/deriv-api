@@ -1,6 +1,6 @@
 use convert_case::{Case, Casing};
 use handlebars::Handlebars;
-use log::{debug, info};
+use log::{debug, info, warn};
 use serde_json::{json, Value};
 use std::fs;
 use std::path::Path;
@@ -47,6 +47,8 @@ struct ApiEndpoint {
     response_type: String,
     stream_type: Option<String>,
     feature_name: String,
+    subscribe_field_type: Option<String>,
+    subscribe_field_required: bool,
 }
 
 #[derive(Debug)]
@@ -191,16 +193,75 @@ fn parse_endpoint(
 ) -> Result<ApiEndpoint, GeneratorError> {
     let description = send["description"].as_str().unwrap_or("").to_string();
 
-    let has_subscription = send["properties"]
-        .as_object()
-        .and_then(|props| props.get("subscribe"))
-        .is_some();
+    let mut has_subscription = false;
+    let mut subscribe_field_type: Option<String> = None;
+    let mut subscribe_field_required = false;
+
+    let required_fields: std::collections::HashSet<String> = send["required"]
+        .as_array()
+        .map(|arr| arr.iter().filter_map(|v| v.as_str().map(String::from)).collect())
+        .unwrap_or_default();
+
+    if let Some(props) = send["properties"].as_object() {
+        if let Some(subscribe_prop) = props.get("subscribe") {
+            has_subscription = true;
+            subscribe_field_type = subscribe_prop["type"].as_str().map(String::from);
+            if subscribe_field_type.is_none() {
+                // Handle cases like type: ["integer", "null"] - extract non-null type
+                if let Some(types) = subscribe_prop["type"].as_array() {
+                    subscribe_field_type = types.iter()
+                        .find(|t| t.as_str().map_or(false, |s| s != "null"))
+                        .and_then(|t| t.as_str())
+                        .map(String::from);
+                }
+            }
+            subscribe_field_required = required_fields.contains("subscribe");
+             debug!("Endpoint '{}': Found subscribe field. Type: {:?}, Required: {}", name, subscribe_field_type, subscribe_field_required);
+        }
+    }
 
     // Use the consistent to_type_name function
-    let request_type = format!("{}Request", to_type_name(name));
-    let response_type = format!("{}Response", to_type_name(name));
+    let base_type_name = to_type_name(name);
+
+    // --- BEGIN FIX: Handle known endpoint naming exceptions ---
+    let (request_type, response_type) = match name {
+        "p2p_advertiser_payment_methods" => (
+            "P2pAdvertiserPaymentMethods".to_string(), // Request IS the enum
+            "P2pAdvertiserPaymentMethods".to_string(), // Response IS ALSO the enum
+        ),
+        "set_financial_assessment" => (
+            "SetFinancialAssessment".to_string(), // Request is just SetFinancialAssessment
+            "SetFinancialAssessmentResponse".to_string(), // Response exists
+        ),
+         "crypto_estimations" => (
+             "CryptoEstimationsRequest".to_string(), // Request exists
+             "CryptoEstimations".to_string(), // Response is just CryptoEstimations
+         ),
+        // Default case: Assume standard Request/Response naming
+        _ => (
+            format!("{}Request", base_type_name),
+            format!("{}Response", base_type_name),
+        ),
+    };
+    // --- END FIX ---
+
+    // --- BEGIN FIX: Handle special stream types ---
+    let stream_type_base = match name {
+        "buy" => "ProposalOpenContractResponse".to_string(),
+        "p2p_order_create" | "p2p_order_list" => "P2pOrderInfoResponse".to_string(),
+        "p2p_advertiser_create" => "P2pAdvertInfoResponse".to_string(),
+        // --- BEGIN ADD: Handle p2p_advertiser_payment_methods stream --- 
+        // If this endpoint *could* subscribe, its stream type would be the enum itself.
+        "p2p_advertiser_payment_methods" => "P2pAdvertiserPaymentMethods".to_string(), 
+        // --- END ADD ---
+        // Default: Stream type is the same as the response type
+        _ => response_type.clone(),
+    };
+    // --- END FIX ---
+
     let stream_type = if has_subscription {
-        Some(response_type.clone())
+        // Some(stream_type_base)
+        Some(stream_type_base) // Use the potentially adjusted stream type
     } else {
         None
     };
@@ -214,6 +275,8 @@ fn parse_endpoint(
         response_type,
         stream_type,
         feature_name,
+        subscribe_field_type,
+        subscribe_field_required,
     })
 }
 
@@ -255,11 +318,29 @@ fn generate_subscription_calls(endpoints: &[ApiEndpoint]) -> Result<(), Generato
             continue;
         }
 
-        // Determine the correct subscribe assignment string
-        let subscribe_assignment = if endpoint.name == "transaction" {
-            "request.subscribe = deriv_api_schema::SubscribeEnum::Value1;".to_string()
-        } else {
-            "request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1);".to_string()
+        // Determine the correct subscribe assignment string based on generated type errors
+        let subscribe_assignment = match endpoint.name.as_str() {
+            "transaction" => {
+                // Assumed non-optional i64(1) from previous checks
+                 "request.subscribe = 1;".to_string()
+            }
+            "proposal" => {
+                // Linter error showed expected String
+                "request.subscribe = Some(\"1\".to_string());".to_string()
+            }
+            "website_status" | "balance" => {
+                // Linter error showed expected Subscribe
+                "request.subscribe = Some(deriv_api_schema::Subscribe::Value1);".to_string()
+            }
+             // Add other specific endpoints here if they expect Subscribe::Value1
+             // "p2p_order_create" | "ticks" | ... => {
+             //     "request.subscribe = Some(deriv_api_schema::Subscribe::Value1);".to_string()
+             // }
+            _ => {
+                 // Default: Assuming most other subscribe fields are Option<i64>
+                 // This covers p2p_order_create, ticks, ticks_history, etc. based on errors
+                 "request.subscribe = Some(1);".to_string()
+            }
         };
 
         let data = json!({

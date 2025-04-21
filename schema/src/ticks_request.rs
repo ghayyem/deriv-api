@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Initiate a continuous stream of spot price updates for a given symbol.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,7 +25,7 @@ pub struct TicksRequest {
     /// [Optional] If set to 1, will send updates whenever a new tick is received.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
     /// The short symbol name or array of symbols (obtained from `active_symbols` call).\n
     // Correct serde attribute construction - Use helper
     

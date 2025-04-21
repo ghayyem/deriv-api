@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::unsubscribe_email_enum::UnsubscribeEmailEnum;
 
 /// It unsubscribe user from the email subscription.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -34,6 +33,6 @@ pub struct UnsubscribeEmailRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub unsubscribe_email: UnsubscribeEmailEnum,
+    pub unsubscribe_email: i64,
 }
 

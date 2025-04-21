@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::sell_expired_enum::SellExpiredEnum;
 
 /// This call will try to sell any expired contracts and return the number of sold contracts.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -30,6 +29,6 @@ pub struct SellExpiredRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub sell_expired: SellExpiredEnum,
+    pub sell_expired: i64,
 }
 

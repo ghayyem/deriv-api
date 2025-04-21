@@ -5,14 +5,12 @@
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import shared types from the *same* crate
-use crate::linked_to_item::LinkedToItem; 
 use crate::account_list_item::AccountListItem; 
-use crate::local_currencies_value::LocalCurrenciesValue; 
-use crate::is_virtual_enum::IsVirtualEnum; 
+use crate::linked_to_item::LinkedToItem; 
 
 // It's a struct
 /// Account information for the holder of the token.
@@ -46,7 +44,7 @@ pub struct Authorize {
     /// Boolean value: 1 or 0, indicating whether the account is a virtual-money account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub is_virtual: Option<IsVirtualEnum>,
+    pub is_virtual: Option<String>,
     /// Landing company name the account belongs to.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -62,7 +60,7 @@ pub struct Authorize {
     /// Currencies in client's residence country\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub local_currencies: Option<HashMap<String, LocalCurrenciesValue>>,
+    pub local_currencies: Option<Value>,
     /// The account ID that the token was issued for.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -70,7 +68,7 @@ pub struct Authorize {
     /// User's preferred language, ISO standard code of language\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub preferred_language: Option<String>,
+    pub preferred_language: Option<Value>,
     /// Scopes available to the token.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

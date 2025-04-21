@@ -5,11 +5,11 @@
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import shared types from the *same* crate
-use crate::signup_device_enum::SignupDeviceEnum; 
+use crate::signup_device::SignupDevice; 
 
 // It's a struct
 /// [Optional] Extra parameters that can be attached to the verify email link URL.
@@ -31,7 +31,7 @@ pub struct UrlParameters {
     /// [Optional] The amount to withdraw to the payment agent. Only allowed for payment agent withdraw.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub pa_amount: Option<f64>,
+    pub pa_amount: Option<String>,
     /// [Optional] The currency code. Only allowed for payment agent withdraw.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -51,7 +51,7 @@ pub struct UrlParameters {
     /// [Optional] Show whether user has used mobile or desktop.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub signup_device: Option<SignupDeviceEnum>,
+    pub signup_device: Option<SignupDevice>,
     /// [Optional] Identifier of particular ad. Value must match Regex pattern to be recorded\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
 use crate::subscription::Subscription;
-use crate::msg_type_enum::MsgTypeEnum;
 use crate::ticks_batch_item::TicksBatchItem;
 
 /// Latest spot price for a group symbols. Continuous responses with a frequency of up to one second.
@@ -24,7 +23,7 @@ pub struct TicksBatchResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

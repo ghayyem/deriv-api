@@ -5,13 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::asset_index_enum::AssetIndexEnum;
-use crate::landing_company_short_enum::LandingCompanyShortEnum;
-use crate::landing_company_enum::LandingCompanyEnum;
+use crate::landing_company::LandingCompany;
+use crate::landing_company_short::LandingCompanyShort;
 
 /// Retrieve a list of all available underlyings and the corresponding contract types and duration boundaries. If the user is logged in, only the assets available for that user's landing company will be returned.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,15 +19,15 @@ pub struct AssetIndexRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub asset_index: AssetIndexEnum,
+    pub asset_index: i64,
     /// Deprecated - replaced by landing_company_short.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company: Option<LandingCompanyEnum>,
+    pub landing_company: Option<LandingCompany>,
     /// [Optional] If specified, will return only the underlyings for the specified landing company.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub landing_company_short: Option<LandingCompanyShortEnum>,
+    pub landing_company_short: Option<LandingCompanyShort>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::paymentagent_withdraw_enum::PaymentagentWithdrawEnum;
+use crate::paymentagent_withdraw::PaymentagentWithdraw;
 
 /// The result of payment agent withdrawal request made.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +22,7 @@ pub struct PaymentagentWithdrawResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Payment agent name.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -31,7 +30,7 @@ pub struct PaymentagentWithdrawResponse {
     /// If set to `1`, withdrawal success. If set to `2`, dry-run success.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub paymentagent_withdraw: Option<PaymentagentWithdrawEnum>,
+    pub paymentagent_withdraw: Option<PaymentagentWithdraw>,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

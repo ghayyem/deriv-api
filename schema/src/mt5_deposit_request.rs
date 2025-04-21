@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::mt5_deposit_enum::Mt5DepositEnum;
 
 /// This call allows deposit into MT5 account from Binary account.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct Mt5DepositRequest {
     /// Amount to deposit (in the currency of from_binary); min = $1 or an equivalent amount, max = $20000 or an equivalent amount\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub amount: Option<f64>,
+    pub amount: Option<String>,
     /// Binary account loginid to transfer money from\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -30,7 +29,7 @@ pub struct Mt5DepositRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub mt5_deposit: Mt5DepositEnum,
+    pub mt5_deposit: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

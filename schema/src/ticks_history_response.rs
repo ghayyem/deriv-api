@@ -5,13 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
+use crate::msg_type::MsgType;
 use crate::subscription::Subscription;
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::candles_item::CandlesItem;
 use crate::history::History;
 
 /// Historic tick data for a single symbol
@@ -21,7 +20,7 @@ pub struct TicksHistoryResponse {
     /// Array of OHLC (open/high/low/close) price values for the given time (only for style=`candles`)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub candles: Option<Vec<CandlesItem>>,
+    pub candles: Option<String>,
     /// Echo of the request made.\n
     // Correct serde attribute construction - Use helper
     
@@ -33,7 +32,7 @@ pub struct TicksHistoryResponse {
     /// Type of the response according to the `style` sent in request. Would be `history` or `candles` for the first response, and `tick` or `ohlc` for the rest when subscribed.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: MsgType,
     /// Field 'ohlc' mapped to Value due to complexity/potential issues.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -41,7 +40,7 @@ pub struct TicksHistoryResponse {
     /// Indicates the number of decimal points that the returned amounts must be displayed with\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub pip_size: Option<f64>,
+    pub pip_size: Option<String>,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

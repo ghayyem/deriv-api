@@ -4,17 +4,16 @@
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
-
+use serde_json::Value;
 
 
 
 // Import shared types from the *same* crate
-use crate::account_opening_self_declaration_required_enum::AccountOpeningSelfDeclarationRequiredEnum; 
 use crate::jurisdiction_risk_assessment::JurisdictionRiskAssessment; 
-use crate::partner_signup_enum::PartnerSignupEnum; 
-use crate::wallet_signup_enum::WalletSignupEnum; 
 use crate::identity::Identity; 
+use crate::partner_signup::PartnerSignup; 
 use crate::common_reporting_standard::CommonReportingStandard; 
+use crate::account_opening_self_declaration_required::AccountOpeningSelfDeclarationRequired; 
 
 // It's a struct
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +22,7 @@ pub struct ResidenceListItem {
     /// Flag which indicates whether self declaration is required for account opening\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub account_opening_self_declaration_required: Option<AccountOpeningSelfDeclarationRequiredEnum>,
+    pub account_opening_self_declaration_required: Option<AccountOpeningSelfDeclarationRequired>,
     /// Common Reporting Standard\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -43,11 +42,11 @@ pub struct ResidenceListItem {
     /// Flag which indicates whether partner signup is available in this country\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub partner_signup: Option<PartnerSignupEnum>,
+    pub partner_signup: Option<PartnerSignup>,
     /// IDD code of country\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub phone_idd: Option<String>,
+    pub phone_idd: Option<Value>,
     /// Selected.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -67,6 +66,6 @@ pub struct ResidenceListItem {
     /// Flag which indicates whether wallet signup is available in this country\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub wallet_signup: Option<WalletSignupEnum>,
+    pub wallet_signup: Option<i64>,
 }
 

@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::crypto_config_enum::CryptoConfigEnum;
 
 /// The request for cryptocurrencies configuration.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct CryptoConfigRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub crypto_config: CryptoConfigEnum,
+    pub crypto_config: i64,
     /// [Optional] Cryptocurrency code. Sending request with currency_code provides crypto config for the sent cryptocurrency code only.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

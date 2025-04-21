@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::exchange_verification_code_enum::ExchangeVerificationCodeEnum;
-use crate::type_enum::TypeEnum;
 
 /// Verifies the code and returns a new code if verification is successful
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +17,7 @@ pub struct ExchangeVerificationCodeRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub exchange_verification_code: ExchangeVerificationCodeEnum,
+    pub exchange_verification_code: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -31,7 +29,7 @@ pub struct ExchangeVerificationCodeRequest {
     /// [Optional] Purpose of the token exchange.\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")] 
-    pub r#type: Option<TypeEnum>,
+    pub type_: Option<String>,
     /// Email verification code (received from a `verify_email` call which must be done first).\n
     // Correct serde attribute construction - Use helper
     

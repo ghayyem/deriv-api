@@ -5,15 +5,13 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::phone_numbers_item::PhoneNumbersItem;
-use crate::code_of_conduct_approval_enum::CodeOfConductApprovalEnum;
-use crate::supported_payment_methods_item::SupportedPaymentMethodsItem;
-use crate::paymentagent_create_enum::PaymentagentCreateEnum;
-use crate::urls_item::UrlsItem;
+use crate::phone_number_item::PhoneNumberItem;
+use crate::supported_payment_method_item::SupportedPaymentMethodItem;
+use crate::url_item::UrlItem;
 
 /// Saves client's payment agent details.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,7 +24,7 @@ pub struct PaymentagentCreateRequest {
     /// Indicates client's agreement with the Code of Conduct.\n
     // Correct serde attribute construction - Use helper
     
-    pub code_of_conduct_approval: CodeOfConductApprovalEnum,
+    pub code_of_conduct_approval: i64,
     /// Commission  (%) the agent wants to take on deposits\n
     // Correct serde attribute construction - Use helper
     
@@ -58,11 +56,11 @@ pub struct PaymentagentCreateRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub paymentagent_create: PaymentagentCreateEnum,
+    pub paymentagent_create: i64,
     /// Payment agent's phone number(s) with country code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub phone_numbers: Option<Vec<PhoneNumbersItem>>,
+    pub phone_numbers: Option<Vec<PhoneNumberItem>>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -70,10 +68,10 @@ pub struct PaymentagentCreateRequest {
     /// A list of supported payment methods.\n
     // Correct serde attribute construction - Use helper
     
-    pub supported_payment_methods: Vec<SupportedPaymentMethodsItem>,
+    pub supported_payment_methods: Vec<SupportedPaymentMethodItem>,
     /// The URL(s) of payment agent's website(s).\n
     // Correct serde attribute construction - Use helper
     
-    pub urls: Vec<UrlsItem>,
+    pub urls: Vec<UrlItem>,
 }
 

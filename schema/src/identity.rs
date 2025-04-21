@@ -1,33 +1,43 @@
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: ./deriv-api-docs/config/v3/get_account_status/receive.json
+// Source: ./deriv-api-docs/config/v3/kyc_auth_status/receive.json
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
 
 
-use chrono::{DateTime, Utc};
+
 
 // Import shared types from the *same* crate
-use crate::status_enum::StatusEnum; 
-use crate::services::Services; 
+use crate::last_rejected::LastRejected; 
+use crate::status::Status; 
+use crate::supported_document_item::SupportedDocumentItem; 
+use crate::service::Service; 
 
 // It's a struct
-/// The authentication status for identity.
+/// POI authentication status details.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Identity {
-    /// This is the epoch of the document expiry date.\n
+    /// Available services for the next POI attempt.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub expiry_date: Option<DateTime<Utc>>,
-    /// This shows the information about the authentication services implemented\n
+    pub available_services: Option<Vec<String>>,
+    /// Details on the rejected POI attempt.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub services: Option<Services>,
-    /// This represent the current status for proof of identity document submitted for authentication.\n
+    pub last_rejected: Option<LastRejected>,
+    /// Service used for the current POI status.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub status: Option<StatusEnum>,
+    pub service: Option<Service>,
+    /// Current POI status.\n
+    // Correct serde attribute construction - Use helper
+    #[serde(skip_serializing_if = "Option::is_none")] 
+    pub status: Option<Status>,
+    /// Supported documents.\n
+    // Correct serde attribute construction - Use helper
+    #[serde(skip_serializing_if = "Option::is_none")] 
+    pub supported_documents: Option<Vec<SupportedDocumentItem>>,
 }
 

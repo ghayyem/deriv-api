@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::p2p_order_confirm_enum::P2pOrderConfirmEnum;
-use crate::dry_run_enum::DryRunEnum;
+use crate::dry_run::DryRun;
 
 /// Confirm a P2P order.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +18,7 @@ pub struct P2pOrderConfirmRequest {
     /// [Optional] If set to `1`, only validation is performed.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub dry_run: Option<DryRunEnum>,
+    pub dry_run: Option<DryRun>,
     /// The unique identifier for this order.\n
     // Correct serde attribute construction - Use helper
     
@@ -31,7 +30,7 @@ pub struct P2pOrderConfirmRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub p2p_order_confirm: P2pOrderConfirmEnum,
+    pub p2p_order_confirm: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

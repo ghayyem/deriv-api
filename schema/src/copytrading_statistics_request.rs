@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::copytrading_statistics_enum::CopytradingStatisticsEnum;
 
 /// Retrieve performance, trading, risk and copiers statistics of trader.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct CopytradingStatisticsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub copytrading_statistics: CopytradingStatisticsEnum,
+    pub copytrading_statistics: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::crypto_estimations_enum::CryptoEstimationsEnum;
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +17,7 @@ pub struct CryptoEstimationsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub crypto_estimations: CryptoEstimationsEnum,
+    pub crypto_estimations: i64,
     /// Cryptocurrency code for which fee estimation is provided.\n
     // Correct serde attribute construction - Use helper
     
@@ -39,6 +37,6 @@ pub struct CryptoEstimationsRequest {
     /// [Optional] If set to 1, will send updates whenever there is an update to crypto estimations.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
 }
 

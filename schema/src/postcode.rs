@@ -4,7 +4,7 @@
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
-
+use serde_json::Value;
 
 
 
@@ -18,6 +18,6 @@ pub struct Postcode {
     /// Invalid regex patterns for postcode validation\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub invalid_pattern: Option<String>,
+    pub invalid_pattern: Option<Value>,
 }
 

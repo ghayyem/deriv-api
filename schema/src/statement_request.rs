@@ -5,12 +5,12 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 use chrono::{DateTime, Utc};
 
 // Import required types from the *same* crate
-use crate::description_enum::DescriptionEnum;
-use crate::action_type_enum::ActionTypeEnum;
+use crate::description::Description;
+use crate::action_type::ActionType;
 
 /// Retrieve a summary of account transactions, according to given search criteria
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +19,7 @@ pub struct StatementRequest {
     /// [Optional] To filter the statement according to the type of transaction.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub action_type: Option<ActionTypeEnum>,
+    pub action_type: Option<ActionType>,
     /// [Optional] Start date (epoch)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -31,7 +31,7 @@ pub struct StatementRequest {
     /// [Optional] If set to 1, will return full contracts description.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub description: Option<DescriptionEnum>,
+    pub description: Option<Description>,
     /// [Optional] Maximum number of transactions to receive.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

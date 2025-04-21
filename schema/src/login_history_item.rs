@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::status_enum::StatusEnum; 
+use crate::status::Status; 
 
 // It's a struct
 /// User login history
@@ -55,7 +55,7 @@ pub struct LoginHistoryItem {
     /// Status of activity: 1 - success, 0 - failure\n
     // Correct serde attribute construction - Use helper
     
-    pub status: StatusEnum,
+    pub status: Status,
     /// Epoch time of the activity\n
     // Correct serde attribute construction - Use helper
     

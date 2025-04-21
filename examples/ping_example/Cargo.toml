@@ -1,0 +1,12 @@
+[package]
+name = "ping_example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+deriv-api = { path = "../..", features = ["all"] } # Depend on the local workspace crate
+deriv-api-schema = { path = "../../schema" }
+tokio = { version = "1.28.0", features = ["full"] }
+futures-util = "0.3"
+serde_json = "1.0"
+dotenv = "0.15.0"

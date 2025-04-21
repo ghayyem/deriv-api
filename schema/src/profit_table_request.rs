@@ -5,13 +5,13 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::sort_enum::SortEnum;
-use crate::description_enum::DescriptionEnum;
-use crate::contract_type_item_enum::ContractTypeItemEnum;
+use crate::contract_type_item::ContractTypeItem;
+use crate::description::Description;
+use crate::sort::Sort;
 
 /// Retrieve a summary of account Profit Table, according to given search criteria
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,7 +20,7 @@ pub struct ProfitTableRequest {
     /// Return only contracts of the specified types\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub contract_type: Option<Vec<ContractTypeItemEnum>>,
+    pub contract_type: Option<Vec<ContractTypeItem>>,
     /// [Optional] Start date (epoch or YYYY-MM-DD)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -32,7 +32,7 @@ pub struct ProfitTableRequest {
     /// [Optional] If set to 1, will return full contracts description.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub description: Option<DescriptionEnum>,
+    pub description: Option<Description>,
     /// [Optional] Apply upper limit to count of transactions received.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -60,6 +60,6 @@ pub struct ProfitTableRequest {
     /// [Optional] Sort direction.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sort: Option<SortEnum>,
+    pub sort: Option<Sort>,
 }
 

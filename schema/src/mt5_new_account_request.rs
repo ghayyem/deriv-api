@@ -5,18 +5,17 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::account_type_enum::AccountTypeEnum;
-use crate::sub_account_type_enum::SubAccountTypeEnum;
-use crate::mt5_account_category_enum::Mt5AccountCategoryEnum;
-use crate::server_enum::ServerEnum;
-use crate::dry_run_enum::DryRunEnum;
-use crate::product_enum::ProductEnum;
-use crate::sub_account_category_enum::SubAccountCategoryEnum;
-use crate::mt5_account_type_enum::Mt5AccountTypeEnum;
+use crate::mt5_account_type::Mt5AccountType;
+use crate::sub_account_category::SubAccountCategory;
+use crate::product::Product;
+use crate::mt5_account_category::Mt5AccountCategory;
+use crate::sub_account_type::SubAccountType;
+use crate::account_type::AccountType;
+use crate::dry_run::DryRun;
 
 /// This call creates new MT5 user, either demo or real money user.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -25,7 +24,7 @@ pub struct Mt5NewAccountRequest {
     /// Account type. If set to 'financial', setting 'mt5_account_type' is also required.\n
     // Correct serde attribute construction - Use helper
     
-    pub account_type: AccountTypeEnum,
+    pub account_type: AccountType,
     /// [Optional] The address of the user. The maximum length of this address field is 128 characters.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -41,15 +40,15 @@ pub struct Mt5NewAccountRequest {
     /// [Optional] 2-letter country code (value received from `residence_list` call).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub country: Option<f64>,
+    pub country: Option<String>,
     /// [Optional] MT5 account currency, the default value will be the qualified account currency.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub currency: Option<f64>,
+    pub currency: Option<String>,
     /// [Optional] If set to 1, only validation is performed.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub dry_run: Option<DryRunEnum>,
+    pub dry_run: Option<DryRun>,
     /// Email address\n
     // Correct serde attribute construction - Use helper
     
@@ -77,11 +76,11 @@ pub struct Mt5NewAccountRequest {
     /// [Optional] To choose whether account is conventional or swap_free. Unavailable for financial_stp MT5_account_type\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub mt5_account_category: Option<Mt5AccountCategoryEnum>,
+    pub mt5_account_category: Option<Mt5AccountCategory>,
     /// [Optional] Financial: Variable spreads, High leverage. Financial STP: Variable spreads, Medium Leverage, more products. If 'account_type' set to 'financial', setting 'mt5_account_type' is also required.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub mt5_account_type: Option<Mt5AccountTypeEnum>,
+    pub mt5_account_type: Option<Mt5AccountType>,
     /// Field 'mt5_new_account' mapped to Value due to complexity/potential issues.\n
     // Correct serde attribute construction - Use helper
     
@@ -97,7 +96,7 @@ pub struct Mt5NewAccountRequest {
     /// [Optional] User's phone number.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub phone: Option<String>,
+    pub phone: Option<Value>,
     /// [Optional] The user's phone password.\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "phonePassword", skip_serializing_if = "Option::is_none")] 
@@ -105,7 +104,7 @@ pub struct Mt5NewAccountRequest {
     /// Product name that Deriv offer\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub product: Option<ProductEnum>,
+    pub product: Option<Product>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -113,7 +112,7 @@ pub struct Mt5NewAccountRequest {
     /// [Optional] Trade server.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub server: Option<ServerEnum>,
+    pub server: Option<Value>,
     /// [Optional] User's state (region) of residence.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -121,11 +120,11 @@ pub struct Mt5NewAccountRequest {
     /// [Optional] Indicate the additional risk management for each account\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sub_account_category: Option<SubAccountCategoryEnum>,
+    pub sub_account_category: Option<SubAccountCategory>,
     /// [Optional] Indicate the different offerings for mt5 account\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub sub_account_type: Option<SubAccountTypeEnum>,
+    pub sub_account_type: Option<SubAccountType>,
     /// [Optional] User's zip code.\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "zipCode", skip_serializing_if = "Option::is_none")] 

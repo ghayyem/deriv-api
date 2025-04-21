@@ -5,11 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::add_to_login_history_enum::AddToLoginHistoryEnum;
+use crate::add_to_login_history::AddToLoginHistory;
 
 /// Authorize current WebSocket session to act on behalf of the owner of a given token. Must precede requests that need to access client account, for example purchasing and selling contracts or viewing portfolio.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +18,7 @@ pub struct AuthorizeRequest {
     /// [Optional] Send this when you use api tokens for authorization and want to track activity using `login_history` call.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub add_to_login_history: Option<AddToLoginHistoryEnum>,
+    pub add_to_login_history: Option<AddToLoginHistory>,
     /// Authentication token. May be retrieved from https://www.binary.com/en/user/security/api_tokenws.html. Set to MULTI when using multiple tokens.\n
     // Correct serde attribute construction - Use helper
     

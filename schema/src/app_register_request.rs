@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::app_register_enum::AppRegisterEnum;
-use crate::scopes_item_enum::ScopesItemEnum;
+use crate::scope_item::ScopeItem;
 
 /// Register a new OAuth application
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,11 +18,11 @@ pub struct AppRegisterRequest {
     /// [Optional] Markup to be added to contract prices (as a percentage of contract payout). Max markup: 3%.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub app_markup_percentage: Option<f64>,
+    pub app_markup_percentage: Option<String>,
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub app_register: AppRegisterEnum,
+    pub app_register: i64,
     /// [Optional] Application's App Store URL (if applicable).\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -63,7 +62,7 @@ pub struct AppRegisterRequest {
     /// List of permission scopes to grant the application.\n
     // Correct serde attribute construction - Use helper
     
-    pub scopes: Vec<ScopesItemEnum>,
+    pub scopes: Vec<ScopeItem>,
     /// [Optional] Used when `verify_email` called. If available, a URL containing the verification token will be sent to the client's email, otherwise only the token will be sent.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

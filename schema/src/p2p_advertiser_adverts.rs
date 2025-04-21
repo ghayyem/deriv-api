@@ -1,23 +1,31 @@
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: ./deriv-api-docs/config/v3/p2p_advertiser_adverts/receive.json
+// Source: ./deriv-api-docs/config/v3/p2p_advertiser_adverts/send.json
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
-use serde_json::Value;
-use std::collections::HashMap;
+
+
 
 
 // Import shared types from the *same* crate
 
-// It's a struct
-/// List of the P2P advertiser adverts.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+/// Must be 1
+#[derive(Debug, Clone, Serialize, Deserialize)] // Enums should also derive Serialize/Deserialize
 #[serde(rename_all = "snake_case")]
-pub struct P2pAdvertiserAdverts {
-    /// Field 'list' mapped to Value due to complexity/potential issues.\n
-    // Correct serde attribute construction - Use helper
-    
-    pub list: Value,
+pub enum P2pAdvertiserAdverts {
+    Value1 = 1,
 }
+
+// Optional: Derive Default for enums, defaulting to the first variant? Or require explicit handling?
+// For now, DO NOT derive Default for enums automatically. Structs needing them must handle it.
+
+/* // Example: Deriving Default for Enum (use with caution)
+impl Default for P2pAdvertiserAdverts {
+    fn default() -> Self {
+        // Default to the first variant found
+        Self::Value1
+    }
+}
+*/
 

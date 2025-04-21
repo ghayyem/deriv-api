@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Retrieves the information about a P2P order.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -38,6 +37,6 @@ pub struct P2pOrderInfoRequest {
     /// [Optional] If set to 1, will send updates whenever there is an update to order\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
 }
 

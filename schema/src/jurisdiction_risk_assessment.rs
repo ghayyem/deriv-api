@@ -9,9 +9,9 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::turnover::Turnover; 
-use crate::disclaimer::Disclaimer; 
 use crate::risk_level::RiskLevel; 
+use crate::disclaimer::Disclaimer; 
+use crate::turnover::Turnover; 
 
 // It's a struct
 /// Jurisdiction Risk Assessment

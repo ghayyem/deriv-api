@@ -1,24 +1,31 @@
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: ./deriv-api-docs/config/v3/crypto_config/receive.json
+// Source: ./deriv-api-docs/config/v3/crypto_config/send.json
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
-use serde_json::Value;
-use std::collections::HashMap;
+
+
 
 
 // Import shared types from the *same* crate
-use crate::currencies_config_value::CurrenciesConfigValue; 
 
-// It's a struct
-/// Provides cryptocurrencies configuration.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+/// Must be `1`
+#[derive(Debug, Clone, Serialize, Deserialize)] // Enums should also derive Serialize/Deserialize
 #[serde(rename_all = "snake_case")]
-pub struct CryptoConfig {
-    /// Currency configuration including limitiations for each crypto currency.\n
-    // Correct serde attribute construction - Use helper
-    
-    pub currencies_config: HashMap<String, CurrenciesConfigValue>,
+pub enum CryptoConfig {
+    Value1 = 1,
 }
+
+// Optional: Derive Default for enums, defaulting to the first variant? Or require explicit handling?
+// For now, DO NOT derive Default for enums automatically. Structs needing them must handle it.
+
+/* // Example: Deriving Default for Enum (use with caution)
+impl Default for CryptoConfig {
+    fn default() -> Self {
+        // Default to the first variant found
+        Self::Value1
+    }
+}
+*/
 

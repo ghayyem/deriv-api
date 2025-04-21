@@ -5,11 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::landing_company_details_enum::LandingCompanyDetailsEnum;
+use crate::landing_company_details::LandingCompanyDetails;
 
 /// The company has a number of licensed subsidiaries in various jurisdictions, which are called Landing Companies (and which are wholly owned subsidiaries of the Deriv Group). This call provides information about each Landing Company.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +22,7 @@ pub struct LandingCompanyDetailsRequest {
     /// Landing company shortcode.\n
     // Correct serde attribute construction - Use helper
     
-    pub landing_company_details: LandingCompanyDetailsEnum,
+    pub landing_company_details: LandingCompanyDetails,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

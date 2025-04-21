@@ -18,10 +18,10 @@ pub struct LimitOrder {
     /// New stop loss value for a contract. To cancel, pass `null`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub stop_loss: Option<f64>,
+    pub stop_loss: Option<String>,
     /// New take profit value for a contract. To cancel, pass `null`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub take_profit: Option<f64>,
+    pub take_profit: Option<String>,
 }
 

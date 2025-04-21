@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
 use crate::parameters::Parameters;
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Buy a Contract
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -35,7 +34,7 @@ pub struct BuyRequest {
     /// Maximum price at which to purchase the contract.\n
     // Correct serde attribute construction - Use helper
     
-    pub price: f64,
+    pub price: String,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -43,6 +42,6 @@ pub struct BuyRequest {
     /// [Optional] `1` to stream.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
 }
 

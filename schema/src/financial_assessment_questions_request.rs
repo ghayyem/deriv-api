@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::financial_assessment_questions_enum::FinancialAssessmentQuestionsEnum;
 
 /// This call gets the financial assessment questionnaire structure, which defines the questions, possible answers, and flow logic for the financial assessment form.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct FinancialAssessmentQuestionsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub financial_assessment_questions: FinancialAssessmentQuestionsEnum,
+    pub financial_assessment_questions: i64,
     /// [Optional] The landing company the account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

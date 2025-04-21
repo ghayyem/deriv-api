@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::payout_currencies_enum::PayoutCurrenciesEnum;
 
 /// Retrieve a list of available option payout currencies. If a user is logged in, only the currencies available for the account will be returned.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,7 +25,7 @@ pub struct PayoutCurrenciesRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub payout_currencies: PayoutCurrenciesEnum,
+    pub payout_currencies: i64,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

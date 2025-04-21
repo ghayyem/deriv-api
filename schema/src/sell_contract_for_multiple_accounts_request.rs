@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::sell_contract_for_multiple_accounts_enum::SellContractForMultipleAccountsEnum;
 
 /// Sell contracts for multiple accounts simultaneously. Uses the shortcode response from `buy_contract_for_multiple_accounts` to identify the contract, and authorisation tokens to select which accounts to sell those contracts on. Note that only the accounts identified by the tokens will be affected. This will not sell the contract on the currently-authorised account unless you include the token for the current account.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -26,7 +25,7 @@ pub struct SellContractForMultipleAccountsRequest {
     /// Minimum price at which to sell the contract, or `0` for 'sell at market'.\n
     // Correct serde attribute construction - Use helper
     
-    pub price: f64,
+    pub price: String,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -34,7 +33,7 @@ pub struct SellContractForMultipleAccountsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub sell_contract_for_multiple_accounts: SellContractForMultipleAccountsEnum,
+    pub sell_contract_for_multiple_accounts: i64,
     /// An internal ID used to identify the contract which was originally bought. This is returned from the `buy` and `buy_contract_for_multiple_accounts` calls.\n
     // Correct serde attribute construction - Use helper
     

@@ -5,14 +5,14 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::provider_enum::ProviderEnum;
-use crate::cashier_enum::CashierEnum;
-use crate::dry_run_enum::DryRunEnum;
-use crate::type_enum::TypeEnum;
+use crate::provider::Provider;
+use crate::cashier::Cashier;
+use crate::type_::Type;
+use crate::dry_run::DryRun;
 
 /// Request the cashier info for the specified type.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -29,11 +29,11 @@ pub struct CashierRequest {
     /// Operation which needs to be requested from cashier\n
     // Correct serde attribute construction - Use helper
     
-    pub cashier: CashierEnum,
+    pub cashier: Cashier,
     /// [Optional] If set to `1`, only validation is performed. Only applicable for `withdraw` using `crypto` provider and `api` type.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub dry_run: Option<DryRunEnum>,
+    pub dry_run: Option<DryRun>,
     /// [Optional] The `unique_id` of the estimated fee received from `crypto_estimations` call in case the client is willing to pay the returned fee in order to prioritise their withdrawal request.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -49,7 +49,7 @@ pub struct CashierRequest {
     /// [Optional] Cashier provider.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub provider: Option<ProviderEnum>,
+    pub provider: Option<Provider>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -57,7 +57,7 @@ pub struct CashierRequest {
     /// [Optional] Data is returned from the cashier. The `crypto` provider only supports `api` (not `url`) for crypto accounts.\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")] 
-    pub r#type: Option<TypeEnum>,
+    pub type_: Option<Type>,
     /// [Optional] Email verification code (received from a `verify_email` call, which must be done first)\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

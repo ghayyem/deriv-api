@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::app_markup_statistics_enum::AppMarkupStatisticsEnum;
 
 /// Retrieve statistics of `app_markup`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct AppMarkupStatisticsRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub app_markup_statistics: AppMarkupStatisticsEnum,
+    pub app_markup_statistics: i64,
     /// Start date (epoch or YYYY-MM-DD HH:MM:SS). Results are inclusive of this time.\n
     // Correct serde attribute construction - Use helper
     

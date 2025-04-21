@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::portfolio_enum::PortfolioEnum;
-use crate::contract_type_item_enum::ContractTypeItemEnum;
+use crate::contract_type_item::ContractTypeItem;
 
 /// Receive information about my current portfolio of outstanding options
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +18,7 @@ pub struct PortfolioRequest {
     /// Return only contracts of the specified types\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub contract_type: Option<Vec<ContractTypeItemEnum>>,
+    pub contract_type: Option<Vec<ContractTypeItem>>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -31,7 +30,7 @@ pub struct PortfolioRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub portfolio: PortfolioEnum,
+    pub portfolio: i64,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

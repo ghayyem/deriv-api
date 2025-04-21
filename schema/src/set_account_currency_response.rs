@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::set_account_currency_enum::SetAccountCurrencyEnum;
+use crate::set_account_currency::SetAccountCurrency;
 
 /// Status of set account currency call
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,7 +22,7 @@ pub struct SetAccountCurrencyResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -31,6 +30,6 @@ pub struct SetAccountCurrencyResponse {
     /// `1`: success, `0`: no change\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub set_account_currency: Option<SetAccountCurrencyEnum>,
+    pub set_account_currency: Option<SetAccountCurrency>,
 }
 

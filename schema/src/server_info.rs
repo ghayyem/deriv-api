@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 
 // Import shared types from the *same* crate
-use crate::environment_enum::EnvironmentEnum; 
+use crate::environment::Environment; 
 use crate::geolocation::Geolocation; 
 
 // It's a struct
@@ -20,7 +20,7 @@ pub struct ServerInfo {
     /// The environment. E.g. Deriv-Server.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub environment: Option<EnvironmentEnum>,
+    pub environment: Option<Environment>,
     /// Geographical location of the server.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

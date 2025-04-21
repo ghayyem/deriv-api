@@ -5,12 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::recommended_enum::RecommendedEnum;
-use crate::p2p_order_review_enum::P2pOrderReviewEnum;
+use crate::recommended::Recommended;
 
 /// Creates a review for the specified order.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,7 +26,7 @@ pub struct P2pOrderReviewRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub p2p_order_review: P2pOrderReviewEnum,
+    pub p2p_order_review: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -39,7 +38,7 @@ pub struct P2pOrderReviewRequest {
     /// [Optional] `1` if the counterparty is recommendable to others, otherwise `0`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub recommended: Option<RecommendedEnum>,
+    pub recommended: Option<Recommended>,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

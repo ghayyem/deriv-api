@@ -1,28 +1,31 @@
 
 // Generated automatically by schema_generator.rs - DO NOT EDIT.
-// Source: ./deriv-api-docs/config/v3/copytrading_list/receive.json
+// Source: ./deriv-api-docs/config/v3/copytrading_list/send.json
 
 // Use direct crate names for imports within generated files
 use serde::{Deserialize, Serialize}; 
-use serde_json::Value;
-use std::collections::HashMap;
+
+
 
 
 // Import shared types from the *same* crate
-use crate::copiers_item::CopiersItem; 
 
-// It's a struct
-/// The trading information of copiers or traders.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+/// Must be `1`
+#[derive(Debug, Clone, Serialize, Deserialize)] // Enums should also derive Serialize/Deserialize
 #[serde(rename_all = "snake_case")]
-pub struct CopytradingList {
-    /// List of users who are currently copy trading the authenticated user\n
-    // Correct serde attribute construction - Use helper
-    
-    pub copiers: Vec<CopiersItem>,
-    /// Field 'traders' mapped to Value due to complexity/potential issues.\n
-    // Correct serde attribute construction - Use helper
-    
-    pub traders: Value,
+pub enum CopytradingList {
+    Value1 = 1,
 }
+
+// Optional: Derive Default for enums, defaulting to the first variant? Or require explicit handling?
+// For now, DO NOT derive Default for enums automatically. Structs needing them must handle it.
+
+/* // Example: Deriving Default for Enum (use with caution)
+impl Default for CopytradingList {
+    fn default() -> Self {
+        // Default to the first variant found
+        Self::Value1
+    }
+}
+*/
 

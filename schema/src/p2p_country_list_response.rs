@@ -9,8 +9,6 @@ use std::collections::HashMap;
 
 
 // Import required types from the *same* crate
-use crate::msg_type_enum::MsgTypeEnum;
-use crate::p2p_country_list_value::P2pCountryListValue;
 
 /// List all or specific country and its payment methods.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -23,11 +21,11 @@ pub struct P2pCountryListResponse {
     /// Action name of the request made.\n
     // Correct serde attribute construction - Use helper
     
-    pub msg_type: MsgTypeEnum,
+    pub msg_type: String,
     /// Country identified by country code\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub p2p_country_list: Option<HashMap<String, P2pCountryListValue>>,
+    pub p2p_country_list: Option<HashMap<String, Value>>,
     /// Optional field sent in request to map to response, present only when request contains `req_id`.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

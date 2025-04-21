@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::contract_update_history_enum::ContractUpdateHistoryEnum;
 
 /// Request for contract update history.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +21,7 @@ pub struct ContractUpdateHistoryRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub contract_update_history: ContractUpdateHistoryEnum,
+    pub contract_update_history: i64,
     /// [Optional] Maximum number of historical updates to receive.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -6,7 +6,7 @@
 use serde::{Deserialize, Serialize}; 
 
 
-use chrono::{DateTime, Utc};
+
 
 // Import shared types from the *same* crate
 
@@ -17,11 +17,11 @@ pub struct TicksBatchItem {
     /// Market ask at the epoch\n
     // Correct serde attribute construction - Use helper
     
-    pub ask: f64,
+    pub ask: String,
     /// Market bid at the epoch\n
     // Correct serde attribute construction - Use helper
     
-    pub bid: f64,
+    pub bid: String,
     /// Daily percentage change\n
     // Correct serde attribute construction - Use helper
     
@@ -33,7 +33,7 @@ pub struct TicksBatchItem {
     /// Market value at the epoch\n
     // Correct serde attribute construction - Use helper
     
-    pub quote: f64,
+    pub quote: String,
     /// Symbol\n
     // Correct serde attribute construction - Use helper
     

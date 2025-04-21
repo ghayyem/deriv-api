@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::use_client_limits_enum::UseClientLimitsEnum;
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Retrieve information about a P2P advert.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -39,10 +37,10 @@ pub struct P2pAdvertInfoRequest {
     /// [Optional] If set to 1, will send updates when changes occur. Optional when id is provided.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
     /// [Optional] If set to 1, the maximum order amount will be adjusted to the current balance and turnover limits of the account.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub use_client_limits: Option<UseClientLimitsEnum>,
+    pub use_client_limits: Option<String>,
 }
 

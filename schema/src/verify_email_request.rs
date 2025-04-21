@@ -5,11 +5,11 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::type_enum::TypeEnum;
+use crate::type_::Type;
 use crate::url_parameters::UrlParameters;
 
 /// Verify an email address for various purposes. The system will send an email to the address containing a security code for verification.
@@ -31,7 +31,7 @@ pub struct VerifyEmailRequest {
     /// Purpose of email verification, request_email and reset_password are the only two types restricted from all unoffical apps\n
     // Correct serde attribute construction - Use helper
     #[serde(rename = "type")] 
-    pub r#type: TypeEnum,
+    pub type_: Type,
     /// [Optional] Extra parameters that can be attached to the verify email link URL.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

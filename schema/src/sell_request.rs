@@ -5,7 +5,7 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
@@ -25,7 +25,7 @@ pub struct SellRequest {
     /// Minimum price at which to sell the contract, or `0` for 'sell at market'.\n
     // Correct serde attribute construction - Use helper
     
-    pub price: f64,
+    pub price: String,
     /// [Optional] Used to map request to response.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

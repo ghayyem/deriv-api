@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::tnc_approval_enum::TncApprovalEnum;
 
 /// To approve the latest version of terms and conditions.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -30,6 +29,6 @@ pub struct TncApprovalRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub tnc_approval: TncApprovalEnum,
+    pub tnc_approval: f64,
 }
 

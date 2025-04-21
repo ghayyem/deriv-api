@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::transfer_between_accounts_enum::TransferBetweenAccountsEnum;
-use crate::accounts_enum::AccountsEnum;
 
 /// This call allows transfers between accounts held by a given user. Transfer funds between your fiat and cryptocurrency accounts (for a fee). Please note that account_from should be same as current authorized account.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,11 +25,11 @@ pub struct TransferBetweenAccountsRequest {
     /// [Optional] To control the list of accounts returned when `account_from` or `account_to` is not provided. `brief` (default value) means that accounts with `mt5` account_type will be excluded; it will run faster. `all` means that all accounts with any account_type (including `mt5`) will be returned.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub accounts: Option<AccountsEnum>,
+    pub accounts: Option<String>,
     /// [Optional] The amount to transfer.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub amount: Option<f64>,
+    pub amount: Option<String>,
     /// [Optional] Currency code.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -51,6 +49,6 @@ pub struct TransferBetweenAccountsRequest {
     /// If `account_from` or `account_to` is not provided, it just returns the available accounts.\n
     // Correct serde attribute construction - Use helper
     
-    pub transfer_between_accounts: TransferBetweenAccountsEnum,
+    pub transfer_between_accounts: i64,
 }
 

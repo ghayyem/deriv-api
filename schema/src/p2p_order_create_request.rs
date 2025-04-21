@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::subscribe_enum::SubscribeEnum;
 
 /// Creates a P2P order for the specified advert.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -22,7 +21,7 @@ pub struct P2pOrderCreateRequest {
     /// The amount of currency to be bought or sold.\n
     // Correct serde attribute construction - Use helper
     
-    pub amount: f64,
+    pub amount: String,
     /// [Optional] Seller contact information. Only applicable for 'sell orders'.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -58,6 +57,6 @@ pub struct P2pOrderCreateRequest {
     /// [Optional] If set to 1, will send updates whenever there is an update to the order.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
 }
 

@@ -5,11 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 use chrono::{DateTime, Utc};
 
 // Import required types from the *same* crate
-use crate::set_self_exclusion_enum::SetSelfExclusionEnum;
 
 /// Set Self-Exclusion (this call should be used in conjunction with `get_self_exclusion`)
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -18,7 +17,7 @@ pub struct SetSelfExclusionRequest {
     /// [Optional] Exclude me from the website (for a minimum of 6 months, up to a maximum of 5 years). Note: uplifting this self-exclusion may require contacting the company.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub exclude_until: Option<String>,
+    pub exclude_until: Option<Value>,
     /// [Optional] The login id of the user. Mandatory when multiple tokens were provided during authorize.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -26,39 +25,39 @@ pub struct SetSelfExclusionRequest {
     /// [Optional] 7-day limit on deposits.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_30day_deposit: Option<f64>,
+    pub max_30day_deposit: Option<Value>,
     /// [Optional] 30-day limit on losses.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_30day_losses: Option<f64>,
+    pub max_30day_losses: Option<Value>,
     /// [Optional] 30-day turnover limit.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_30day_turnover: Option<f64>,
+    pub max_30day_turnover: Option<Value>,
     /// [Optional] 7-day limit on deposits.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_7day_deposit: Option<f64>,
+    pub max_7day_deposit: Option<Value>,
     /// [Optional] 7-day limit on losses.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_7day_losses: Option<f64>,
+    pub max_7day_losses: Option<Value>,
     /// [Optional] 7-day turnover limit.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_7day_turnover: Option<f64>,
+    pub max_7day_turnover: Option<Value>,
     /// [Optional] Maximum account cash balance.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_balance: Option<f64>,
+    pub max_balance: Option<Value>,
     /// [Optional] Daily deposit limit.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_deposit: Option<f64>,
+    pub max_deposit: Option<Value>,
     /// [Optional] Daily limit on losses.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_losses: Option<f64>,
+    pub max_losses: Option<Value>,
     /// [Optional] Maximum number of open positions.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -66,7 +65,7 @@ pub struct SetSelfExclusionRequest {
     /// [Optional] Daily turnover limit.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub max_turnover: Option<f64>,
+    pub max_turnover: Option<Value>,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -82,7 +81,7 @@ pub struct SetSelfExclusionRequest {
     /// Must be `1`\n
     // Correct serde attribute construction - Use helper
     
-    pub set_self_exclusion: SetSelfExclusionEnum,
+    pub set_self_exclusion: i64,
     /// [Optional] Exclude me from the website (for up to 6 weeks). Requires time in epoch format. Note: unlike `exclude_until`, this self-exclusion will be lifted automatically at the expiry of the timeout period.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 

@@ -5,12 +5,10 @@
 // Use direct crate names for imports
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
+
 
 
 // Import required types from the *same* crate
-use crate::subscribe_enum::SubscribeEnum;
-use crate::p2p_advertiser_info_enum::P2pAdvertiserInfoEnum;
 
 /// Retrieve information about a P2P advertiser.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,7 +25,7 @@ pub struct P2pAdvertiserInfoRequest {
     /// Must be 1\n
     // Correct serde attribute construction - Use helper
     
-    pub p2p_advertiser_info: P2pAdvertiserInfoEnum,
+    pub p2p_advertiser_info: i64,
     /// [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
@@ -39,6 +37,6 @@ pub struct P2pAdvertiserInfoRequest {
     /// [Optional] If set to 1, will send updates whenever there is an update to advertiser\n
     // Correct serde attribute construction - Use helper
     #[serde(skip_serializing_if = "Option::is_none")] 
-    pub subscribe: Option<SubscribeEnum>,
+    pub subscribe: Option<i64>,
 }
 
