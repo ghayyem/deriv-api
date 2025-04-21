@@ -1,2 +1,12 @@
 /target
 /deriv-api-docs
+.DS_Store
+# Environment files
+.env
+*/.env
+*/*/env
+
+# Keep env examples
+!.env.example
+!*/.env.example
+!*/*/.env.example

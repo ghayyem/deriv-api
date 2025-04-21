@@ -245,7 +245,7 @@ checksum = "2a2330da5de22e8a3cb63252ce2abb30116bf5265e89c0e01bc17015ce30a476"
 
 [[package]]
 name = "deriv-api"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "async-trait",
  "chrono",
@@ -256,6 +256,7 @@ dependencies = [
  "futures",
  "futures-util",
  "handlebars",
+ "lazy_static",
  "log",
  "regex",
  "serde",
@@ -328,6 +329,12 @@ dependencies = [
  "quote",
  "syn 2.0.100",
 ]
+
+[[package]]
+name = "dotenv"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "env_logger"
@@ -756,6 +763,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "lazy_static"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
+
+[[package]]
 name = "libc"
 version = "0.2.172"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -992,7 +1005,9 @@ version = "0.1.0"
 dependencies = [
  "deriv-api",
  "deriv-api-schema",
+ "dotenv",
  "futures-util",
+ "serde_json",
  "tokio",
 ]
 
@@ -1371,6 +1386,20 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.100",
+]
+
+[[package]]
+name = "ticks_stream_example"
+version = "0.1.0"
+dependencies = [
+ "deriv-api",
+ "deriv-api-schema",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "log",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]

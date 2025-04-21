@@ -23,7 +23,7 @@ pub async fn p_2_p_advert_create(&self, request: deriv_api_schema::P2pAdvertCrea
 }
 
 /// Manage or list P2P advertiser payment methods.
-pub async fn p_2_p_advertiser_payment_methods(&self, request: deriv_api_schema::P2pAdvertiserPaymentMethodsRequest) -> Result<deriv_api_schema::P2pAdvertiserPaymentMethodsResponse> {
+pub async fn p_2_p_advertiser_payment_methods(&self, request: deriv_api_schema::P2pAdvertiserPaymentMethods) -> Result<deriv_api_schema::P2pAdvertiserPaymentMethods> {
     self.send_request(&request).await
 }
 
@@ -363,7 +363,7 @@ pub async fn partner_account_creation_status(&self, request: deriv_api_schema::P
 }
 
 /// This call sets the financial assessment details based on the client&#x27;s answers to analyze whether they possess the experience and knowledge to understand the risks involved with binary options trading.
-pub async fn set_financial_assessment(&self, request: deriv_api_schema::SetFinancialAssessmentRequest) -> Result<deriv_api_schema::SetFinancialAssessmentResponse> {
+pub async fn set_financial_assessment(&self, request: deriv_api_schema::SetFinancialAssessment) -> Result<deriv_api_schema::SetFinancialAssessmentResponse> {
     self.send_request(&request).await
 }
 
@@ -428,7 +428,7 @@ pub async fn oauth_apps(&self, request: deriv_api_schema::OauthAppsRequest) -> R
 }
 
 /// Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
-pub async fn crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<deriv_api_schema::CryptoEstimationsResponse> {
+pub async fn crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<deriv_api_schema::CryptoEstimations> {
     self.send_request(&request).await
 }
 

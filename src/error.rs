@@ -25,6 +25,9 @@ pub enum DerivError {
 
     #[error("Empty subscription ID")]
     EmptySubscriptionId,
+    
+    #[error("Subscription error: {0}")]
+    SubscriptionError(String),
 
     #[error("API error: {code} - {message}")]
     ApiError {

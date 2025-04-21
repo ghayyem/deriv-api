@@ -12,6 +12,7 @@ use tokio::sync::{mpsc, oneshot, RwLock};
 use tokio_tungstenite::connect_async;
 use tokio_tungstenite::tungstenite::protocol::Message;
 use url::Url;
+use crate::subscription::Subscription;
 
 const DEFAULT_BUFFER_SIZE: usize = 1024;
 
@@ -32,7 +33,7 @@ impl Default for ClientConfig {
 }
 
 /// The main client for interacting with the Deriv API
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct DerivClient {
     endpoint: Url,
     origin: Url,
@@ -118,9 +119,9 @@ impl DerivClient {
         self.pending_request_registrar = Some(pending_request_sender);
         *self.connection_status.write().await = true;
         let connection_status_write = self.connection_status.clone();
-        let connection_status_read = self.connection_status.clone();
+        let _connection_status_read = self.connection_status.clone();
 
-        let write_task = tokio::spawn(async move {
+        let _write_task = tokio::spawn(async move {
             while let Some(request) = request_receiver.recv().await {
                 let msg_str = String::from_utf8_lossy(&request.message).into_owned();
                 debug!("Sending message: {}", msg_str);
@@ -133,7 +134,7 @@ impl DerivClient {
             debug!("Sender task finished.");
         });
 
-        let read_task = tokio::spawn(async move {
+        let _read_task = tokio::spawn(async move {
             while let Some(message_result) = read.next().await {
                 debug!("Received raw message: {:?}", message_result);
                 match message_result {
@@ -164,7 +165,7 @@ impl DerivClient {
             *connection_status_write.write().await = false;
         });
 
-        let response_handler = tokio::spawn(async move {
+        let _response_handler = tokio::spawn(async move {
             let mut pending_requests: std::collections::HashMap<i32, oneshot::Sender<Result<Vec<u8>>>> =
                 std::collections::HashMap::new();
 
@@ -201,6 +202,8 @@ impl DerivClient {
                                     }
                                 } else {
                                     debug!("Received message without req_id (likely subscription): {:?}", String::from_utf8_lossy(&response_bytes));
+                                    // Process subscription message
+                                    crate::subscription::handle_subscription_message(&response_bytes);
                                 }
                             }
                             Err(e) => {
@@ -315,6 +318,35 @@ impl DerivClient {
 
     fn get_next_request_id(&self) -> i32 {
         self.last_request_id.fetch_add(1, Ordering::SeqCst) as i32
+    }
+    
+    /// Creates a subscription from a subscription-enabled API
+    pub async fn create_subscription<T, R, S>(&self, request: &mut T, msg_type: &str) -> Result<(R, Subscription<S>)>
+    where
+        T: Serialize + std::fmt::Debug,
+        R: DeserializeOwned + Serialize,
+        S: DeserializeOwned + Send + 'static,
+    {
+        if !*self.connection_status.read().await {
+            debug!("Attempted create_subscription while not connected.");
+            return Err(DerivError::ConnectionClosed);
+        }
+        
+        // Send the initial request to start the subscription
+        let initial_response: R = self.send_request(request).await?;
+        
+        // Extract the subscription ID from the response
+        let response_value = serde_json::to_vec(&initial_response)?;
+        let subscription_id = crate::subscription::parse_subscription_response(&response_value)?;
+        
+        // Create a channel for the subscription updates
+        let (_sender, receiver) = mpsc::channel::<S>(100);
+        
+        // Create the subscription with an Arc to self
+        let client_arc = Arc::new(self.clone());
+        let subscription = Subscription::new(receiver, subscription_id, client_arc, msg_type);
+        
+        Ok((initial_response, subscription))
     }
 }
 

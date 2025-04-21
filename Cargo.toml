@@ -1,6 +1,6 @@
 [package]
 name = "deriv-api"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["ghayyem <ahrar@ghayyem.com>"]
 description = "Unofficial Rust client for Deriv API with auto-generated types"
@@ -13,7 +13,7 @@ categories = ["api-bindings", "asynchronous", "web-programming::websocket"]
 exclude = ["deriv-api-docs/*", "bin/*", "schema.patch", ".gitignore"]
 
 [workspace]
-members = [".", "schema", "examples/ping_example"]
+members = [".", "schema", "examples/ping_example", "examples/ticks_stream_example"]
 
 # Add workspace dependencies table
 [workspace.dependencies]
@@ -44,9 +44,10 @@ thiserror = { workspace = true }
 async-trait = { workspace = true }
 futures-util = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }
-deriv-api-schema = { path = "./schema", version = "0.1.1" }
+deriv-api-schema = "0.1.1" 
 env_logger = { workspace = true }
 chrono = { workspace = true }
+lazy_static = "1.4.0"
 
 # Optional dependencies for code generation
 convert_case = { version = "0.6", optional = true }

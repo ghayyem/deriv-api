@@ -8,164 +8,136 @@ use crate::subscription::Subscription;
 impl DerivClient {
 
 /// Subscribe to Creates a P2P order for the specified advert.
-pub async fn subscribe_p_2_p_order_create(&self, request: deriv_api_schema::P2pOrderCreateRequest) -> Result<(deriv_api_schema::P2pOrderCreateResponse, Subscription<deriv_api_schema::P2pOrderCreateResponse>)> {
+pub async fn subscribe_p_2_p_order_create(&self, request: deriv_api_schema::P2pOrderCreateRequest) -> Result<(deriv_api_schema::P2pOrderCreateResponse, Subscription<deriv_api_schema::P2pOrderInfoResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_order").await
 }
 
 /// Subscribe to Subscribe to transaction notifications
 pub async fn subscribe_transaction(&self, request: deriv_api_schema::TransactionRequest) -> Result<(deriv_api_schema::TransactionResponse, Subscription<deriv_api_schema::TransactionResponse>)> {
     let mut request = request;
-    request.subscribe = deriv_api_schema::SubscribeEnum::Value1; // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = 1;
+    self.create_subscription(&mut request, "transaction").await
 }
 
 /// Subscribe to Initiate a continuous stream of spot price updates for a group symbols.
 pub async fn subscribe_ticks_batch(&self, request: deriv_api_schema::TicksBatchRequest) -> Result<(deriv_api_schema::TicksBatchResponse, Subscription<deriv_api_schema::TicksBatchResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "tick").await
 }
 
 /// Subscribe to Initiate a continuous stream of spot price updates for a given symbol.
 pub async fn subscribe_ticks(&self, request: deriv_api_schema::TicksRequest) -> Result<(deriv_api_schema::TicksResponse, Subscription<deriv_api_schema::TicksResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "tick").await
 }
 
 /// Subscribe to Retrieve information about a P2P advert.
 pub async fn subscribe_p_2_p_advert_info(&self, request: deriv_api_schema::P2pAdvertInfoRequest) -> Result<(deriv_api_schema::P2pAdvertInfoResponse, Subscription<deriv_api_schema::P2pAdvertInfoResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_advert").await
 }
 
 /// Subscribe to Request P2P Settings information.
 pub async fn subscribe_p_2_p_settings(&self, request: deriv_api_schema::P2pSettingsRequest) -> Result<(deriv_api_schema::P2pSettingsResponse, Subscription<deriv_api_schema::P2pSettingsResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_settings").await
 }
 
 /// Subscribe to List active orders.
-pub async fn subscribe_p_2_p_order_list(&self, request: deriv_api_schema::P2pOrderListRequest) -> Result<(deriv_api_schema::P2pOrderListResponse, Subscription<deriv_api_schema::P2pOrderListResponse>)> {
+pub async fn subscribe_p_2_p_order_list(&self, request: deriv_api_schema::P2pOrderListRequest) -> Result<(deriv_api_schema::P2pOrderListResponse, Subscription<deriv_api_schema::P2pOrderInfoResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_order").await
 }
 
 /// Subscribe to Request server status.
 pub async fn subscribe_website_status(&self, request: deriv_api_schema::WebsiteStatusRequest) -> Result<(deriv_api_schema::WebsiteStatusResponse, Subscription<deriv_api_schema::WebsiteStatusResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(deriv_api_schema::Subscribe::Value1);
+    self.create_subscription(&mut request, "website_status").await
 }
 
 /// Subscribe to Retrieve information about a P2P advertiser.
 pub async fn subscribe_p_2_p_advertiser_info(&self, request: deriv_api_schema::P2pAdvertiserInfoRequest) -> Result<(deriv_api_schema::P2pAdvertiserInfoResponse, Subscription<deriv_api_schema::P2pAdvertiserInfoResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_advertiser").await
 }
 
 /// Subscribe to Get user account balance
 pub async fn subscribe_balance(&self, request: deriv_api_schema::BalanceRequest) -> Result<(deriv_api_schema::BalanceResponse, Subscription<deriv_api_schema::BalanceResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(deriv_api_schema::Subscribe::Value1);
+    self.create_subscription(&mut request, "balance").await
 }
 
 /// Subscribe to Retrieves the information about a P2P order.
 pub async fn subscribe_p_2_p_order_info(&self, request: deriv_api_schema::P2pOrderInfoRequest) -> Result<(deriv_api_schema::P2pOrderInfoResponse, Subscription<deriv_api_schema::P2pOrderInfoResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_order").await
 }
 
 /// Subscribe to Get the current estimations for cryptocurrencies. E.g. Withdrawal fee.
-pub async fn subscribe_crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<(deriv_api_schema::CryptoEstimationsResponse, Subscription<deriv_api_schema::CryptoEstimationsResponse>)> {
+pub async fn subscribe_crypto_estimations(&self, request: deriv_api_schema::CryptoEstimationsRequest) -> Result<(deriv_api_schema::CryptoEstimations, Subscription<deriv_api_schema::CryptoEstimations>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "crypto_estimations").await
 }
 
 /// Subscribe to Gets latest price for a specific contract.
 pub async fn subscribe_proposal(&self, request: deriv_api_schema::ProposalRequest) -> Result<(deriv_api_schema::ProposalResponse, Subscription<deriv_api_schema::ProposalResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some("1".to_string());
+    self.create_subscription(&mut request, "proposal").await
 }
 
 /// Subscribe to Get historic tick data for a given symbol.
 pub async fn subscribe_ticks_history(&self, request: deriv_api_schema::TicksHistoryRequest) -> Result<(deriv_api_schema::TicksHistoryResponse, Subscription<deriv_api_schema::TicksHistoryResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    let msg_type = if let Some(style) = request.style.as_ref() { 
+        match style {
+            deriv_api_schema::Style::Candles => "candles",
+            _ => "history"
+        }
+    } else { 
+        "history" 
+    };
+    self.create_subscription(&mut request, msg_type).await
 }
 
 /// Subscribe to Buy a Contract
-pub async fn subscribe_buy(&self, request: deriv_api_schema::BuyRequest) -> Result<(deriv_api_schema::BuyResponse, Subscription<deriv_api_schema::BuyResponse>)> {
+pub async fn subscribe_buy(&self, request: deriv_api_schema::BuyRequest) -> Result<(deriv_api_schema::BuyResponse, Subscription<deriv_api_schema::ProposalOpenContractResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "proposal_open_contract").await
 }
 
 /// Subscribe to Get latest price (and other information) for a contract in the user's portfolio
 pub async fn subscribe_proposal_open_contract(&self, request: deriv_api_schema::ProposalOpenContractRequest) -> Result<(deriv_api_schema::ProposalOpenContractResponse, Subscription<deriv_api_schema::ProposalOpenContractResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "proposal_open_contract").await
 }
 
 /// Subscribe to Retrieves the exchange rate from a base currency to a target currency supported by the system.
 pub async fn subscribe_exchange_rates(&self, request: deriv_api_schema::ExchangeRatesRequest) -> Result<(deriv_api_schema::ExchangeRatesResponse, Subscription<deriv_api_schema::ExchangeRatesResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "exchange_rate").await
 }
 
 /// Subscribe to Registers the client as a P2P advertiser.
-pub async fn subscribe_p_2_p_advertiser_create(&self, request: deriv_api_schema::P2pAdvertiserCreateRequest) -> Result<(deriv_api_schema::P2pAdvertiserCreateResponse, Subscription<deriv_api_schema::P2pAdvertiserCreateResponse>)> {
+pub async fn subscribe_p_2_p_advertiser_create(&self, request: deriv_api_schema::P2pAdvertiserCreateRequest) -> Result<(deriv_api_schema::P2pAdvertiserCreateResponse, Subscription<deriv_api_schema::P2pAdvertInfoResponse>)> {
     let mut request = request;
-    request.subscribe = Some(deriv_api_schema::SubscribeEnum::Value1); // Use placeholder for assignment
-    let initial_response = self.send_request(&request).await?;
-    // Subscription setup will be implemented here
-    Ok(unimplemented!("Subscription not implemented yet"))
+    request.subscribe = Some(1);
+    self.create_subscription(&mut request, "p2p_advertiser").await
 }
 }
