@@ -44,7 +44,7 @@ thiserror = { workspace = true }
 async-trait = { workspace = true }
 futures-util = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }
-deriv-api-schema = "0.1.1" 
+deriv-api-schema = {path = "schema"} 
 env_logger = { workspace = true }
 chrono = { workspace = true }
 lazy_static = "1.4.0"
